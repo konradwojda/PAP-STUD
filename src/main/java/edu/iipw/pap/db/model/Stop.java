@@ -2,6 +2,8 @@ package edu.iipw.pap.db.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,8 +30,9 @@ public class Stop {
     @Column(name = "lon", nullable = false)
     private double lon;
 
-    @Column(name = "wheelchair_accessible")
-    private WheelchairAccessibility wheelchairAccessible;
+    @Column(name = "wheelchair_accessible", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private WheelchairAccessibility wheelchairAccessible = WheelchairAccessibility.UNKNOWN;
 
     public Stop() {
     }
