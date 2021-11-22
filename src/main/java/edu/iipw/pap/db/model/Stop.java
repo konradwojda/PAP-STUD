@@ -85,7 +85,7 @@ public class Stop {
         this.lon = newLon;
     }
 
-    public WheelchairAccessibility isWheelchairAccessible() {
+    public WheelchairAccessibility getWheelchairAccessible() {
         return this.wheelchairAccessible;
     }
 
