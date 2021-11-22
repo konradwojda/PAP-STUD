@@ -13,4 +13,31 @@
         <property name="timezone" type="string" />
         <property name="telephone" type="string" />
     </class>
+    <class name="edu.iipw.pap.db.model.Stop" table="stops">
+        <id name="stopId" type="int" column="stop_id">
+            <generator class="native" />
+        </id>
+        <property name="name" type="string" />
+        <property name="code" type="string" />
+        <property name="lat" type="double" />
+        <property name="lon" type="double" />
+        <property name="wheelchairAccessible" column="wheelchair_accessible">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">edu.iipw.pap.db.model.WheelchairAccessibility</param>
+            </type>
+        </property>
+    </class>
+    <class name="edu.iipw.pap.db.model.Line" table="lines">
+        <id name="lineId" type="int" column="line_id">
+            <generator class="native" />
+        </id>
+        <property name="code" type="string" />
+        <property name="description" type="string" />
+        <property name="type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">edu.iipw.pap.db.model.LineType</param>
+            </type>
+        </property>
+        <many-to-one name="agency" column="agency_id" class="edu.iipw.pap.db.model.Agency" not-null="true" />
+    </class>
 </hibernate-mapping>

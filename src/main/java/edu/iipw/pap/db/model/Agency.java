@@ -1,23 +1,40 @@
 package edu.iipw.pap.db.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "agencies")
 public class Agency {
+
+    @Id
+    @GeneratedValue
+    @Column(name="agency_id")
     private int agencyId;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "website")
     private String website;
+
+    @Column(name = "timezone")
     private String timezone;
+
+    @Column(name = "telephone")
     private String telephone;
 
     public Agency() {
     }
 
-    public Agency(String n, String www, String tz, String tel) {
-        this.name = n;
-        this.website = www;
-        this.timezone = tz;
-        this.telephone = tel;
+    public Agency(String name_, String website_, String timezone_, String telephone_) {
+        this.name = name_;
+        this.website = website_;
+        this.timezone = timezone_;
+        this.telephone = telephone_;
     }
 
     public int getAgencyId() {
