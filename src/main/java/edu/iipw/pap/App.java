@@ -1,5 +1,6 @@
 package edu.iipw.pap;
 
+import edu.iipw.pap.db.Database;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

@@ -1,4 +1,4 @@
-package edu.iipw.pap;
+package edu.iipw.pap.db.model;
 
 import javax.persistence.Entity;
 

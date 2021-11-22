@@ -6,5 +6,6 @@ module edu.iipw.pap {
     requires java.sql;
 
     exports edu.iipw.pap;
-    opens edu.iipw.pap;
+    exports edu.iipw.pap.db.model;
+    opens edu.iipw.pap.db.model;
 }

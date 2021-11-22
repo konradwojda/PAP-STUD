@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="edu.iipw.pap.Agency" table="agencies">
+    <class name="edu.iipw.pap.db.model.Agency" table="agencies">
         <id name="agencyId" type="int" column="agency_id">
             <generator class="native" />
         </id>
