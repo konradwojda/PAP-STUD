@@ -80,7 +80,7 @@
             </GridPane>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Text fx:id="txtStopError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Stop id:1 Already Exists" textAlignment="CENTER" />
+                  <Text fx:id="txtStopError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                   <Button fx:id="btnStopOk" mnemonicParsing="false" onAction="#onStopOk" prefWidth="100.0" style="-fx-background-color: #F0AD3B;" text="OK" />
                </children>
                <padding>

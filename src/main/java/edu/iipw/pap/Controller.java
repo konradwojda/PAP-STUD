@@ -206,17 +206,26 @@ public class Controller {
 
     @FXML
     void onRemoveAgency(ActionEvent event) {
-
+        Agency agencyToRemove = tblAgency.getSelectionModel().getSelectedItem();
+        tblAgency.getItems().remove(agencyToRemove);
+        // drop from db <- Agncy
+        // tblAgency.refresh();
     }
 
     @FXML
     void onRemoveLine(ActionEvent event) {
-
+        Line lineToRemove = tblLine.getSelectionModel().getSelectedItem();
+        tblLine.getItems().remove(lineToRemove);
+        // drop from db <- Line
+        // tblLine.refresh();
     }
 
     @FXML
     void onRemoveStop(ActionEvent event) {
-
+        Stop stopToRemove = tblStop.getSelectionModel().getSelectedItem();
+        tblStop.getItems().remove(stopToRemove);
+        // drop from db <- Stop
+        // tblStop.refresh();
     }
 
     @FXML
