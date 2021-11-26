@@ -1,9 +1,18 @@
 package edu.iipw.pap;
 
+import java.io.IOException;
+
+import edu.iipw.pap.db.model.Agency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -11,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Controller {
     @FXML
@@ -50,6 +60,54 @@ public class Controller {
     private Button btnStop;
 
     @FXML
+    private TableColumn<Agency, Integer> colAgencyId;
+
+    @FXML
+    private TableColumn<?, ?> colAgencyName;
+
+    @FXML
+    private TableColumn<?, ?> colAgencyTelephone;
+
+    @FXML
+    private TableColumn<?, ?> colAgencyTimezone;
+
+    @FXML
+    private TableColumn<?, ?> colAgencyWebsite;
+
+    @FXML
+    private TableColumn<?, ?> colLineAgencyId;
+
+    @FXML
+    private TableColumn<?, ?> colLineCode;
+
+    @FXML
+    private TableColumn<?, ?> colLineDescription;
+
+    @FXML
+    private TableColumn<?, ?> colLineId;
+
+    @FXML
+    private TableColumn<?, ?> colLineType;
+
+    @FXML
+    private TableColumn<?, ?> colStopCode;
+
+    @FXML
+    private TableColumn<?, ?> colStopId;
+
+    @FXML
+    private TableColumn<?, ?> colStopLat;
+
+    @FXML
+    private TableColumn<?, ?> colStopLon;
+
+    @FXML
+    private TableColumn<?, ?> colStopName;
+
+    @FXML
+    private TableColumn<?, ?> colStopWheelchairAccesible;
+
+    @FXML
     private Pane plnStatus;
 
     @FXML
@@ -60,6 +118,15 @@ public class Controller {
 
     @FXML
     private GridPane pnStop;
+
+    @FXML
+    private TableView<?> tblAgency;
+
+    @FXML
+    private TableView<?> tblLine;
+
+    @FXML
+    private TableView<?> tblStop;
 
     @FXML
     private Text textHeader;
@@ -75,8 +142,14 @@ public class Controller {
     }
 
     @FXML
-    void onAddStop(ActionEvent event) {
-
+    void onAddStop(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStop.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(page));
+        stage.initOwner(btnAddStop.getScene().getWindow());
+        stage.showAndWait();
+        // stage.show();
     }
 
     @FXML
