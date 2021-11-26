@@ -114,7 +114,7 @@
                               <TableColumn fx:id="colStopCode" prefWidth="75.0" text="CODE" />
                               <TableColumn fx:id="colStopLat" prefWidth="75.0" text="LAT" />
                               <TableColumn fx:id="colStopLon" prefWidth="75.0" text="LON" />
-                              <TableColumn fx:id="colStopWheelchairAccesible" prefWidth="75.0" text="WHEELCHAIR ACCESIBLE" />
+                              <TableColumn fx:id="colStopWheelchairAccessible" prefWidth="75.0" text="WHEELCHAIR ACCESIBLE" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
