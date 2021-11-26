@@ -81,7 +81,7 @@ public class Controller {
     private TableColumn<Agency, String> colAgencyWebsite;
 
     @FXML
-    private TableColumn<Line, Agency> colLineAgencyId;
+    private TableColumn<Line, Agency> colLineAgency;
 
     @FXML
     private TableColumn<Line, String> colLineCode;
@@ -153,7 +153,7 @@ public class Controller {
         colLineCode.setCellValueFactory(new PropertyValueFactory<Line, String>("code"));
         colLineDescription.setCellValueFactory(new PropertyValueFactory<Line, String>("description"));
         colLineType.setCellValueFactory(new PropertyValueFactory<Line, LineType>("type"));
-        colLineAgencyId.setCellValueFactory(new PropertyValueFactory<Line, Agency>("agency"));
+        colLineAgency.setCellValueFactory(new PropertyValueFactory<Line, Agency>("agency"));
     }
 
     private void InitializeAgencyTable()

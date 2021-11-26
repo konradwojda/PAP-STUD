@@ -49,7 +49,7 @@
                               <TableColumn fx:id="colLineCode" prefWidth="75.0" text="CODE" />
                               <TableColumn fx:id="colLineDescription" prefWidth="75.0" text="DESCRIPTION" />
                               <TableColumn fx:id="colLineType" prefWidth="75.0" text="TYPE" />
-                              <TableColumn fx:id="colLineAgencyId" prefWidth="75.0" text="AGENCY ID" />
+                              <TableColumn fx:id="colLineAgency" prefWidth="75.0" text="AGENCY " />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
