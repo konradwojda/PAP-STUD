@@ -1,15 +1,19 @@
 package edu.iipw.pap;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.LineType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class LineController {
+public class LineController implements Initializable{
     @FXML
     private Button btnLineOk;
 
@@ -31,6 +35,12 @@ public class LineController {
     @FXML
     void onLineOk(ActionEvent event) {
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        choiceLineType.getItems().setAll(LineType.values());
     }
 
 }
