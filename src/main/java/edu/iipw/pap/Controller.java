@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
+import edu.iipw.pap.db.model.LineType;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
@@ -80,7 +81,7 @@ public class Controller {
     private TableColumn<Agency, String> colAgencyWebsite;
 
     @FXML
-    private TableColumn<Line, String> colLineAgencyId;
+    private TableColumn<Line, Agency> colLineAgencyId;
 
     @FXML
     private TableColumn<Line, String> colLineCode;
@@ -89,28 +90,28 @@ public class Controller {
     private TableColumn<Line, String> colLineDescription;
 
     @FXML
-    private TableColumn<Line, String> colLineId;
+    private TableColumn<Line, Integer> colLineId;
 
     @FXML
-    private TableColumn<Line, String> colLineType;
+    private TableColumn<Line, LineType> colLineType;
 
     @FXML
     private TableColumn<Stop, String> colStopCode;
 
     @FXML
-    private TableColumn<Stop, String> colStopId;
+    private TableColumn<Stop, Integer> colStopId;
 
     @FXML
-    private TableColumn<Stop, String> colStopLat;
+    private TableColumn<Stop, Double> colStopLat;
 
     @FXML
-    private TableColumn<Stop, String> colStopLon;
+    private TableColumn<Stop, Double> colStopLon;
 
     @FXML
     private TableColumn<Stop, String> colStopName;
 
     @FXML
-    private TableColumn<Stop, String> colStopWheelchairAccessible;
+    private TableColumn<Stop, WheelchairAccessibility> colStopWheelchairAccessible;
 
     @FXML
     private Pane plnStatus;
@@ -144,6 +145,34 @@ public class Controller {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(button.getScene().getWindow());
         stage.showAndWait();
+    }
+
+    private void InitializeLineTalbe()
+    {
+        colLineId.setCellValueFactory(new PropertyValueFactory<Line, Integer>("lineId"));
+        colLineCode.setCellValueFactory(new PropertyValueFactory<Line, String>("code"));
+        colLineDescription.setCellValueFactory(new PropertyValueFactory<Line, String>("description"));
+        colLineType.setCellValueFactory(new PropertyValueFactory<Line, LineType>("type"));
+        colLineAgencyId.setCellValueFactory(new PropertyValueFactory<Line, Agency>("agency"));
+    }
+
+    private void InitializeAgencyTable()
+    {
+        colAgencyId.setCellValueFactory(new PropertyValueFactory<Agency, Integer>("agencyId"));
+        colAgencyName.setCellValueFactory(new PropertyValueFactory<Agency, String>("name"));
+        colAgencyWebsite.setCellValueFactory(new PropertyValueFactory<Agency, String>("website"));
+        colAgencyTimezone.setCellValueFactory(new PropertyValueFactory<Agency, String>("timezone"));
+        colAgencyTelephone.setCellValueFactory(new PropertyValueFactory<Agency, String>("telephone"));
+    }
+
+    private void InitializeStopTable()
+    {
+        colStopId.setCellValueFactory(new PropertyValueFactory<Stop, Integer>("stopId"));
+        colStopName.setCellValueFactory(new PropertyValueFactory<Stop, String>("name"));
+        colStopCode.setCellValueFactory(new PropertyValueFactory<Stop, String>("code"));
+        colStopLat.setCellValueFactory(new PropertyValueFactory<Stop, Double>("lat"));
+        colStopLon.setCellValueFactory(new PropertyValueFactory<Stop, Double>("lon"));
+        colStopWheelchairAccessible.setCellValueFactory(new PropertyValueFactory<Stop, WheelchairAccessibility>("wheelchairAccessible"));
     }
 
     @FXML
@@ -192,30 +221,24 @@ public class Controller {
 
     @FXML
     void onSearchAgency(ActionEvent event) {
-        colAgencyId.setCellValueFactory(new PropertyValueFactory<Agency, Integer>("agencyId"));
-        colAgencyName.setCellValueFactory(new PropertyValueFactory<Agency, String>("name"));
-        colAgencyWebsite.setCellValueFactory(new PropertyValueFactory<Agency, String>("website"));
-        colAgencyTimezone.setCellValueFactory(new PropertyValueFactory<Agency, String>("timezone"));
-        colAgencyTelephone.setCellValueFactory(new PropertyValueFactory<Agency, String>("telephone"));
-
+        InitializeAgencyTable();
         Agency a1 = new Agency("MZK Stalowa Wola", "mzk.pl", "UTF+1", "123456789");
         tblAgency.getItems().add(a1);
     }
 
     @FXML
     void onSearchLine(ActionEvent event) {
-
+        InitializeLineTalbe();
+        Agency a1 = new Agency("MZK Stalowa Wola", "mzk.pl", "UTF+1", "123456789");
+        Line l1 = new Line("2", "Winnica/Metro Młociny", LineType.TRAM, a1);
+        tblLine.getItems().add(l1);
     }
 
     @FXML
     void onSearchStop(ActionEvent event) {
-        // colStopId.setCellValueFactory(new PropertyValueFactory<Stop, Integer>("stopId"));
-        // colStopName.setCellValueFactory(new PropertyValueFactory<Stop, String>("name"));
-        // colStopCode.setCellValueFactory(new PropertyValueFactory<Stop, String>("code"));
-        // colStopLat.setCellValueFactory(new PropertyValueFactory<Stop, String>("lat"));
-        // colStopLon.setCellValueFactory(new PropertyValueFactory<Stop, String>("lon"));
-        // colStopWheelchairAccessible.setCellValueFactory(new PropertyValueFactory<Stop, WheelchairAccessibility>("wheelchairAccessible"));
-
+        InitializeStopTable();
+        Stop s1 = new Stop("Nowodwory", "11312", 21424.121, -214234.22, WheelchairAccessibility.ACCESSIBLE);
+        tblStop.getItems().add(s1);
     }
 
     @FXML
