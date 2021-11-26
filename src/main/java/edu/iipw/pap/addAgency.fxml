@@ -17,7 +17,7 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #FF70F8;">
+            <Pane prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #007FF8;">
                <children>
                   <Text layoutX="56.0" layoutY="62.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Agency">
                      <font>
@@ -37,31 +37,25 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id" />
-                        <TextField fx:id="txtAgencyId" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
                         <TextField fx:id="txtAgencyName" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Website" />
                         <TextField fx:id="txtAgencyWebsite" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Timezone" />
                         <TextField fx:id="txtAgencyTimezone" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone" />
                         <TextField fx:id="txtAgencyTelephone" />

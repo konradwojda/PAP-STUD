@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -37,34 +38,28 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Id" />
-                        <TextField fx:id="txtLineId" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
                         <TextField fx:id="txtLineCode" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
                         <TextField fx:id="txtLineDescription" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
-                        <TextField fx:id="txtLineType" />
+                        <ChoiceBox fx:id="choiceLineType" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="150.0" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+                  <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="35.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agency Id" />
-                        <TextField fx:id="txtLineAgencyId" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agency" />
+                        <ChoiceBox fx:id="choiceLineAgency" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="293.0" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="65.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

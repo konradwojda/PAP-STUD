@@ -14,9 +14,6 @@ public class AgencyController {
     private Button btnAgencyOk;
 
     @FXML
-    private TextField txtAgencyId;
-
-    @FXML
     private TextField txtAgencyName;
 
     @FXML

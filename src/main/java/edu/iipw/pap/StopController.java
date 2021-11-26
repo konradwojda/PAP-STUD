@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,13 +26,10 @@ public class StopController {
     private Text txtStopError;
 
     @FXML
-    private TextField txtStopId;
+    private Spinner<Double> spinStopLat;
 
     @FXML
-    private TextField txtStopLat;
-
-    @FXML
-    private TextField txtStopLon;
+    private Spinner<Double> spinStopLon;
 
     @FXML
     private TextField txtStopName;
@@ -53,8 +51,8 @@ public class StopController {
         }
         try
         {
-            var stop = new Stop(this.txtStopName.getText(), this.txtStopCode.getText(),
-                Double.valueOf(this.txtStopLat.getText()), Double.valueOf(this.txtStopLon.getText()), wca);
+            // var stop = new Stop(this.txtStopName.getText(), this.txtStopCode.getText(),
+            //     Double.valueOf(this.txtStopLat.getText()), Double.valueOf(this.txtStopLon.getText()), wca);
             //save_to_db(stop);
             //refresh list;
         }
