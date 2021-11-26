@@ -70,7 +70,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="65.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <CheckBox fx:id="checkStopWheelchairAccessible" mnemonicParsing="false" text="Wheelchair accessible" />
+                        <CheckBox fx:id="checkStopWheelchairAccessible" allowIndeterminate="true" mnemonicParsing="false" text="Wheelchair accessible" />
                      </children>
                   </VBox>
                </children>
