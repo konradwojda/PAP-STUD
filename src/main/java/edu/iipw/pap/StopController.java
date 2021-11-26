@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class StopController {
@@ -15,12 +14,6 @@ public class StopController {
 
     @FXML
     private CheckBox checkStopWheelchairAccessible;
-
-    @FXML
-    private Pane plnStatus;
-
-    @FXML
-    private Text textHeader;
 
     @FXML
     private TextField txtStopCode;
@@ -44,4 +37,5 @@ public class StopController {
     void onStopOk(ActionEvent event) {
 
     }
+
 }

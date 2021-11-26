@@ -132,13 +132,23 @@ public class Controller {
     private Text textHeader;
 
     @FXML
-    void onAddAgency(ActionEvent event) {
-
+    void onAddAgency(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addAgency.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(page));
+        stage.initOwner(btnAddStop.getScene().getWindow());
+        stage.showAndWait();
     }
 
     @FXML
-    void onAddLine(ActionEvent event) {
-
+    void onAddLine(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addLine.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(page));
+        stage.initOwner(btnAddStop.getScene().getWindow());
+        stage.showAndWait();
     }
 
     @FXML
@@ -149,7 +159,6 @@ public class Controller {
         stage.setScene(new Scene(page));
         stage.initOwner(btnAddStop.getScene().getWindow());
         stage.showAndWait();
-        // stage.show();
     }
 
     @FXML
