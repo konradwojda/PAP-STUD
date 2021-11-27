@@ -41,6 +41,7 @@ public class LineController implements Initializable{
     public void initialize(URL location, ResourceBundle resources)
     {
         choiceLineType.getItems().setAll(LineType.values());
+        //TODO choiceLineAgency.getItems().setAll(Agency z bd)
     }
 
 }

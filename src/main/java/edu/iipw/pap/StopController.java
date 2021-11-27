@@ -1,17 +1,26 @@
 package edu.iipw.pap;
 
 import edu.iipw.pap.db.model.WheelchairAccessibility;
+
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.ResourceBundle;
+
 import edu.iipw.pap.db.model.Stop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
-public class StopController {
+public class StopController implements Initializable{
 
     @FXML
     private Button btnStopOk;
@@ -63,6 +72,52 @@ public class StopController {
         Stage stage = (Stage) btnStopOk.getScene().getWindow();
         stage.close();
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        SpinnerValueFactory<Double> doubleLatFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(-90.0, 90.0, 0, 0.0001);
+        SpinnerValueFactory<Double> doubleLonFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(-180.0, 180.0, 0, 0.0001);
+
+        var doubleConverter = new StringConverter<Double>() {
+            private final DecimalFormat df = new DecimalFormat("#.######");
+
+            @Override public String toString(Double value) {
+                // If the specified value is null, return a zero-length String
+                if (value == null) {
+                    return "";
+                }
+
+                return df.format(value);
+            }
+
+            @Override public Double fromString(String value) {
+                try {
+                    // If the specified value is null or zero-length, return null
+                    if (value == null) {
+                        return null;
+                    }
+
+                    value = value.trim();
+
+                    if (value.length() < 1) {
+                        return null;
+                    }
+
+                    // Perform the requested parsing
+                    return df.parse(value).doubleValue();
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        };
+
+        doubleLatFactory.setConverter(doubleConverter);
+        doubleLonFactory.setConverter(doubleConverter);
+
+        spinStopLat.setValueFactory(doubleLatFactory);
+        spinStopLon.setValueFactory(doubleLonFactory);
     }
 
 }
