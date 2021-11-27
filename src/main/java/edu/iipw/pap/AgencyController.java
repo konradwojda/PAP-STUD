@@ -1,6 +1,7 @@
 package edu.iipw.pap;
 
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.db.Database;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,20 +31,20 @@ public class AgencyController {
 
     @FXML
     void onAgencyOk(ActionEvent event) throws Exception {
-    try
-    {
-        var agency = new Agency(txtAgencyName.getText(), txtAgencyWebsite.getText(), txtAgencyTimezone.getText(),
-                txtAgencyTelephone.getText());
-        //addtodb
-    }
-    catch(Exception e)
-    {
-        txtStopError.setText(e.toString());
-    }
+        try {
+            var agency = new Agency(
+                txtAgencyName.getText(),
+                txtAgencyWebsite.getText(),
+                txtAgencyTimezone.getText(),
+                txtAgencyTelephone.getText()
+            );
+            Database.add(agency);
+        } catch (Exception e) {
+            txtStopError.setText(e.toString());
+        }
 
-    Stage stage = (Stage) btnAgencyOk.getScene().getWindow();
-    stage.close();
-
+        Stage stage = (Stage) btnAgencyOk.getScene().getWindow();
+        stage.close();
     }
 
 }
