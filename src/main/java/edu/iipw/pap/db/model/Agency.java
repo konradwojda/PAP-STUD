@@ -76,4 +76,8 @@ public class Agency {
     public void setTelephone(String newTelephone) {
         telephone = newTelephone;
     }
+
+    public String toString(){
+        return this.name;
+    }
 }
