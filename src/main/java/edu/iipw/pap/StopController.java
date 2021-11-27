@@ -1,5 +1,7 @@
 package edu.iipw.pap;
 
+import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 
 import java.net.URL;
@@ -7,8 +9,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
-import edu.iipw.pap.db.Database;
-import edu.iipw.pap.db.model.Stop;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,105 +21,156 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+/**
+ * Controller for the "create stop" popup
+ */
 public class StopController implements Initializable {
 
+    /**
+     * The OK button in the popup
+     */
     @FXML
     private Button btnStopOk;
 
-    @FXML
-    private CheckBox checkStopWheelchairAccessible;
-
-    @FXML
-    private TextField txtStopCode;
-
+    /**
+     * Text box to display any errors that might occur
+     * when adding a stop to the database.
+     */
     @FXML
     private Text txtStopError;
 
+    /**
+     * The tri-state checkbox representing wheelchair accessibility
+     * of the created stop.
+     */
     @FXML
-    private Spinner<Double> spinStopLat;
+    private CheckBox checkStopWheelchairAccessible;
 
-    @FXML
-    private Spinner<Double> spinStopLon;
-
+    /**
+     * Input field for the stop name
+     */
     @FXML
     private TextField txtStopName;
 
+    /**
+     * Input field for the stop code
+     */
     @FXML
-    void onStopOk(ActionEvent event) throws Exception {
-        WheelchairAccessibility wca = WheelchairAccessibility.UNKNOWN;
-        if (checkStopWheelchairAccessible.isIndeterminate()) {
-            wca = WheelchairAccessibility.UNKNOWN;
-        } else if (!checkStopWheelchairAccessible.isIndeterminate() && checkStopWheelchairAccessible.isSelected()) {
-            wca = WheelchairAccessibility.ACCESSIBLE;
-        } else if (!checkStopWheelchairAccessible.isIndeterminate() && !checkStopWheelchairAccessible.isSelected()) {
-            wca = WheelchairAccessibility.INACCESSIBLE;
+    private TextField txtStopCode;
+
+    /**
+     * Input field for the latitude of the stop
+     */
+    @FXML
+    private Spinner<Double> spinStopLat;
+
+    /**
+     * Input field for the longitude of the stops
+     */
+    @FXML
+    private Spinner<Double> spinStopLon;
+
+    /**
+     * latLonConverter is an object used by both spinners
+     * to convert the user input into a Double.
+     * Accepts up to six decimal digits.
+     */
+    private final StringConverter<Double> latLonConverter = new StringConverter<Double>() {
+        private final DecimalFormat df = new DecimalFormat("#.######");
+
+        @Override
+        public String toString(Double value) {
+            return value == null ? "" : df.format(value);
         }
 
+        @Override
+        public Double fromString(String value) {
+            try {
+                // If the specified value is null or zero-length, return null
+                if (value == null) {
+                    return null;
+                }
+                value = value.trim();
+                if (value.length() < 1) {
+                    return null;
+                }
+
+                // Perform the requested parsing
+                return df.parse(value).doubleValue();
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    };
+
+    /**
+     * latInputFactory is the SpinnerValueFactory used by the * latitude input
+     * spinner
+     */
+    private SpinnerValueFactory<Double> latInputFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+            -90.0,
+            90.0,
+            0,
+            0.0001);
+
+    /**
+     * lonInputFactory is the SpinnerValueFactory used by the longitude input
+     * spinner
+     */
+    private SpinnerValueFactory<Double> lonInputFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(
+            -180.0,
+            180.0,
+            0,
+            0.0001);
+
+    /**
+     * Converts the current value of the tri-state wheelchair accessibility
+     * into the WheelchairAccessibility instance.
+     *
+     * @return WheelchairAccessibility corresponding to the current checkbox status
+     */
+    private WheelchairAccessibility getAccessibilityStatus() {
+        return checkStopWheelchairAccessible.isIndeterminate() ? WheelchairAccessibility.UNKNOWN
+                : checkStopWheelchairAccessible.isSelected() ? WheelchairAccessibility.ACCESSIBLE
+                        : WheelchairAccessibility.INACCESSIBLE;
+    }
+
+    /**
+     * Event handler for the OK button
+     *
+     * @param event
+     * @throws Exception
+     */
+    @FXML
+    void onStopOk(ActionEvent event) throws Exception {
         try {
             var stop = new Stop(
-                this.txtStopName.getText(),
-                this.txtStopCode.getText(),
-                spinStopLat.getValue(),
-                spinStopLon.getValue(),
-                wca
-            );
+                    txtStopName.getText(),
+                    txtStopCode.getText(),
+                    spinStopLat.getValue(),
+                    spinStopLon.getValue(),
+                    getAccessibilityStatus());
             Database.add(stop);
-            // refresh list;
+
+            // Close the popup on successful entry
+            Stage stage = (Stage) btnStopOk.getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
             this.txtStopError.setText(e.toString());
         }
-        Stage stage = (Stage) btnStopOk.getScene().getWindow();
-        stage.close();
-
     }
 
+    /**
+     * Initializes the controller by setting up all of the GUI elements.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SpinnerValueFactory<Double> doubleLatFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(-90.0, 90.0, 0,
-                0.0001);
-        SpinnerValueFactory<Double> doubleLonFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(-180.0, 180.0,
-                0, 0.0001);
+        // Set up the ValueConverters for spinner value factories
+        latInputFactory.setConverter(latLonConverter);
+        lonInputFactory.setConverter(latLonConverter);
 
-        var doubleConverter = new StringConverter<Double>() {
-            private final DecimalFormat df = new DecimalFormat("#.######");
-
-            @Override
-            public String toString(Double value) {
-                // If the specified value is null, return a zero-length String
-                if (value == null) {
-                    return "";
-                }
-
-                return df.format(value);
-            }
-
-            @Override
-            public Double fromString(String value) {
-                try {
-                    // If the specified value is null or zero-length, return null
-                    if (value == null) {
-                        return null;
-                    }
-
-                    value = value.trim();
-
-                    if (value.length() < 1) {
-                        return null;
-                    }
-
-                    // Perform the requested parsing
-                    return df.parse(value).doubleValue();
-                } catch (ParseException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        };
-
-        doubleLatFactory.setConverter(doubleConverter);
-        doubleLonFactory.setConverter(doubleConverter);
-
-        spinStopLat.setValueFactory(doubleLatFactory);
-        spinStopLon.setValueFactory(doubleLonFactory);
+        // Attach spinner value factories to the spinner gui elements
+        spinStopLat.setValueFactory(latInputFactory);
+        spinStopLon.setValueFactory(lonInputFactory);
     }
-
 }
