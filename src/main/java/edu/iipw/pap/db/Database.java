@@ -13,9 +13,17 @@ import edu.iipw.pap.db.model.Agency;
 
 public class Database {
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
+    private static Session session = null;
+
+    public static void initialize() throws Exception {
+        session = SESSION_FACTORY.openSession();
+    }
+
+    public static void close() throws Exception {
+        session.close();
+    }
 
     public static Collection<String> getAgencies() throws Exception {
-        Session session = SESSION_FACTORY.openSession();
         ArrayList<String> names = new ArrayList<String>();
 
         try {
@@ -32,7 +40,7 @@ public class Database {
     public static void delete(Object obj) {
         Transaction tx = null;
 
-        try (Session session = SESSION_FACTORY.openSession()) {
+        try {
             tx = session.beginTransaction();
             session.delete(obj);
             tx.commit();
@@ -47,7 +55,7 @@ public class Database {
     public static void add(Object obj) {
         Transaction tx = null;
 
-        try (Session session = SESSION_FACTORY.openSession()) {
+        try  {
             tx = session.beginTransaction();
             session.save(obj);
             tx.commit();
@@ -60,12 +68,10 @@ public class Database {
     }
 
     public static <T> List<T> listAll(Class<T> cls) {
-        try (Session session = SESSION_FACTORY.openSession()) {
-            var criteriaQuery = session.getCriteriaBuilder().createQuery(cls);
-            var root = criteriaQuery.from(cls);
-            criteriaQuery.select(root);
+        var criteriaQuery = session.getCriteriaBuilder().createQuery(cls);
+        var root = criteriaQuery.from(cls);
+        criteriaQuery.select(root);
 
-            return session.createQuery(criteriaQuery).getResultList();
-        }
+        return session.createQuery(criteriaQuery).getResultList();
     }
 }
