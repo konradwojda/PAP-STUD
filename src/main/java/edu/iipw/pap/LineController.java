@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.LineType;
+import edu.iipw.pap.db.Database;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,7 +43,7 @@ public class LineController implements Initializable{
     public void initialize(URL location, ResourceBundle resources)
     {
         choiceLineType.getItems().setAll(LineType.values());
-        //TODO choiceLineAgency.getItems().setAll(Agency z bd)
+        choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
     }
 
 }
