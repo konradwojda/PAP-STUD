@@ -1,4 +1,4 @@
-package edu.iipw.pap;
+package edu.iipw.pap.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

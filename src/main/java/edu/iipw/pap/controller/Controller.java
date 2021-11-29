@@ -1,4 +1,4 @@
-package edu.iipw.pap;
+package edu.iipw.pap.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -193,19 +193,19 @@ public class Controller implements Initializable {
 
     @FXML
     void onAddAgency(ActionEvent event) throws IOException {
-        CreatePopUp("addAgency.fxml", btnAddAgency);
+        CreatePopUp("/view/addAgency.fxml", btnAddAgency);
         refreshAgencies();
     }
 
     @FXML
     void onAddLine(ActionEvent event) throws IOException {
-        CreatePopUp("addLine.fxml", btnAddLine);
+        CreatePopUp("/view/addLine.fxml", btnAddLine);
         refreshLines();
     }
 
     @FXML
     void onAddStop(ActionEvent event) throws IOException {
-        CreatePopUp("addStop.fxml", btnAddStop);
+        CreatePopUp("/view/addStop.fxml", btnAddStop);
         refreshStops();
     }
 

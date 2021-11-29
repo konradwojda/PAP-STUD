@@ -9,5 +9,5 @@ module edu.iipw.pap {
     exports edu.iipw.pap;
     exports edu.iipw.pap.db.model;
     opens edu.iipw.pap.db.model;
-    opens edu.iipw.pap;
+    opens edu.iipw.pap.controller;
 }

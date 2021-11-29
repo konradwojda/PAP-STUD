@@ -1,4 +1,4 @@
-package edu.iipw.pap;
+package edu.iipw.pap.controller;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;

@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("gui.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("/view/gui.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         Scene scene = new Scene(page);
         stage.setScene(scene);
