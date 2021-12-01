@@ -26,3 +26,14 @@ Założenia techniczne
 - Napisana w języku Java z wykorzystaniem środowiska Maven
 - Interfejs graficzny z wykorzystaniem biblioteki Swing lub JavaFX
 - Dane przechowywane w centralnej bazie danych
+
+
+Podział prac
+------------
+
+Każda osoba odpowiedzialna za jedeną część aplikacji, wraz z jej testami, zgodnie z wzorcem MVC:
+
+- Model: Mikołaj Kuranowski
+- Widoki: Mateusz Brzozowski
+- Kontrolery: Konrad Wojda
+
