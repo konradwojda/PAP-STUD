@@ -21,7 +21,7 @@ public class PatternStop {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pattern_stop_id")
-    private long patternStopId;
+    private int patternStopId;
 
     @ManyToOne
     @JoinColumn(name = "stop_id", nullable = false)

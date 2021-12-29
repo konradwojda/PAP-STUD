@@ -13,6 +13,55 @@
         <property name="timezone" type="string" />
         <property name="telephone" type="string" />
     </class>
+    <class name="edu.iipw.pap.db.model.Calendar" table="calendars">
+        <id name="calendarId" type="int" column="calendar_id">
+            <generator class="native" />
+        </id>
+        <property name="name" type="string" />
+        <property name="start" type="edu.iipw.pap.db.types.LocalDateStringType" not-null="true" />
+        <property name="end" type="edu.iipw.pap.db.types.LocalDateStringType" />
+        <property name="monday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="tuesday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="wednesday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="thursday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="friday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="saturday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="sunday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+    </class>
+    <class name="edu.iipw.pap.db.model.Line" table="lines">
+        <id name="lineId" type="int" column="line_id">
+            <generator class="native" />
+        </id>
+        <property name="code" type="string" />
+        <property name="description" type="string" />
+        <property name="type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">edu.iipw.pap.db.model.LineType</param>
+            </type>
+        </property>
+        <many-to-one name="agency" column="agency_id" class="edu.iipw.pap.db.model.Agency" not-null="true" />
+    </class>
+    <class name="edu.iipw.pap.db.model.Pattern" table="patterns">
+        <id name="patternId" type="int" column="pattern_id">
+            <generator class="native" />
+        </id>
+        <property name="headsign" type="string" />
+        <property name="direction">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">edu.iipw.pap.db.model.PatternDirection</param>
+            </type>
+        </property>
+        <many-to-one name="line" column="line_id" class="edu.iipw.pap.db.model.Line" not-null="true" />
+    </class>
+    <class name="edu.iipw.pap.db.model.PatternStop" table="pattern_stops">
+        <id name="patternStopId" type="int" column="pattern_stop_id">
+            <generator class="native" />
+        </id>
+        <property name="index" type="int" />
+        <property name="travelTime" type="int" column="travel_time" />
+        <many-to-one name="stop" column="stop_id" class="edu.iipw.pap.db.model.Stop" not-null="true" />
+        <many-to-one name="pattern" column="pattern_id" class="edu.iipw.pap.db.model.Pattern" not-null="true" />
+    </class>
     <class name="edu.iipw.pap.db.model.Stop" table="stops">
         <id name="stopId" type="int" column="stop_id">
             <generator class="native" />
@@ -27,17 +76,17 @@
             </type>
         </property>
     </class>
-    <class name="edu.iipw.pap.db.model.Line" table="lines">
-        <id name="lineId" type="int" column="line_id">
+    <class name="edu.iipw.pap.db.model.Trip" table="trips">
+        <id name="tripId" type="int" column="trip_id">
             <generator class="native" />
         </id>
-        <property name="code" type="string" />
-        <property name="description" type="string" />
-        <property name="type">
+        <property name="departure" type="int" />
+        <property name="wheelchairAccessible" column="wheelchair_accessible">
             <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">edu.iipw.pap.db.model.LineType</param>
+                <param name="enumClass">edu.iipw.pap.db.model.WheelchairAccessibility</param>
             </type>
         </property>
-        <many-to-one name="agency" column="agency_id" class="edu.iipw.pap.db.model.Agency" not-null="true" />
+        <many-to-one name="pattern" column="pattern_id" class="edu.iipw.pap.db.model.Pattern" not-null="true" />
+        <many-to-one name="calendar" column="calendar_id" class="edu.iipw.pap.db.model.Calendar" not-null="true" />
     </class>
 </hibernate-mapping>

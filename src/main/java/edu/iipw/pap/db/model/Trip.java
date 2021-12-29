@@ -23,7 +23,7 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "trip_id")
-    private long tripId;
+    private int tripId;
 
     @Column(name = "departure")
     private int departure;
