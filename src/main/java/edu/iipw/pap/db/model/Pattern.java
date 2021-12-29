@@ -15,34 +15,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "lines")
+@Table(name = "patterns")
 @NoArgsConstructor
 @Data
-public class Line {
+public class Pattern {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "line_id")
-    private int lineId;
+    @Column(name = "pattern_id")
+    private int patternId;
 
-    @Column(name = "code", nullable = false)
-    private String code;
+    @Column(name = "headsign")
+    private String headsign;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "type", nullable = false)
+    @Column(name = "direction")
     @Enumerated(EnumType.ORDINAL)
-    private LineType type;
+    private PatternDirection direction;
 
     @ManyToOne
-    @JoinColumn(name = "agency_id", nullable = false)
-    private Agency agency;
+    @JoinColumn(name = "line_id", nullable = false)
+    private Line line;
 
-    public Line(String code_, String description_, LineType type_, Agency agency_) {
-        this.code = code_;
-        this.description = description_;
-        this.type = type_;
-        this.agency = agency_;
+    public Pattern(String headsign_, PatternDirection direction_, Line line_) {
+        this.headsign = headsign_;
+        this.direction = direction_;
+        this.line = line_;
     }
 }

@@ -7,43 +7,44 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "stops")
+@Table(name = "trips")
 @NoArgsConstructor
 @Data
-public class Stop {
+public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "stop_id")
-    private int stopId;
+    @Column(name = "trip_id")
+    private long tripId;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "departure")
+    private int departure;
 
-    @Column(name = "code")
-    private String code;
+    @ManyToOne
+    @JoinColumn(name = "pattern_id", nullable = false)
+    private Pattern pattern;
 
-    @Column(name = "lat", nullable = false)
-    private double lat;
-
-    @Column(name = "lon", nullable = false)
-    private double lon;
+    @ManyToOne
+    @JoinColumn(name = "calendar_id", nullable = false)
+    private Calendar calendar;
 
     @Column(name = "wheelchair_accessible", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private WheelchairAccessibility wheelchairAccessible = WheelchairAccessibility.UNKNOWN;
 
-    public Stop(String name_, String code_, double lat_, double lon_, WheelchairAccessibility wheelchairAccessible_) {
-        this.name = name_;
-        this.code = code_;
-        this.lat = lat_;
-        this.lon = lon_;
+    public Trip(int departure_, Pattern pattern_, Calendar calendar_, WheelchairAccessibility wheelchairAccessible_) {
+        this.departure = departure_;
+        this.pattern = pattern_;
+        this.calendar = calendar_;
         this.wheelchairAccessible = wheelchairAccessible_;
     }
+
 }
