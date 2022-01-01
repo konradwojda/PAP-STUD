@@ -46,7 +46,10 @@
       </VBox>
       <StackPane prefHeight="150.0" prefWidth="200.0">
          <children>
-            <fx:include source="listLine.fxml" />
+            <fx:include fx:id="listLine" source="listLine.fxml" />
+            <fx:include fx:id="listAgency" source="listAgency.fxml" />
+            <fx:include fx:id="listCalendar" source="listCalendar.fxml" />
+            <fx:include fx:id="listStop" source="listStop.fxml" />
          </children>
       </StackPane>
    </children>
