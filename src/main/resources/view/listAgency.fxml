@@ -17,14 +17,14 @@
    <children>
       <VBox alignment="CENTER_LEFT" prefHeight="150.0" style="-fx-background-color: #8C7762;">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Agencies">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="/Agencies">
                <font>
                   <Font name="System Bold" size="50.0" />
                </font>
             </Text>
          </children>
       </VBox>
-      <GridPane fx:id="pnLine" prefWidth="1000.0" vgap="5.0">
+      <GridPane fx:id="pnAgency" prefWidth="1000.0" vgap="5.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>

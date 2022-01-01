@@ -1,8 +1,12 @@
 package edu.iipw.pap.controller;
 
+import java.time.LocalDate;
+
+import edu.iipw.pap.db.model.Calendar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -21,13 +25,46 @@ public class ListCalendarController {
     private Button btnSearchCalendar;
 
     @FXML
+    private TableColumn<Calendar, LocalDate> colCalendarEnd;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarFriday;
+
+    @FXML
+    private TableColumn<Calendar, Integer> colCalendarId;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarMonday;
+
+    @FXML
+    private TableColumn<Calendar, String> colCalendarName;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarSaturday;
+
+    @FXML
+    private TableColumn<Calendar, LocalDate> colCalendarStart;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarSunday;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarThusday;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarTuesday;
+
+    @FXML
+    private TableColumn<Calendar, Boolean> colCalendarWednesday;
+
+    @FXML
     private VBox listLine;
 
     @FXML
-    private GridPane pnLine;
+    private GridPane pnCalendar;
 
     @FXML
-    private TableView<?> tblLine;
+    private TableView<Calendar> tblCalendar;
 
     @FXML
     void onAddCalendar(ActionEvent event) {
@@ -48,5 +85,6 @@ public class ListCalendarController {
     void onSearchCalendar(ActionEvent event) {
 
     }
+
 
 }

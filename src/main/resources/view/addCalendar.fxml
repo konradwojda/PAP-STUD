@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.AddCalendarController">
+   <children>
+      <VBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-background-color: #25585C;">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Calendar">
+               <font>
+                  <Font name="System Bold" size="50.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <GridPane hgap="10.0" prefHeight="243.0" prefWidth="600.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                  <TextField fx:id="txtCalendarName" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="5.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start" />
+                  <TextField fx:id="txtCalendarStart" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="315.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End" />
+                  <TextField fx:id="txtCalendarEnd" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <CheckBox fx:id="checkMonday" mnemonicParsing="false" text="Monday" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="315.0" layoutY="67.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+               <children>
+                  <CheckBox fx:id="checkTuesday" mnemonicParsing="false" text="Tuesday" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="114.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <CheckBox fx:id="checkWednesday" mnemonicParsing="false" text="Wednesday" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="315.0" layoutY="114.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+               <children>
+                  <CheckBox fx:id="checkThusday" mnemonicParsing="false" text="Thusday" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <CheckBox fx:id="checkFriday" mnemonicParsing="false" text="Friday" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="315.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
+               <children>
+                  <CheckBox fx:id="checkSaturday" mnemonicParsing="false" text="Saturday" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="207.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <CheckBox fx:id="checkSunday" mnemonicParsing="false" text="Sunday" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Text fx:id="txtCalendarError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
+            <Button fx:id="btnCalenarOk" mnemonicParsing="false" onAction="#onCalendarOk" prefWidth="100.0" style="-fx-background-color: #7EB9BF;" text="OK" textFill="#111e1e" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

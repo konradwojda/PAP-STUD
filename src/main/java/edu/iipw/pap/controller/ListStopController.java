@@ -1,5 +1,7 @@
 package edu.iipw.pap.controller;
 
+import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,31 +24,31 @@ public class ListStopController {
     private Button btnSearchStop;
 
     @FXML
-    private TableColumn<?, ?> colStopCode;
+    private TableColumn<Stop, String> colStopCode;
 
     @FXML
-    private TableColumn<?, ?> colStopId1;
+    private TableColumn<Stop, Integer> colStopId;
 
     @FXML
-    private TableColumn<?, ?> colStopLat;
+    private TableColumn<Stop, Double> colStopLat;
 
     @FXML
-    private TableColumn<?, ?> colStopLon;
+    private TableColumn<Stop, Double> colStopLon;
 
     @FXML
-    private TableColumn<?, ?> colStopName;
+    private TableColumn<Stop, String> colStopName;
 
     @FXML
-    private TableColumn<?, ?> colStopWheelchairAccessible;
+    private TableColumn<Stop, WheelchairAccessibility> colStopWheelchairAccessible;
 
     @FXML
     private VBox listStop;
 
     @FXML
-    private GridPane pnLine;
+    private GridPane pnStop;
 
     @FXML
-    private TableView<?> tblLine;
+    private TableView<Stop> tblStop;
 
     @FXML
     void onAddStop(ActionEvent event) {

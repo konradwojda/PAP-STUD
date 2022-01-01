@@ -1,5 +1,8 @@
 package edu.iipw.pap.controller;
 
+import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.db.model.Line;
+import edu.iipw.pap.db.model.LineType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,19 +25,19 @@ public class ListLineController {
     private Button btnSearchLine;
 
     @FXML
-    private TableColumn<?, ?> colLineAgency;
+    private TableColumn<Line, Agency> colLineAgency;
 
     @FXML
-    private TableColumn<?, ?> colLineCode;
+    private TableColumn<Line, String> colLineCode;
 
     @FXML
-    private TableColumn<?, ?> colLineDescription;
+    private TableColumn<Line, String> colLineDescription;
 
     @FXML
-    private TableColumn<?, ?> colLineId;
+    private TableColumn<Line, Integer> colLineId;
 
     @FXML
-    private TableColumn<?, ?> colLineType;
+    private TableColumn<Line, LineType> colLineType;
 
     @FXML
     private VBox listLine;
@@ -43,7 +46,7 @@ public class ListLineController {
     private GridPane pnLine;
 
     @FXML
-    private TableView<?> tblLine;
+    private TableView<Line> tblLine;
 
     @FXML
     void onAddLine(ActionEvent event) {

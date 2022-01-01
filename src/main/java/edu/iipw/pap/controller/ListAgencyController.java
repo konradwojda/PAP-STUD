@@ -1,5 +1,6 @@
 package edu.iipw.pap.controller;
 
+import edu.iipw.pap.db.model.Agency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,32 +23,32 @@ public class ListAgencyController {
     private Button btnSearchAgency;
 
     @FXML
-    private TableColumn<?, ?> colAgencyId;
+    private TableColumn<Agency, Integer> colAgencyId;
 
     @FXML
-    private TableColumn<?, ?> colAgencyName;
+    private TableColumn<Agency, String> colAgencyName;
 
     @FXML
-    private TableColumn<?, ?> colAgencyTelephone;
+    private TableColumn<Agency, String> colAgencyTelephone;
 
     @FXML
-    private TableColumn<?, ?> colAgencyTimezone;
+    private TableColumn<Agency, String> colAgencyTimezone;
 
     @FXML
-    private TableColumn<?, ?> colAgencyWebsite;
+    private TableColumn<Agency, String> colAgencyWebsite;
 
     @FXML
     private VBox listAgency;
 
     @FXML
-    private GridPane pnLine;
+    private GridPane pnAgency;
 
     @FXML
-    private TableView<?> tblAgency;
+    private TableView<Agency> tblAgency;
 
     @FXML
     void onAddAgency(ActionEvent event) {
-
+        System.out.println("Add Agency");
     }
 
     @FXML

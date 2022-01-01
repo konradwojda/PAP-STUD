@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class LineController implements Initializable {
+public class AddLineController implements Initializable {
     @FXML
     private Button btnLineOk;
 

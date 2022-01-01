@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AgencyController {
+public class AddAgencyController {
     @FXML
     private Button btnAgencyOk;
 
