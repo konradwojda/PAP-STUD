@@ -3,14 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.MainController">
+<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.MainController">
    <children>
-      <VBox prefHeight="720.0" prefWidth="270.0" spacing="5.0" style="-fx-background-color: #f2f2f2;">
+      <VBox prefHeight="720.0" prefWidth="280.0" spacing="5.0" style="-fx-background-color: #f2f2f2;">
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                <children>
@@ -43,8 +44,10 @@
             </Button>
          </children>
       </VBox>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <fx:include source="listLine.fxml" />
+         </children>
+      </StackPane>
    </children>
-   <padding>
-      <Insets right="5.0" />
-   </padding>
 </HBox>
