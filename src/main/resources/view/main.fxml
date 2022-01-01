@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.MainController">
+   <children>
+      <VBox prefHeight="720.0" prefWidth="270.0" spacing="5.0" style="-fx-background-color: #f2f2f2;">
+         <children>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <Text fill="#52ab98" strokeType="OUTSIDE" strokeWidth="0.0" text="Rozkładonator 4000">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <Button fx:id="btnStop" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onStop" prefHeight="50.0" style="-fx-background-color: #52ab98;" text="Stop" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnAgency" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAgency" prefHeight="50.0" style="-fx-background-color: #52ab98;" text="Agency" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnLine" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLine" prefHeight="50.0" style="-fx-background-color: #52ab98;" text="Line" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnCalendar" layoutX="10.0" layoutY="175.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCalendar" prefHeight="50.0" style="-fx-background-color: #52ab98;" text="Calendar" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets right="5.0" />
+   </padding>
+</HBox>
