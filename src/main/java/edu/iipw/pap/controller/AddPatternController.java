@@ -27,7 +27,7 @@ public class AddPatternController implements Initializable {
     private ChoiceBox<?> choiceLineAgency;
 
     @FXML
-    private ListView listPatternStop;
+    private ListView<PatternStop> listPatternStop;
 
     @FXML
     private TextField txtLineCode;
@@ -52,10 +52,9 @@ public class AddPatternController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>() {
             @Override
-            public ListCell call(ListView param) {
+            public ListCell<PatternStop> call(ListView<PatternStop> param) {
                 return new PatternStopCell();
             }
-
         });
     }
 }
