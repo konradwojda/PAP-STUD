@@ -76,23 +76,21 @@ public class AddLineController implements Initializable {
 
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
-        // FIXME:
-        // try {
-        //     var line = new Line(txtLineCode.getText(), txtLineDescription.getText(), choiceLineType.getValue(),
-        //             choiceLineAgency.getValue());
-        //     Database.add(line);
-        // } catch (Exception e) {
-        //     txtStopError.setText(e.toString());
-        // }
-        // Stage stage = (Stage) btnLineOk.getScene().getWindow();
-        // stage.close();
+        try {
+            var line = new Line(txtLineCode.getText(), txtLineDescription.getText(), choiceLineType.getValue(),
+                    choiceLineAgency.getValue());
+            Database.add(line);
+        } catch (Exception e) {
+            txtStopError.setText(e.toString());
+        }
+        Stage stage = (Stage) btnLineOk.getScene().getWindow();
+        stage.close();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // FIXME:
-        // choiceLineType.getItems().setAll(LineType.values());
-        // choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
+        choiceLineType.getItems().setAll(LineType.values());
+        choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
     }
 
 
