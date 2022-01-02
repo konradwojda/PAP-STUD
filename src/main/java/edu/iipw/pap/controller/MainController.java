@@ -79,7 +79,7 @@ public class MainController {
     }
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         listAgencyController.refrenceMainController(this);
         listLineController.refrenceMainController(this);
         listCalendarController.refrenceMainController(this);

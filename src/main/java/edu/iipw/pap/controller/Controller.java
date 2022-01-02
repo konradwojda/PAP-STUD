@@ -282,7 +282,6 @@ public class Controller implements Initializable {
         pnStop.toFront();
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         InitializeAgencyTable();

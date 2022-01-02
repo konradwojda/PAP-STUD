@@ -54,24 +54,24 @@ public class AddCalendarController {
     void onCalendarOk(ActionEvent event) throws Exception {
         try {
             String startDateStr = txtCalendarStart.getText();
-            LocalDate startDate = startDateStr == null ? null : LocalDate.parse(startDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate startDate = startDateStr == null ? null
+                    : LocalDate.parse(startDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
             String endDateStr = txtCalendarEnd.getText();
-            LocalDate endDate = endDateStr == null ? null : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
-
+            LocalDate endDate = endDateStr == null ? null
+                    : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
             var calendar = new Calendar(
-                txtCalendarName.getText(),
-                startDate,
-                endDate,
-                checkMonday.isSelected(),
-                checkTuesday.isSelected(),
-                checkWednesday.isSelected(),
-                checkThusday.isSelected(),
-                checkFriday.isSelected(),
-                checkSaturday.isSelected(),
-                checkSunday.isSelected()
-            );
+                    txtCalendarName.getText(),
+                    startDate,
+                    endDate,
+                    checkMonday.isSelected(),
+                    checkTuesday.isSelected(),
+                    checkWednesday.isSelected(),
+                    checkThusday.isSelected(),
+                    checkFriday.isSelected(),
+                    checkSaturday.isSelected(),
+                    checkSunday.isSelected());
             Database.add(calendar);
         } catch (Exception e) {
             txtCalendarError.setText(e.toString());

@@ -1,14 +1,13 @@
 package edu.iipw.pap.controller;
 
+import edu.iipw.pap.db.model.PatternStop;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import edu.iipw.pap.db.model.PatternStop;
 import javafx.scene.control.ListCell;
 
-public class PatternStopCell extends ListCell<PatternStop>{
+public class PatternStopCell extends ListCell<PatternStop> {
     @Override
-    public void updateItem(PatternStop patternStop, boolean empty)
-    {
+    public void updateItem(PatternStop patternStop, boolean empty) {
         super.updateItem(patternStop, empty);
         if (patternStop != null) {
             PatternViewController patternViewController = new PatternViewController();

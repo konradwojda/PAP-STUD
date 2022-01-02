@@ -1,14 +1,13 @@
 package edu.iipw.pap.controller;
 
-import edu.iipw.pap.db.Database;
-import edu.iipw.pap.db.model.Stop;
-import edu.iipw.pap.db.model.WheelchairAccessibility;
-
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
+import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -2,22 +2,17 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.spi.CalendarNameProvider;
 
 import edu.iipw.pap.db.Database;
-
 import edu.iipw.pap.db.model.Calendar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-// import net.bytebuddy.asm.Advice.Local;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 
 public class ListCalendarController {
     @FXML
@@ -76,7 +71,7 @@ public class ListCalendarController {
 
     private MainController mainController;
 
-    public void refrenceMainController(MainController mainController){
+    public void refrenceMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
@@ -122,6 +117,5 @@ public class ListCalendarController {
     void onSearchCalendar(ActionEvent event) {
 
     }
-
 
 }

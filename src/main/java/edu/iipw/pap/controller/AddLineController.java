@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
-import edu.iipw.pap.db.Database;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +58,8 @@ public class AddLineController implements Initializable {
 
     @FXML
     void onAddPattern(ActionEvent event) throws IOException {
-        // FIXME: no tego tu nie powinno być, trzeba dać jakaś referencje do referencji na referencji
+        // FIXME: no tego tu nie powinno być, trzeba dać jakaś referencje do referencji
+        // na referencji
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addPattern.fxml"));
         VBox page = (VBox) loader.load();
         Stage stage = new Stage();
@@ -92,7 +92,6 @@ public class AddLineController implements Initializable {
         choiceLineType.getItems().setAll(LineType.values());
         choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
     }
-
 
     @FXML
     void onRemovePattern(ActionEvent event) {

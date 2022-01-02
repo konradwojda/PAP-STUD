@@ -55,7 +55,7 @@ public class Database {
     public static void add(Object obj) {
         Transaction tx = null;
 
-        try  {
+        try {
             tx = session.beginTransaction();
             session.save(obj);
             tx.commit();

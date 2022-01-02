@@ -3,14 +3,7 @@ package edu.iipw.pap.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import edu.iipw.pap.db.model.Agency;
-import edu.iipw.pap.db.model.Line;
-import edu.iipw.pap.db.model.LineType;
-import edu.iipw.pap.db.model.Pattern;
-import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.PatternStop;
-import edu.iipw.pap.db.model.Stop;
-import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,8 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-public class AddPatternController implements Initializable{
-
+public class AddPatternController implements Initializable {
 
     @FXML
     private Button btnNewPatternStop;
@@ -58,11 +50,9 @@ public class AddPatternController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>()
-        {
+        listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>() {
             @Override
-            public ListCell call(ListView param)
-            {
+            public ListCell call(ListView param) {
                 return new PatternStopCell();
             }
 

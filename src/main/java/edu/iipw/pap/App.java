@@ -2,11 +2,10 @@ package edu.iipw.pap;
 
 import edu.iipw.pap.db.Database;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 
 /**
  * JavaFX App

@@ -1,8 +1,7 @@
 package edu.iipw.pap.controller;
 
-import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.Database;
-
+import edu.iipw.pap.db.model.Agency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,11 +32,10 @@ public class AddAgencyController {
     void onAgencyOk(ActionEvent event) throws Exception {
         try {
             var agency = new Agency(
-                txtAgencyName.getText(),
-                txtAgencyWebsite.getText(),
-                txtAgencyTimezone.getText(),
-                txtAgencyTelephone.getText()
-            );
+                    txtAgencyName.getText(),
+                    txtAgencyWebsite.getText(),
+                    txtAgencyTimezone.getText(),
+                    txtAgencyTelephone.getText());
             Database.add(agency);
         } catch (Exception e) {
             txtStopError.setText(e.toString());

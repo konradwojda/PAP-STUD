@@ -3,7 +3,6 @@ package edu.iipw.pap.controller;
 import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
-
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
@@ -11,9 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ListStopController {
     @FXML
@@ -57,7 +56,7 @@ public class ListStopController {
 
     private MainController mainController;
 
-    public void refrenceMainController(MainController mainController){
+    public void refrenceMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
