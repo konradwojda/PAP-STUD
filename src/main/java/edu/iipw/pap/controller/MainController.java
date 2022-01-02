@@ -88,5 +88,6 @@ public class MainController {
         listAgencyController.InitializeAgencyTable();
         listLineController.InitializeLineTable();
         listStopController.InitializeStopTable();
+        listCalendarController.InitializeCalnderTable();
     }
 }

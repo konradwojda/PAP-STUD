@@ -1,11 +1,17 @@
 package edu.iipw.pap.controller;
 
+import java.time.LocalDate;
+
+import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.Calendar;
+import edu.iipw.pap.db.types.LocalDateStringJavaDescriptor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class AddCalendarController {
     @FXML
@@ -45,7 +51,25 @@ public class AddCalendarController {
     private TextField txtCalendarStart;
 
     @FXML
-    void onCalendarOk(ActionEvent event) {
-
+    void onCalendarOk(ActionEvent event) throws Exception {
+        try {
+            var calendar = new Calendar(
+                txtCalendarName.getText(),
+                LocalDateStringJavaDescriptor.INSTANCE.fromString(txtCalendarStart.getText()),
+                LocalDateStringJavaDescriptor.INSTANCE.fromString(txtCalendarEnd.getText()),
+                checkMonday.isSelected(),
+                checkTuesday.isSelected(),
+                checkWednesday.isSelected(),
+                checkThusday.isSelected(),
+                checkFriday.isSelected(),
+                checkSaturday.isSelected(),
+                checkSunday.isSelected()
+            );
+            Database.add(calendar);
+        } catch (Exception e) {
+            txtCalendarError.setText(e.toString());
+        }
+        Stage stage = (Stage) btnCalenarOk.getScene().getWindow();
+        stage.close();
     }
 }
