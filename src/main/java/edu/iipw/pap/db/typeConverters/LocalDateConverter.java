@@ -12,13 +12,15 @@ public class LocalDateConverter implements AttributeConverter<LocalDate, String>
 
     @Override
     public String convertToDatabaseColumn(LocalDate attribute) {
-        if (attribute == null) return null;
+        if (attribute == null)
+            return null;
         return attribute.format(FORMATTER);
     }
 
     @Override
     public LocalDate convertToEntityAttribute(String dbData) {
-        if (dbData == null) return null;
+        if (dbData == null)
+            return null;
         return LocalDate.parse(dbData, FORMATTER);
     }
 }
