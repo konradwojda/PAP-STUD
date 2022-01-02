@@ -2,6 +2,8 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import edu.iipw.pap.db.Database;
+
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ListStopController {
     @FXML
@@ -58,9 +61,25 @@ public class ListStopController {
         this.mainController = mainController;
     }
 
+    private void refreshStops() {
+        tblStop.getItems().setAll(Database.listAll(Stop.class));
+    }
+
+    public void InitializeStopTable() {
+        colStopId.setCellValueFactory(new PropertyValueFactory<Stop, Integer>("stopId"));
+        colStopName.setCellValueFactory(new PropertyValueFactory<Stop, String>("name"));
+        colStopCode.setCellValueFactory(new PropertyValueFactory<Stop, String>("code"));
+        colStopLat.setCellValueFactory(new PropertyValueFactory<Stop, Double>("lat"));
+        colStopLon.setCellValueFactory(new PropertyValueFactory<Stop, Double>("lon"));
+        colStopWheelchairAccessible
+                .setCellValueFactory(new PropertyValueFactory<Stop, WheelchairAccessibility>("wheelchairAccessible"));
+        refreshStops();
+    }
+
     @FXML
     void onAddStop(ActionEvent event) throws IOException {
         mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
+        refreshStops();
     }
 
     @FXML
@@ -70,7 +89,10 @@ public class ListStopController {
 
     @FXML
     void onRemoveStop(ActionEvent event) {
-
+        Stop stopToRemove = tblStop.getSelectionModel().getSelectedItem();
+        tblStop.getItems().remove(stopToRemove);
+        Database.delete(stopToRemove);
+        refreshStops();
     }
 
     @FXML
