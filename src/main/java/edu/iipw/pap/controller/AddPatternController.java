@@ -48,7 +48,7 @@ public class AddPatternController implements Initializable{
 
     @FXML
     void onNewPatterStop(ActionEvent event) {
-        // TODO: tu trzeba dodać snawnowanie sie nowych tabelek
+        listPatternStop.getItems().add(new PatternStop());
     }
 
     @FXML
@@ -58,14 +58,6 @@ public class AddPatternController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        WheelchairAccessibility wAccessibility = WheelchairAccessibility.ACCESSIBLE;
-        Stop s1 = new Stop("XD", "12", 0.1, 0.2, wAccessibility);
-        LineType lineType = LineType.TRAM;
-        Agency a1 = new Agency("aa", "bb", "UHC", "1234");
-        Line l1 = new Line("1", "WIN", lineType, a1);
-        PatternDirection patternDirection = PatternDirection.INBOUND;
-        Pattern p1 = new Pattern("XDDDD", patternDirection, l1);
-        listPatternStop.getItems().add(new PatternStop(s1, p1, 4, 12));
         listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>()
         {
             @Override
