@@ -2,6 +2,8 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import edu.iipw.pap.db.Database;
+
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
@@ -12,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 
 public class ListLineController {
     @FXML
@@ -56,9 +60,23 @@ public class ListLineController {
         this.mainController = mainController;
     }
 
+    private void refreshLines() {
+        tblLine.getItems().setAll(Database.listAll(Line.class));
+    }
+
+    public void InitializeLineTable() {
+        colLineId.setCellValueFactory(new PropertyValueFactory<Line, Integer>("lineId"));
+        colLineCode.setCellValueFactory(new PropertyValueFactory<Line, String>("code"));
+        colLineDescription.setCellValueFactory(new PropertyValueFactory<Line, String>("description"));
+        colLineType.setCellValueFactory(new PropertyValueFactory<Line, LineType>("type"));
+        colLineAgency.setCellValueFactory(new PropertyValueFactory<Line, Agency>("agency"));
+        refreshLines();
+    }
+
     @FXML
     void onAddLine(ActionEvent event) throws IOException {
         mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
+        refreshLines();
     }
 
     @FXML
@@ -68,7 +86,10 @@ public class ListLineController {
 
     @FXML
     void onRemoveLine(ActionEvent event) {
-
+        Line lineToRemove = tblLine.getSelectionModel().getSelectedItem();
+        tblLine.getItems().remove(lineToRemove);
+        Database.delete(lineToRemove);
+        refreshLines();
     }
 
     @FXML

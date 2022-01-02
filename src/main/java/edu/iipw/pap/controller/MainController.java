@@ -86,5 +86,6 @@ public class MainController {
         listStopController.refrenceMainController(this);
 
         listAgencyController.InitializeAgencyTable();
+        listLineController.InitializeLineTable();
     }
 }
