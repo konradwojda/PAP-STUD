@@ -15,7 +15,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.AddPatternController">
    <children>
-      <VBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-background-color: #db6d77;">
+      <VBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-background-color: #db6d77;" VBox.vgrow="ALWAYS">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="/Lines/Pattern">
                <font>
@@ -24,7 +24,7 @@
             </Text>
          </children>
       </VBox>
-      <GridPane hgap="10.0" prefHeight="75.0" prefWidth="600.0" vgap="10.0">
+      <GridPane hgap="10.0" prefHeight="75.0" prefWidth="600.0" vgap="10.0" VBox.vgrow="ALWAYS">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -57,9 +57,9 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </GridPane>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0" spacing="5.0">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0" spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
-            <GridPane hgap="5.0" prefWidth="600.0">
+            <GridPane hgap="5.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="50.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="150.0" />
@@ -97,8 +97,8 @@
             <Insets left="5.0" right="5.0" />
          </padding>
       </HBox>
-      <ListView fx:id="listPatternStop" prefHeight="200.0" prefWidth="200.0" />
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+      <ListView fx:id="listPatternStop" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
             <Text fx:id="txtStopError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
             <Button fx:id="btnPatternOk" mnemonicParsing="false" onAction="#onPatternOk" prefWidth="100.0" style="-fx-background-color: #ff6f88;" text="OK" textFill="#111e1e" />

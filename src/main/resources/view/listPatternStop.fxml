@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hboxRoot" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane hgap="5.0" prefWidth="600.0">
+      <GridPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="600.0" HBox.hgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="50.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="150.0" />
@@ -49,9 +49,9 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnUp" mnemonicParsing="false" onAction="#onUp" text="Up" />
-                        <Button fx:id="btnDown" mnemonicParsing="false" onAction="#onDown" text="Down" />
-                        <Button fx:id="btnRemovePatternStop" mnemonicParsing="false" onAction="#onRemovePatternStop" text="Remove" />
+                        <Button fx:id="btnUp" mnemonicParsing="false" text="Up" />
+                        <Button fx:id="btnDown" mnemonicParsing="false" text="Down" />
+                        <Button fx:id="btnRemovePatternStop" mnemonicParsing="false" text="Remove" />
                      </children>
                   </HBox>
                </children>

@@ -58,7 +58,7 @@ public class ListLineController {
 
     @FXML
     void onAddLine(ActionEvent event) throws IOException {
-        mainController.CreatePopUp("/view/addPattern.fxml", btnAddLine);
+        mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
     }
 
     @FXML

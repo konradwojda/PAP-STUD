@@ -39,10 +39,11 @@ public class Line {
     @JoinColumn(name = "agency_id", nullable = false)
     private Agency agency;
 
-    public Line(String code_, String description_, LineType type_, Agency agency_) {
+    public Line(String code_, String description_, Object object, Object object2) {
         this.code = code_;
         this.description = description_;
-        this.type = type_;
-        this.agency = agency_;
+        // FIXME:
+        // this.type = object;
+        // this.agency = object2;
     }
 }
