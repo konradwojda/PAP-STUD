@@ -1,5 +1,7 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
+
 import edu.iipw.pap.db.model.Agency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,9 +48,15 @@ public class ListAgencyController {
     @FXML
     private TableView<Agency> tblAgency;
 
+    private MainController mainController;
+
+    public void refrenceMainController(MainController mainController){
+        this.mainController = mainController;
+    }
+
     @FXML
-    void onAddAgency(ActionEvent event) {
-        System.out.println("Add Agency");
+    void onAddAgency(ActionEvent event) throws IOException {
+        mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
     }
 
     @FXML

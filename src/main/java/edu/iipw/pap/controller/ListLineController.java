@@ -1,5 +1,7 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
+
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
@@ -48,9 +50,15 @@ public class ListLineController {
     @FXML
     private TableView<Line> tblLine;
 
+    private MainController mainController;
+
+    public void refrenceMainController(MainController mainController){
+        this.mainController = mainController;
+    }
+
     @FXML
-    void onAddLine(ActionEvent event) {
-        System.out.println("ADD LINE");
+    void onAddLine(ActionEvent event) throws IOException {
+        mainController.CreatePopUp("/view/addPattern.fxml", btnAddLine);
     }
 
     @FXML

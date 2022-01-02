@@ -1,5 +1,7 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
+
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.event.ActionEvent;
@@ -50,9 +52,15 @@ public class ListStopController {
     @FXML
     private TableView<Stop> tblStop;
 
-    @FXML
-    void onAddStop(ActionEvent event) {
+    private MainController mainController;
 
+    public void refrenceMainController(MainController mainController){
+        this.mainController = mainController;
+    }
+
+    @FXML
+    void onAddStop(ActionEvent event) throws IOException {
+        mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
     }
 
     @FXML

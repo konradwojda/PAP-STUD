@@ -1,5 +1,6 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import edu.iipw.pap.db.model.Calendar;
@@ -66,9 +67,15 @@ public class ListCalendarController {
     @FXML
     private TableView<Calendar> tblCalendar;
 
-    @FXML
-    void onAddCalendar(ActionEvent event) {
+    private MainController mainController;
 
+    public void refrenceMainController(MainController mainController){
+        this.mainController = mainController;
+    }
+
+    @FXML
+    void onAddCalendar(ActionEvent event) throws IOException {
+        mainController.CreatePopUp("/view/addCalendar.fxml", btnAddCalendar);
     }
 
     @FXML
