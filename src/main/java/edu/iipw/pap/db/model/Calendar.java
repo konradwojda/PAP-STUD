@@ -3,14 +3,15 @@ package edu.iipw.pap.db.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
+import edu.iipw.pap.db.typeConverters.BooleanConverter;
+import edu.iipw.pap.db.typeConverters.LocalDateConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,39 +30,39 @@ public class Calendar {
     private String name;
 
     @Column(name = "start", nullable = false)
-    @Type(type = "edu.iipw.pap.db.types.LocalDateStringType")
+    @Convert(converter = LocalDateConverter.class)
     private LocalDate start;
 
     @Column(name = "end")
-    @Type(type = "edu.iipw.pap.db.types.LocalDateStringType")
+    @Convert(converter = LocalDateConverter.class)
     private LocalDate end;
 
     @Column(name = "monday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean monday = false;
 
     @Column(name = "tuesday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean tuesday = false;
 
     @Column(name = "wednesday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean wednesday = false;
 
     @Column(name = "thursday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean thursday = false;
 
     @Column(name = "friday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean friday = false;
 
     @Column(name = "saturday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean saturday = false;
 
     @Column(name = "sunday")
-    @Type(type = "edu.iipw.pap.db.types.BooleanIntegerType")
+    @Convert(converter = BooleanConverter.class)
     private boolean sunday = false;
 
     public Calendar(String name_, LocalDate start_, LocalDate end_, boolean mon_, boolean tue_, boolean wed_,

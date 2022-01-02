@@ -18,15 +18,15 @@
             <generator class="native" />
         </id>
         <property name="name" type="string" />
-        <property name="start" type="edu.iipw.pap.db.types.LocalDateStringType" not-null="true" />
-        <property name="end" type="edu.iipw.pap.db.types.LocalDateStringType" />
-        <property name="monday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
-        <property name="tuesday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
-        <property name="wednesday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
-        <property name="thursday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
-        <property name="friday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
-        <property name="saturday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
-        <property name="sunday" type="edu.iipw.pap.db.types.BooleanIntegerType" />
+        <property name="start" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" not-null="true" />
+        <property name="end" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" />
+        <property name="monday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="tuesday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="wednesday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="thursday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="friday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="saturday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="sunday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
     </class>
     <class name="edu.iipw.pap.db.model.Line" table="lines">
         <id name="lineId" type="int" column="line_id">

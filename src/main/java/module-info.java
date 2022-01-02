@@ -9,7 +9,7 @@ module edu.iipw.pap {
 
     exports edu.iipw.pap;
     exports edu.iipw.pap.db.model;
-    exports edu.iipw.pap.db.types;
+    exports edu.iipw.pap.db.typeConverters;
     opens edu.iipw.pap.db.model;
     opens edu.iipw.pap.controller;
 }

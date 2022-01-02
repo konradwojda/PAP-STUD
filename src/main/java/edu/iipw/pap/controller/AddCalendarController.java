@@ -1,10 +1,10 @@
 package edu.iipw.pap.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
-import edu.iipw.pap.db.types.LocalDateStringJavaDescriptor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,10 +53,17 @@ public class AddCalendarController {
     @FXML
     void onCalendarOk(ActionEvent event) throws Exception {
         try {
+            String startDateStr = txtCalendarStart.getText();
+            LocalDate startDate = startDateStr == null ? null : LocalDate.parse(startDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+
+            String endDateStr = txtCalendarEnd.getText();
+            LocalDate endDate = endDateStr == null ? null : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+
+
             var calendar = new Calendar(
                 txtCalendarName.getText(),
-                LocalDateStringJavaDescriptor.INSTANCE.fromString(txtCalendarStart.getText()),
-                LocalDateStringJavaDescriptor.INSTANCE.fromString(txtCalendarEnd.getText()),
+                startDate,
+                endDate,
                 checkMonday.isSelected(),
                 checkTuesday.isSelected(),
                 checkWednesday.isSelected(),
