@@ -2,6 +2,8 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import edu.iipw.pap.db.Database;
+
 import edu.iipw.pap.db.model.Agency;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ListAgencyController {
     @FXML
@@ -54,9 +57,23 @@ public class ListAgencyController {
         this.mainController = mainController;
     }
 
+    private void refreshAgencies() {
+        tblAgency.getItems().setAll(Database.listAll(Agency.class));
+    }
+
+    public void InitializeAgencyTable() {
+        colAgencyId.setCellValueFactory(new PropertyValueFactory<Agency, Integer>("agencyId"));
+        colAgencyName.setCellValueFactory(new PropertyValueFactory<Agency, String>("name"));
+        colAgencyWebsite.setCellValueFactory(new PropertyValueFactory<Agency, String>("website"));
+        colAgencyTimezone.setCellValueFactory(new PropertyValueFactory<Agency, String>("timezone"));
+        colAgencyTelephone.setCellValueFactory(new PropertyValueFactory<Agency, String>("telephone"));
+        refreshAgencies();
+    }
+
     @FXML
     void onAddAgency(ActionEvent event) throws IOException {
         mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
+        refreshAgencies();
     }
 
     @FXML
@@ -66,7 +83,10 @@ public class ListAgencyController {
 
     @FXML
     void onRemoveAgency(ActionEvent event) {
-
+        Agency agencyToRemove = tblAgency.getSelectionModel().getSelectedItem();
+        tblAgency.getItems().remove(agencyToRemove);
+        Database.delete(agencyToRemove);
+        refreshAgencies();
     }
 
     @FXML

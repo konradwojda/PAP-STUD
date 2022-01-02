@@ -84,5 +84,7 @@ public class MainController {
         listLineController.refrenceMainController(this);
         listCalendarController.refrenceMainController(this);
         listStopController.refrenceMainController(this);
+
+        listAgencyController.InitializeAgencyTable();
     }
 }
