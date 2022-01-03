@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -78,8 +79,15 @@ public class ListAgencyController {
     }
 
     @FXML
-    void onEditAgency(ActionEvent event) {
-
+    void onEditAgency(ActionEvent event) throws Exception {
+        try {
+            Agency agencyToEdit = tblAgency.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agencyToEdit);
+            refreshAgencies();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     @FXML

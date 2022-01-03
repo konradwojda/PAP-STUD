@@ -53,6 +53,10 @@ public class AddAgencyController implements IController{
         if(Agency.class.isInstance(obj))
         {
             this.agency_ = (Agency) obj;
+            this.txtAgencyName.setText(this.agency_.getName());
+            this.txtAgencyTelephone.setText(this.agency_.getTelephone());
+            this.txtAgencyTimezone.setText(this.agency_.getTimezone());
+            this.txtAgencyWebsite.setText(this.agency_.getWebsite());
         }
         else {
             //FIXME: wlasny wyjatek
