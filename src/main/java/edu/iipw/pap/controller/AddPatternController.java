@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import edu.iipw.pap.db.model.PatternStop;
+import edu.iipw.pap.db.model.Trip;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,13 +22,16 @@ public class AddPatternController implements Initializable {
     private Button btnNewPatternStop;
 
     @FXML
+    private Button btnNewTrip;
+
+    @FXML
     private Button btnPatternOk;
 
     @FXML
-    private ChoiceBox<?> choiceLineAgency;
+    private ListView<PatternStop> listPatternStop;
 
     @FXML
-    private ListView<PatternStop> listPatternStop;
+    private ListView<Trip> listTrip;
 
     @FXML
     private TextField txtLineCode;
@@ -39,8 +43,13 @@ public class AddPatternController implements Initializable {
     private Text txtStopError;
 
     @FXML
-    void onNewPatterStop(ActionEvent event) {
+    void onNewPatternStop(ActionEvent event) {
         listPatternStop.getItems().add(new PatternStop());
+    }
+
+    @FXML
+    void onNewTrip(ActionEvent event) {
+        listTrip.getItems().add(new Trip());
     }
 
     @FXML
@@ -54,6 +63,13 @@ public class AddPatternController implements Initializable {
             @Override
             public ListCell<PatternStop> call(ListView<PatternStop> param) {
                 return new PatternStopCell();
+            }
+        });
+
+        listTrip.setCellFactory(new Callback<ListView<Trip>, ListCell<Trip>>() {
+            @Override
+            public ListCell<Trip> call(ListView<Trip> param) {
+                return new TripCell();
             }
         });
     }
