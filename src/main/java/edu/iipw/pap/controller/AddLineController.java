@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -41,16 +42,16 @@ public class AddLineController implements Initializable, IController {
     private ChoiceBox<LineType> choiceLineType;
 
     @FXML
-    private TableColumn<?, ?> colPatternDirection;
+    private TableColumn<Pattern, PatternDirection> colPatternDirection;
 
     @FXML
-    private TableColumn<?, ?> colPatternHeadsign;
+    private TableColumn<Pattern, String> colPatternHeadsign;
 
     @FXML
-    private TableColumn<?, ?> colPatternId;
+    private TableColumn<Pattern, Integer> colPatternId;
 
     @FXML
-    private TableView<?> tblPattern;
+    private TableView<Pattern> tblPattern;
 
     @FXML
     private TextField txtLineCode;
@@ -97,18 +98,16 @@ public class AddLineController implements Initializable, IController {
     }
 
     // TODO: wyświetlanie listy patternów
-    // private void refreshPatterns() {
+    private void refreshPatterns() {
+        // tblPattern.getItems().setAll(this.line_.getPatterns());
+    }
 
-    // }
-
-    // public void InitializePatternTable() {
-    // colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern,
-    // PatternDirection>("direction"));
-    // colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern,
-    // String>("headsign"));
-    // colPatternId.setCellValueFactory(new PropertyValueFactory<Pattern,
-    // Integer>("patternId"));
-    // }
+    public void InitializePatternTable() {
+        colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern, PatternDirection>("direction"));
+        colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern, String>("headsign"));
+        colPatternId.setCellValueFactory(new PropertyValueFactory<Pattern, Integer>("patternId"));
+        refreshPatterns();
+    }
 
     @FXML
     void onEditPattern(ActionEvent event) {
@@ -135,6 +134,7 @@ public class AddLineController implements Initializable, IController {
     public void initialize(URL location, ResourceBundle resources) {
         choiceLineType.getItems().setAll(LineType.values());
         choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
+        InitializePatternTable();
     }
 
     @FXML
