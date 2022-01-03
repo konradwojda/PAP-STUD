@@ -85,7 +85,12 @@ public class ListStopController {
 
     @FXML
     void onEditStop(ActionEvent event) {
-
+        try {
+            Stop stopToEdit = tblStop.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addStop.fxml", btnAddStop, stopToEdit);
+            refreshStops();
+        } catch (Exception e) {
+        }
     }
 
     @FXML

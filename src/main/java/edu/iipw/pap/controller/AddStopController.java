@@ -178,10 +178,20 @@ public class AddStopController implements Initializable, IController {
 
     @Override
     public <T> void setObject(T obj) throws Exception {
-        if(Stop.class.isInstance(obj)) {
+        if (Stop.class.isInstance(obj)) {
             this.stop_ = (Stop) obj;
-        }
-        else {
+            this.txtStopName.setText(this.stop_.getName());
+            this.txtStopCode.setText(this.stop_.getCode());
+            this.spinStopLat.getValueFactory().setValue(this.stop_.getLat());
+            this.spinStopLon.getValueFactory().setValue(this.stop_.getLon());
+            if (this.stop_.getWheelchairAccessible().equals(WheelchairAccessibility.UNKNOWN)) {
+                this.checkStopWheelchairAccessible.setIndeterminate(true);
+            } else if (this.stop_.getWheelchairAccessible().equals(WheelchairAccessibility.ACCESSIBLE)) {
+                this.checkStopWheelchairAccessible.setSelected(true);
+            } else {
+                this.checkStopWheelchairAccessible.setSelected(false);
+            }
+        } else {
             // FIXME: wlasny wyjatek
             throw new Exception("błąd");
         }
