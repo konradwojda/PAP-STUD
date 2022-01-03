@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddAgencyController implements IController{
+public class AddAgencyController implements IController {
     @FXML
     private Button btnAgencyOk;
 
@@ -49,17 +49,15 @@ public class AddAgencyController implements IController{
     private Agency agency_;
 
     @Override
-    public <T> void setObject(T obj) throws Exception{
-        if(Agency.class.isInstance(obj))
-        {
+    public <T> void setObject(T obj) throws Exception {
+        if (Agency.class.isInstance(obj)) {
             this.agency_ = (Agency) obj;
             this.txtAgencyName.setText(this.agency_.getName());
             this.txtAgencyTelephone.setText(this.agency_.getTelephone());
             this.txtAgencyTimezone.setText(this.agency_.getTimezone());
             this.txtAgencyWebsite.setText(this.agency_.getWebsite());
-        }
-        else {
-            //FIXME: wlasny wyjatek
+        } else {
+            // FIXME: wlasny wyjatek
             throw new Exception("bład");
         }
     }

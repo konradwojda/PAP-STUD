@@ -65,14 +65,13 @@ public class AddLineController implements Initializable, IController {
 
     @Override
     public <T> void setObject(T obj) throws Exception {
-        if(Line.class.isInstance(obj)) {
+        if (Line.class.isInstance(obj)) {
             this.line_ = (Line) obj;
             this.txtLineCode.setText(this.line_.getCode());
             this.txtLineDescription.setText(this.line_.getDescription());
             this.choiceLineAgency.setValue(this.line_.getAgency());
             this.choiceLineType.setValue(this.line_.getType());
-        }
-        else {
+        } else {
             // FIXME: wlasny wyjatek
             throw new Exception("błąd");
         }
@@ -92,20 +91,23 @@ public class AddLineController implements Initializable, IController {
         IController controller = loader.getController();
         Pattern pattern = new Pattern();
         pattern.setLine(line_);
-        line_.addPattern(pattern);
+        // line_.addPattern(pattern);  // FIXME: Reimplement Line.addPattern
         controller.setObject(pattern);
         stage.showAndWait();
     }
 
-    //TODO: wyświetlanie listy patternów
+    // TODO: wyświetlanie listy patternów
     // private void refreshPatterns() {
 
     // }
 
     // public void InitializePatternTable() {
-    //     colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern, PatternDirection>("direction"));
-    //     colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern, String>("headsign"));
-    //     colPatternId.setCellValueFactory(new PropertyValueFactory<Pattern, Integer>("patternId"));
+    // colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern,
+    // PatternDirection>("direction"));
+    // colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern,
+    // String>("headsign"));
+    // colPatternId.setCellValueFactory(new PropertyValueFactory<Pattern,
+    // Integer>("patternId"));
     // }
 
     @FXML

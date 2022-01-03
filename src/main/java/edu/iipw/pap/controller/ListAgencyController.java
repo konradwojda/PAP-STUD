@@ -84,9 +84,7 @@ public class ListAgencyController {
             Agency agencyToEdit = tblAgency.getSelectionModel().getSelectedItem();
             mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agencyToEdit);
             refreshAgencies();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
 
