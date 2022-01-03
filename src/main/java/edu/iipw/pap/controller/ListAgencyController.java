@@ -70,8 +70,10 @@ public class ListAgencyController {
     }
 
     @FXML
-    void onAddAgency(ActionEvent event) throws IOException {
-        mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
+    void onAddAgency(ActionEvent event) throws Exception {
+        // mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
+        Agency agency = new Agency();
+        mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agency);
         refreshAgencies();
     }
 

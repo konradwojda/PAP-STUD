@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddCalendarController {
+public class AddCalendarController implements IController{
     @FXML
     private Button btnCalendarOk;
 
@@ -78,5 +79,19 @@ public class AddCalendarController {
         }
         Stage stage = (Stage) btnCalendarOk.getScene().getWindow();
         stage.close();
+    }
+
+    private Calendar calendar_;
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if(Calendar.class.isInstance(obj)) {
+            this.calendar_ = (Calendar) obj;
+        }
+        else {
+            // FIXME: wlasny wyjatek
+            throw new Exception("błąd");
+        }
+
     }
 }

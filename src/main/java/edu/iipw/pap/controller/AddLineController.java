@@ -6,8 +6,11 @@ import java.util.ResourceBundle;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.db.model.Pattern;
+import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +24,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class AddLineController implements Initializable {
+public class AddLineController implements Initializable, IController {
     @FXML
     private Button btnAddPattern;
 
@@ -56,8 +60,22 @@ public class AddLineController implements Initializable {
     @FXML
     private Text txtStopError;
 
+    private Line line_;
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if(Line.class.isInstance(obj)) {
+            this.line_ = (Line) obj;
+        }
+        else {
+            // FIXME: wlasny wyjatek
+            throw new Exception("błąd");
+        }
+
+    }
+
     @FXML
-    void onAddPattern(ActionEvent event) throws IOException {
+    void onAddPattern(ActionEvent event) throws Exception {
         // FIXME: no tego tu nie powinno być, trzeba dać jakaś referencje do referencji
         // na referencji
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addPattern.fxml"));
@@ -66,8 +84,24 @@ public class AddLineController implements Initializable {
         stage.setScene(new Scene(page));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(btnAddPattern.getScene().getWindow());
+        IController controller = loader.getController();
+        Pattern pattern = new Pattern();
+        pattern.setLine(line_);
+        line_.addPattern(pattern);
+        controller.setObject(pattern);
         stage.showAndWait();
     }
+
+    //TODO: wyświetlanie listy patternów
+    // private void refreshPatterns() {
+
+    // }
+
+    // public void InitializePatternTable() {
+    //     colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern, PatternDirection>("direction"));
+    //     colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern, String>("headsign"));
+    //     colPatternId.setCellValueFactory(new PropertyValueFactory<Pattern, Integer>("patternId"));
+    // }
 
     @FXML
     void onEditPattern(ActionEvent event) {

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +24,7 @@ import javafx.util.StringConverter;
 /**
  * Controller for the "create stop" popup
  */
-public class AddStopController implements Initializable {
+public class AddStopController implements Initializable, IController {
 
     /**
      * The OK button in the popup
@@ -171,5 +172,19 @@ public class AddStopController implements Initializable {
         // Attach spinner value factories to the spinner gui elements
         spinStopLat.setValueFactory(latInputFactory);
         spinStopLon.setValueFactory(lonInputFactory);
+    }
+
+    private Stop stop_;
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if(Stop.class.isInstance(obj)) {
+            this.stop_ = (Stop) obj;
+        }
+        else {
+            // FIXME: wlasny wyjatek
+            throw new Exception("błąd");
+        }
+
     }
 }
