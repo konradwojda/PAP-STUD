@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddCalendarController implements IController{
+public class AddCalendarController implements IController {
     @FXML
     private Button btnCalendarOk;
 
@@ -85,10 +85,21 @@ public class AddCalendarController implements IController{
 
     @Override
     public <T> void setObject(T obj) throws Exception {
-        if(Calendar.class.isInstance(obj)) {
+        if (Calendar.class.isInstance(obj)) {
             this.calendar_ = (Calendar) obj;
-        }
-        else {
+            this.txtCalendarName.setText(this.calendar_.getName());
+            if (this.calendar_.getStart() != null)
+                this.txtCalendarStart.setText(this.calendar_.getStart().toString());
+            if (this.calendar_.getEnd() != null)
+                this.txtCalendarEnd.setText(this.calendar_.getEnd().toString());
+            this.checkMonday.setSelected(this.calendar_.getMonday());
+            this.checkTuesday.setSelected(this.calendar_.getTuesday());
+            this.checkWednesday.setSelected(this.calendar_.getWednesday());
+            this.checkThusday.setSelected(this.calendar_.getThursday());
+            this.checkFriday.setSelected(this.calendar_.getFriday());
+            this.checkSaturday.setSelected(this.calendar_.getSaturday());
+            this.checkSunday.setSelected(this.calendar_.getSunday());
+        } else {
             // FIXME: wlasny wyjatek
             throw new Exception("błąd");
         }

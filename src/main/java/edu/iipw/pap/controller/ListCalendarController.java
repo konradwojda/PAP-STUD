@@ -104,6 +104,12 @@ public class ListCalendarController {
 
     @FXML
     void onEditCalendar(ActionEvent event) {
+        try {
+            Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addCalendar.fxml", btnAddCalendar, calendarToEdit);
+            refreshCalendars();
+        } catch (Exception e) {
+        }
 
     }
 
