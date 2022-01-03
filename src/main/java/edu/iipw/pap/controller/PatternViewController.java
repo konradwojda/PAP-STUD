@@ -3,6 +3,7 @@ package edu.iipw.pap.controller;
 import java.io.IOException;
 
 import edu.iipw.pap.db.model.Stop;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,15 +42,15 @@ public class PatternViewController extends HBox {
         return hboxRoot;
     }
 
-    void setDownButton(EventHandler event) {
+    void setDownButton(EventHandler<ActionEvent> event) {
         btnDown.setOnAction(event);
     }
 
-    void setRemovePatternStopButton(EventHandler event) {
+    void setRemovePatternStopButton(EventHandler<ActionEvent> event) {
         btnRemovePatternStop.setOnAction(event);
     }
 
-    void setUpButton(EventHandler event) {
+    void setUpButton(EventHandler<ActionEvent> event) {
         btnUp.setOnAction(event);
     }
 
