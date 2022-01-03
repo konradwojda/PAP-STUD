@@ -55,7 +55,7 @@ public class PatternViewController extends HBox {
     }
 
     public PatternViewController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/listPatternStop.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/elemPatternStop.fxml"));
         // FIXME: NWM PO CO TU TO BYŁO
         // fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

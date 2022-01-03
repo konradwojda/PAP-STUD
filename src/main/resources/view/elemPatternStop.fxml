@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="hboxRoot" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hboxRoot" alignment="CENTER_LEFT" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="600.0" HBox.hgrow="ALWAYS">
+      <GridPane hgap="5.0" HBox.hgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="50.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="150.0" />
@@ -24,12 +24,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefWidth="50.0">
+            <VBox alignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
                   <Text fx:id="txtIndex" strokeType="OUTSIDE" strokeWidth="0.0" text="9999." />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefWidth="125.0" GridPane.columnIndex="1">
+            <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
                      <children>
@@ -40,12 +40,12 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" GridPane.columnIndex="2">
+            <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ChoiceBox fx:id="choiceStop" prefWidth="200.0" />
+                  <ChoiceBox fx:id="choiceStop" prefWidth="10000.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+            <VBox alignment="CENTER" GridPane.columnIndex="3">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
