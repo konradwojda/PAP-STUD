@@ -55,11 +55,11 @@ public class AddCalendarController implements IController {
     void onCalendarOk(ActionEvent event) throws Exception {
         try {
             String startDateStr = txtCalendarStart.getText();
-            LocalDate startDate = startDateStr == null ? null
+            LocalDate startDate = startDateStr.isEmpty() ? null
                     : LocalDate.parse(startDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
             String endDateStr = txtCalendarEnd.getText();
-            LocalDate endDate = endDateStr == null ? null
+            LocalDate endDate = endDateStr.isEmpty() ? null
                     : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
             Calendar calendar = new Calendar();
