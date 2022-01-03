@@ -45,7 +45,7 @@
                   <TableColumn fx:id="colCalendarMonday" prefWidth="75.0" text="MONDAY" />
                   <TableColumn fx:id="colCalendarTuesday" prefWidth="75.0" text="TUESDAY" />
                   <TableColumn fx:id="colCalendarWednesday" prefWidth="75.0" text="WEDNESDAY" />
-                  <TableColumn fx:id="colCalendarThusday" prefWidth="75.0" text="THURSDAY" />
+                  <TableColumn fx:id="colCalendarThursday" prefWidth="75.0" text="THURSDAY" />
                   <TableColumn fx:id="colCalendarFriday" prefWidth="75.0" text="FRIDAY" />
                   <TableColumn fx:id="colCalendarSaturday" prefWidth="75.0" text="SATURDAY" />
                   <TableColumn fx:id="colCalendarSunday" prefWidth="75.0" text="SUNDAY" />

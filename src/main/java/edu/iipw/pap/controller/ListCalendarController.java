@@ -52,7 +52,7 @@ public class ListCalendarController {
     private TableColumn<Calendar, Boolean> colCalendarSunday;
 
     @FXML
-    private TableColumn<Calendar, Boolean> colCalendarThusday;
+    private TableColumn<Calendar, Boolean> colCalendarThursday;
 
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarTuesday;
@@ -86,7 +86,7 @@ public class ListCalendarController {
         colCalendarMonday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("monday"));
         colCalendarName.setCellValueFactory(new PropertyValueFactory<Calendar, String>("name"));
         colCalendarTuesday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("tuesday"));
-        colCalendarThusday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("thursday"));
+        colCalendarThursday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("thursday"));
         colCalendarWednesday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("wednesday"));
         colCalendarSaturday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("saturday"));
         colCalendarSunday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("sunday"));

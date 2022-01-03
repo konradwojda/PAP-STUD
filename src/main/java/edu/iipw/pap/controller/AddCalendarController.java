@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class AddCalendarController {
     @FXML
-    private Button btnCalenarOk;
+    private Button btnCalendarOk;
 
     @FXML
     private CheckBox checkFriday;
@@ -76,7 +76,7 @@ public class AddCalendarController {
         } catch (Exception e) {
             txtCalendarError.setText(e.toString());
         }
-        Stage stage = (Stage) btnCalenarOk.getScene().getWindow();
+        Stage stage = (Stage) btnCalendarOk.getScene().getWindow();
         stage.close();
     }
 }

@@ -97,7 +97,7 @@
       <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
             <Text fx:id="txtCalendarError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
-            <Button fx:id="btnCalenarOk" mnemonicParsing="false" onAction="#onCalendarOk" prefWidth="100.0" style="-fx-background-color: #7EB9BF;" text="OK" textFill="#111e1e" />
+            <Button fx:id="btnCalendarOk" mnemonicParsing="false" onAction="#onCalendarOk" prefWidth="100.0" style="-fx-background-color: #7EB9BF;" text="OK" textFill="#111e1e" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
