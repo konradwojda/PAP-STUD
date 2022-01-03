@@ -67,6 +67,10 @@ public class AddLineController implements Initializable, IController {
     public <T> void setObject(T obj) throws Exception {
         if(Line.class.isInstance(obj)) {
             this.line_ = (Line) obj;
+            this.txtLineCode.setText(this.line_.getCode());
+            this.txtLineDescription.setText(this.line_.getDescription());
+            this.choiceLineAgency.setValue(this.line_.getAgency());
+            this.choiceLineType.setValue(this.line_.getType());
         }
         else {
             // FIXME: wlasny wyjatek

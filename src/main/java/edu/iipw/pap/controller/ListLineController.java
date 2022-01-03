@@ -83,6 +83,14 @@ public class ListLineController {
 
     @FXML
     void onEditLine(ActionEvent event) {
+        try {
+            Line lineToEdit = tblLine.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, lineToEdit);
+            refreshLines();
+        }
+        catch (Exception e)
+        {
+        }
 
     }
 
