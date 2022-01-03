@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 
-public class ViewController {
+public class ViewController{
     @FXML
     private Button btnAdd;
 

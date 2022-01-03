@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<fx:include source="viewMain.fxml" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.ViewLineController" />
