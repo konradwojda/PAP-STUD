@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -40,9 +41,6 @@ public class AddLineController implements Initializable, IController {
     private ChoiceBox<LineType> choiceLineType;
 
     @FXML
-    private TableColumn<?, ?> colLineType;
-
-    @FXML
     private TableColumn<?, ?> colPatternDirection;
 
     @FXML
@@ -50,6 +48,9 @@ public class AddLineController implements Initializable, IController {
 
     @FXML
     private TableColumn<?, ?> colPatternId;
+
+    @FXML
+    private TableView<?> tblPattern;
 
     @FXML
     private TextField txtLineCode;

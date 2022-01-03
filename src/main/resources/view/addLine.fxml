@@ -73,12 +73,11 @@
             <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="427.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView prefWidth="900.0" GridPane.rowIndex="1">
+            <TableView fx:id="tblPattern" prefWidth="900.0" GridPane.rowIndex="1">
                <columns>
                   <TableColumn fx:id="colPatternId" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="colPatternHeadsign" prefWidth="75.0" text="HEADSIGN" />
                   <TableColumn fx:id="colPatternDirection" prefWidth="75.0" text="DIRECTION" />
-                  <TableColumn fx:id="colLineType" prefWidth="75.0" text="LINE" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
