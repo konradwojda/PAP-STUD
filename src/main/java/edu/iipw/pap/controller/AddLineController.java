@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import java.util.Set;
+import java.util.HashSet;
+
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Pattern;
@@ -68,7 +71,6 @@ public class AddLineController implements Initializable, IController {
     public <T> void setObject(T obj) throws Exception {
         if (Line.class.isInstance(obj)) {
             this.line_ = (Line) obj;
-            //to powinno byc chyba w innym miejscu ale nie działa, a tutaj działa
             InitializePatternTable();
             this.txtLineCode.setText(this.line_.getCode());
             this.txtLineDescription.setText(this.line_.getDescription());
@@ -94,9 +96,17 @@ public class AddLineController implements Initializable, IController {
         IController controller = loader.getController();
         Pattern pattern = new Pattern();
         pattern.setLine(line_);
-        line_.getPatterns().add(pattern);
+        // rozwiązanie tymczasowe
+        Set<Pattern> linePatterns = line_.getPatterns();
+        if (linePatterns == null) {
+            linePatterns = new HashSet<Pattern>();
+            line_.setPatterns(linePatterns);
+        }
+        linePatterns.add(pattern);
+        // line_.getPatterns().add(pattern);
         controller.setObject(pattern);
         stage.showAndWait();
+        refreshPatterns();
     }
 
     // TODO: wyświetlanie listy patternów
@@ -141,7 +151,12 @@ public class AddLineController implements Initializable, IController {
 
     @FXML
     void onRemovePattern(ActionEvent event) {
-
+        // FIXME: nie działa
+        Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
+        line_.getPatterns().remove(patternToRemove);
+        Database.delete(patternToRemove);
+        Database.add(line_);
+        refreshPatterns();
     }
 
     @FXML

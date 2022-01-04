@@ -12,6 +12,7 @@ import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -75,6 +76,8 @@ public class AddPatternController implements Initializable, IController {
             // FIXME: niewłaściwe boxy
             pattern_.setHeadsign(txtLineCode.getText());
             pattern_.setDirection(PatternDirection.INBOUND);
+            // Database.add(pattern_.getLine());
+            // Database.add(pattern_);
         }
         catch (Exception e) {
             txtStopError.setText(e.toString());
