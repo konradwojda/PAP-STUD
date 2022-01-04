@@ -92,7 +92,7 @@ public class AddLineController implements Initializable, IController {
         IController controller = loader.getController();
         Pattern pattern = new Pattern();
         pattern.setLine(line_);
-        // line_.addPattern(pattern);  // FIXME: Reimplement Line.addPattern
+        line_.getPatterns().add(pattern);
         controller.setObject(pattern);
         stage.showAndWait();
     }
