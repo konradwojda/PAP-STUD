@@ -1,6 +1,7 @@
 package edu.iipw.pap.db.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -8,12 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import edu.iipw.pap.db.typeConverters.BooleanConverter;
 import edu.iipw.pap.db.typeConverters.LocalDateConverter;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "calendars")
@@ -65,17 +69,8 @@ public class Calendar {
     @Convert(converter = BooleanConverter.class)
     private boolean sunday = false;
 
-    public Calendar(String name_, LocalDate start_, LocalDate end_, boolean mon_, boolean tue_, boolean wed_,
-            boolean thu_, boolean fri_, boolean sat_, boolean sun_) {
-        this.name = name_;
-        this.start = start_;
-        this.end = end_;
-        this.monday = mon_;
-        this.tuesday = tue_;
-        this.wednesday = wed_;
-        this.thursday = thu_;
-        this.friday = fri_;
-        this.saturday = sat_;
-        this.sunday = sun_;
-    }
+    @OneToMany(mappedBy = "calendar")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Trip> trips;
 }

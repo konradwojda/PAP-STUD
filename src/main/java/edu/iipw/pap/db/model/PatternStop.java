@@ -36,11 +36,4 @@ public class PatternStop {
 
     @Column(name = "travel_time")
     private int travelTime;
-
-    public PatternStop(Stop stop_, Pattern pattern_, int index_, int travelTime_) {
-        this.stop = stop_;
-        this.pattern = pattern_;
-        this.index = index_;
-        this.travelTime = travelTime_;
-    }
 }

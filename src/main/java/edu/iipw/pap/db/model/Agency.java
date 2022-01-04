@@ -1,14 +1,19 @@
 package edu.iipw.pap.db.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "agencies")
@@ -33,10 +38,8 @@ public class Agency {
     @Column(name = "telephone")
     private String telephone;
 
-    public Agency(String name_, String website_, String timezone_, String telephone_) {
-        this.name = name_;
-        this.website = website_;
-        this.timezone = timezone_;
-        this.telephone = telephone_;
-    }
+    @OneToMany(mappedBy = "agency")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Line> lines;
 }

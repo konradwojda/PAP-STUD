@@ -1,5 +1,7 @@
 package edu.iipw.pap.db.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,10 +9,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "stops")
@@ -39,11 +44,8 @@ public class Stop {
     @Enumerated(EnumType.ORDINAL)
     private WheelchairAccessibility wheelchairAccessible = WheelchairAccessibility.UNKNOWN;
 
-    public Stop(String name_, String code_, double lat_, double lon_, WheelchairAccessibility wheelchairAccessible_) {
-        this.name = name_;
-        this.code = code_;
-        this.lat = lat_;
-        this.lon = lon_;
-        this.wheelchairAccessible = wheelchairAccessible_;
-    }
+    @OneToMany(mappedBy = "stop")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<PatternStop> patternStops;
 }

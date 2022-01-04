@@ -12,6 +12,10 @@
         <property name="website" type="string" />
         <property name="timezone" type="string" />
         <property name="telephone" type="string" />
+        <set name="lines">
+            <key column="agency_id" />
+            <one-to-many class="edu.iipw.pap.db.model.Line" />
+        </set>
     </class>
     <class name="edu.iipw.pap.db.model.Calendar" table="calendars">
         <id name="calendarId" type="int" column="calendar_id">
@@ -27,6 +31,10 @@
         <property name="friday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
         <property name="saturday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
         <property name="sunday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <set name="trips">
+            <key column="calendar_id" />
+            <one-to-many class="edu.iipw.pap.db.model.Trip" />
+        </set>
     </class>
     <class name="edu.iipw.pap.db.model.Line" table="lines">
         <id name="lineId" type="int" column="line_id">
@@ -40,6 +48,10 @@
             </type>
         </property>
         <many-to-one name="agency" column="agency_id" class="edu.iipw.pap.db.model.Agency" not-null="true" />
+        <set name="patterns">
+            <key column="line_id" />
+            <one-to-many class="edu.iipw.pap.db.model.Pattern" />
+        </set>
     </class>
     <class name="edu.iipw.pap.db.model.Pattern" table="patterns">
         <id name="patternId" type="int" column="pattern_id">
@@ -52,6 +64,15 @@
             </type>
         </property>
         <many-to-one name="line" column="line_id" class="edu.iipw.pap.db.model.Line" not-null="true" />
+        <list name="patternStops">
+            <key column="pattern_id" />
+            <list-index column="index" />
+            <one-to-many class="edu.iipw.pap.db.model.PatternStop" />
+        </list>
+        <set name="trips">
+            <key column="pattern_id" />
+            <one-to-many class="edu.iipw.pap.db.model.Trip" />
+        </set>
     </class>
     <class name="edu.iipw.pap.db.model.PatternStop" table="pattern_stops">
         <id name="patternStopId" type="int" column="pattern_stop_id">
@@ -75,6 +96,10 @@
                 <param name="enumClass">edu.iipw.pap.db.model.WheelchairAccessibility</param>
             </type>
         </property>
+        <set name="patternStops">
+            <key column="stop_id" />
+            <one-to-many class="edu.iipw.pap.db.model.PatternStop" />
+        </set>
     </class>
     <class name="edu.iipw.pap.db.model.Trip" table="trips">
         <id name="tripId" type="int" column="trip_id">

@@ -39,12 +39,4 @@ public class Trip {
     @Column(name = "wheelchair_accessible", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private WheelchairAccessibility wheelchairAccessible = WheelchairAccessibility.UNKNOWN;
-
-    public Trip(int departure_, Pattern pattern_, Calendar calendar_, WheelchairAccessibility wheelchairAccessible_) {
-        this.departure = departure_;
-        this.pattern = pattern_;
-        this.calendar = calendar_;
-        this.wheelchairAccessible = wheelchairAccessible_;
-    }
-
 }
