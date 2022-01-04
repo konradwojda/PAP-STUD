@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.PatternStop;
@@ -62,7 +63,9 @@ public class AddPatternController implements Initializable, IController {
 
     @FXML
     void onNewPatternStop(ActionEvent event) {
-        listPatternStop.getItems().add(new PatternStop());
+        PatternStop patternStop = new PatternStop();
+        patternStop.setPattern(this.pattern_);
+        listPatternStop.getItems().add(patternStop);
     }
 
     @FXML
@@ -76,8 +79,9 @@ public class AddPatternController implements Initializable, IController {
             // FIXME: niewłaściwe boxy
             pattern_.setHeadsign(txtLineCode.getText());
             pattern_.setDirection(PatternDirection.INBOUND);
-            // Database.add(pattern_.getLine());
-            // Database.add(pattern_);
+            List<PatternStop> patternStops = listPatternStop.getItems();
+            pattern_.setPatternStops(patternStops);
+            System.out.println(pattern_.getPatternStops());
         }
         catch (Exception e) {
             txtStopError.setText(e.toString());

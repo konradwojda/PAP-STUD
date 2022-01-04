@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,6 +43,11 @@ public class PatternViewController extends HBox {
         return hboxRoot;
     }
 
+    ChoiceBox<Stop> getChoiceStop()
+    {
+        return this.choiceStop;
+    }
+
     void setDownButton(EventHandler<ActionEvent> event) {
         btnDown.setOnAction(event);
     }
@@ -64,6 +70,7 @@ public class PatternViewController extends HBox {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        choiceStop.getItems().setAll(Database.listAll(Stop.class));
     }
 
     void setIndex(String text) {
