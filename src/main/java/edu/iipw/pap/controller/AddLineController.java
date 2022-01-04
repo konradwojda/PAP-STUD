@@ -68,6 +68,8 @@ public class AddLineController implements Initializable, IController {
     public <T> void setObject(T obj) throws Exception {
         if (Line.class.isInstance(obj)) {
             this.line_ = (Line) obj;
+            //to powinno byc chyba w innym miejscu ale nie działa, a tutaj działa
+            InitializePatternTable();
             this.txtLineCode.setText(this.line_.getCode());
             this.txtLineDescription.setText(this.line_.getDescription());
             this.choiceLineAgency.setValue(this.line_.getAgency());
@@ -99,7 +101,8 @@ public class AddLineController implements Initializable, IController {
 
     // TODO: wyświetlanie listy patternów
     private void refreshPatterns() {
-        // tblPattern.getItems().setAll(this.line_.getPatterns());
+        if (!(this.line_.getPatterns() == null))
+            tblPattern.getItems().setAll(this.line_.getPatterns());
     }
 
     public void InitializePatternTable() {
@@ -134,7 +137,6 @@ public class AddLineController implements Initializable, IController {
     public void initialize(URL location, ResourceBundle resources) {
         choiceLineType.getItems().setAll(LineType.values());
         choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
-        InitializePatternTable();
     }
 
     @FXML
