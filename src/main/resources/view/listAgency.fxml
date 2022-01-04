@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="listAgency" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.ListAgencyController">
+<VBox fx:id="listAgency" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.ListAgencyController">
    <children>
-      <VBox alignment="CENTER_LEFT" prefHeight="150.0" style="-fx-background-color: #8C7762;">
+      <VBox alignment="CENTER_LEFT" prefHeight="150.0" style="-fx-background-color: #8C7762;" VBox.vgrow="ALWAYS">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="/Agencies">
                <font>
@@ -33,7 +32,7 @@
             <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="427.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="tblAgency" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="tblAgency" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="colAgencyId" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="colAgencyName" prefWidth="75.0" text="NAME" />
@@ -45,10 +44,8 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="btnSearchAgency" mnemonicParsing="false" onAction="#onSearchAgency" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: D9C2AD;" text="Search" textFill="#111e1e" />
-                  <TextField prefHeight="26.0" prefWidth="320.0" />
                   <Button fx:id="btnAddAgency" mnemonicParsing="false" onAction="#onAddAgency" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: D9C2AD;" text="Add Agency" textFill="#111e1e" />
                   <Button fx:id="btnEditAgency" layoutX="860.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditAgency" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: D9C2AD;" text="Edit Agency" textFill="#111e1e" />
                   <Button fx:id="btnRemoveAgency" layoutX="340.0" layoutY="11.0" mnemonicParsing="false" onAction="#onRemoveAgency" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: D9C2AD;" text="Remove Agency" textFill="#111e1e" />

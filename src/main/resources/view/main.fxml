@@ -8,8 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.MainController">
+<HBox alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.MainController">
    <children>
       <VBox prefHeight="720.0" prefWidth="280.0" spacing="5.0" style="-fx-background-color: #f2f2f2;">
          <children>
@@ -44,7 +43,7 @@
             </Button>
          </children>
       </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0">
+      <StackPane HBox.hgrow="ALWAYS">
          <children>
             <fx:include fx:id="listLine" source="listLine.fxml" />
             <fx:include fx:id="listAgency" source="listAgency.fxml" />

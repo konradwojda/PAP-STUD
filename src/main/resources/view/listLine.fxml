@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,10 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox fx:id="listLine" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.ListLineController">
+<VBox fx:id="listLine" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.ListLineController">
    <children>
-      <VBox alignment="CENTER_LEFT" prefHeight="150.0" style="-fx-background-color: #2b6777;">
+      <VBox alignment="CENTER_LEFT" prefHeight="150.0" style="-fx-background-color: #2b6777;" VBox.vgrow="ALWAYS">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="/Lines">
                <font>
@@ -34,7 +32,7 @@
             <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="427.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="tblLine" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="tblLine" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="colLineId" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="colLineCode" prefWidth="75.0" text="CODE" />
@@ -46,10 +44,8 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="btnSearchLine" mnemonicParsing="false" onAction="#onSearchLine" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #b5d2d6;" text="Search" textFill="#111e1e" />
-                  <TextField prefHeight="26.0" prefWidth="320.0" />
                   <Button fx:id="btnAddLine" mnemonicParsing="false" onAction="#onAddLine" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #b5d2d6;" text="Add Line" textFill="#111e1e" />
                   <Button fx:id="btnEditLine" layoutX="860.0" layoutY="11.0" mnemonicParsing="false" onAction="#onEditLine" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #b5d2d6;" text="Edit Line" textFill="#111e1e" />
                   <Button fx:id="btnRemoveLine" layoutX="340.0" layoutY="11.0" mnemonicParsing="false" onAction="#onRemoveLine" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #b5d2d6;" text="Remove Line" textFill="#111e1e" />
