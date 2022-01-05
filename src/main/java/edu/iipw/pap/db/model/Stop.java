@@ -23,7 +23,6 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "stops")
@@ -125,21 +124,20 @@ public final class Stop {
 
     @OneToMany(mappedBy = "stop")
     private SetProperty<PatternStop> patternStops = new SimpleSetProperty<PatternStop>();
+    private Set<PatternStop> patternStopsRaw;
 
     public SetProperty<PatternStop> patternStopsProperty() {
         return patternStops;
     }
 
-    public ObservableSet<PatternStop> getPatternStops() {
-        return patternStops.get();
+    @Deprecated Set<PatternStop> getPatternStops() {
+        assert patternStops.equals(patternStopsRaw) : "Illegal state - patternStopsProperty().set() was probably called";
+        return patternStopsRaw;
     }
 
     public void setPatternStops(Set<PatternStop> value) {
-        if (ObservableSet.class.isAssignableFrom(value.getClass())) {
-            patternStops.set((ObservableSet<PatternStop>) value);
-        } else {
-            patternStops.set(FXCollections.observableSet(value));
-        }
+        patternStopsRaw = value;
+        patternStops.set(FXCollections.observableSet(value));
     }
 
     public String toString() {

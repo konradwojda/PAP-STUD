@@ -26,7 +26,6 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "calendars")
@@ -209,21 +208,21 @@ public final class Calendar {
 
     @OneToMany(mappedBy = "calendar")
     private SetProperty<Trip> trips = new SimpleSetProperty<Trip>();
+    private Set<Trip> tripsRaw;
 
     public SetProperty<Trip> tripsProperty() {
         return trips;
     }
 
-    public ObservableSet<Trip> getTrips() {
-        return trips;
+    @Deprecated
+    public Set<Trip> getTrips() {
+        assert trips.equals(tripsRaw) : "Illegal state - tripsProperty().set() was probably called";
+        return tripsRaw;
     }
 
     public void setTrips(Set<Trip> value) {
-        if (ObservableSet.class.isAssignableFrom(value.getClass())) {
-            trips.set((ObservableSet<Trip>) value);
-        } else {
-            trips.set(FXCollections.observableSet(value));
-        }
+        tripsRaw = value;
+        trips.set(FXCollections.observableSet(value));
     }
 
     public String toString() {
