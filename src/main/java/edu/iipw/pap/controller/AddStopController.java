@@ -143,12 +143,12 @@ public class AddStopController implements Initializable {
     @FXML
     void onStopOk(ActionEvent event) throws Exception {
         try {
-            var stop = new Stop(
-                    txtStopName.getText(),
-                    txtStopCode.getText(),
-                    spinStopLat.getValue(),
-                    spinStopLon.getValue(),
-                    getAccessibilityStatus());
+            Stop stop = new Stop();
+            stop.setName(txtStopName.getText());
+            stop.setCode(txtStopCode.getText());
+            stop.setLat(spinStopLat.getValue());
+            stop.setLon(spinStopLon.getValue());
+            stop.setWheelchairAccessible(getAccessibilityStatus());
             Database.add(stop);
 
             // Close the popup on successful entry

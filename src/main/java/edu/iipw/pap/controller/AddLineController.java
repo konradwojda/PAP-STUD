@@ -77,8 +77,11 @@ public class AddLineController implements Initializable {
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
-            var line = new Line(txtLineCode.getText(), txtLineDescription.getText(), choiceLineType.getValue(),
-                    choiceLineAgency.getValue());
+            Line line = new Line();
+            line.setCode(txtLineCode.getText());
+            line.setDescription(txtLineDescription.getText());
+            line.setType(choiceLineType.getValue());
+            line.setAgency(choiceLineAgency.getValue());
             Database.add(line);
         } catch (Exception e) {
             txtStopError.setText(e.toString());

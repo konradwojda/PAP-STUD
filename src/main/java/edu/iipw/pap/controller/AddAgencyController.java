@@ -31,11 +31,11 @@ public class AddAgencyController {
     @FXML
     void onAgencyOk(ActionEvent event) throws Exception {
         try {
-            var agency = new Agency(
-                    txtAgencyName.getText(),
-                    txtAgencyWebsite.getText(),
-                    txtAgencyTimezone.getText(),
-                    txtAgencyTelephone.getText());
+            Agency agency = new Agency();
+            agency.setName(txtAgencyName.getText());
+            agency.setWebsite(txtAgencyWebsite.getText());
+            agency.setTimezone(txtAgencyTimezone.getText());
+            agency.setTelephone(txtAgencyTelephone.getText());
             Database.add(agency);
         } catch (Exception e) {
             txtStopError.setText(e.toString());

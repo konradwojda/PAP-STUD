@@ -1,42 +1,124 @@
 package edu.iipw.pap.db.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleSetProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "agencies")
-@NoArgsConstructor
-@Data
-public class Agency {
-
+public final class Agency {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "agency_id")
-    private int agencyId;
+    private IntegerProperty agencyId = new SimpleIntegerProperty();
+
+    public IntegerProperty agencyIdProperty() {
+        return agencyId;
+    }
+
+    public int getAgencyId() {
+        return agencyId.get();
+    }
+
+    public void setAgencyId(int value) {
+        agencyId.set(value);
+    }
 
     @Column(name = "name", nullable = false)
-    private String name;
+    private StringProperty name = new SimpleStringProperty();
+
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public void setName(String value) {
+        name.set(value);
+    }
 
     @Column(name = "website")
-    private String website;
+    private StringProperty website = new SimpleStringProperty();
+
+    public StringProperty websiteProperty() {
+        return website;
+    }
+
+    public String getWebsite() {
+        return website.get();
+    }
+
+    public void setWebsite(String value) {
+        website.set(value);
+    }
 
     @Column(name = "timezone")
-    private String timezone;
+    private StringProperty timezone = new SimpleStringProperty();
+
+    public StringProperty timezoneProperty() {
+        return timezone;
+    }
+
+    public String getTimezone() {
+        return timezone.get();
+    }
+
+    public void setTimezone(String value) {
+        timezone.set(value);
+    }
 
     @Column(name = "telephone")
-    private String telephone;
+    private StringProperty telephone = new SimpleStringProperty();
 
-    public Agency(String name_, String website_, String timezone_, String telephone_) {
-        this.name = name_;
-        this.website = website_;
-        this.timezone = timezone_;
-        this.telephone = telephone_;
+    public StringProperty telephoneProperty() {
+        return telephone;
+    }
+
+    public String getTelephone() {
+        return telephone.get();
+    }
+
+    public void setTelephone(String value) {
+        telephone.set(value);
+    }
+
+    @OneToMany(mappedBy = "agency")
+    private SetProperty<Line> lines = new SimpleSetProperty<Line>();
+
+    public SetProperty<Line> linesProperty() {
+        return lines;
+    }
+
+    public ObservableSet<Line> getLines() {
+        return lines.get();
+    }
+
+    public void setLines(Set<Line> value) {
+        if (ObservableSet.class.isAssignableFrom(value.getClass())) {
+            lines.set((ObservableSet<Line>) value);
+        } else {
+            lines.set(FXCollections.observableSet(value));
+        }
+    }
+
+    public String toString() {
+        return String.format("Agency(%d, %s)", getAgencyId(), getName());
     }
 }
