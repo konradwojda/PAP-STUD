@@ -22,8 +22,8 @@
             <generator class="native" />
         </id>
         <property name="name" type="string" />
-        <property name="start" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" not-null="true" />
-        <property name="end" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" />
+        <property name="start" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" not-null="true" column="start_date" />
+        <property name="end" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" column="end_date" />
         <property name="monday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
         <property name="tuesday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
         <property name="wednesday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
@@ -66,7 +66,7 @@
         <many-to-one name="line" column="line_id" class="edu.iipw.pap.db.model.Line" not-null="true" />
         <list name="patternStops">
             <key column="pattern_id" />
-            <list-index column="index" />
+            <list-index column="idx" />
             <one-to-many class="edu.iipw.pap.db.model.PatternStop" />
         </list>
         <set name="trips">
@@ -78,7 +78,7 @@
         <id name="patternStopId" type="int" column="pattern_stop_id">
             <generator class="native" />
         </id>
-        <property name="index" type="int" />
+        <property name="index" type="int" column="idx" />
         <property name="travelTime" type="int" column="travel_time" />
         <many-to-one name="stop" column="stop_id" class="edu.iipw.pap.db.model.Stop" not-null="true" />
         <many-to-one name="pattern" column="pattern_id" class="edu.iipw.pap.db.model.Pattern" not-null="true" />

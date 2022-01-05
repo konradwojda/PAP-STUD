@@ -61,17 +61,17 @@ public class AddCalendarController {
             LocalDate endDate = endDateStr == null ? null
                     : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
-            var calendar = new Calendar(
-                    txtCalendarName.getText(),
-                    startDate,
-                    endDate,
-                    checkMonday.isSelected(),
-                    checkTuesday.isSelected(),
-                    checkWednesday.isSelected(),
-                    checkThusday.isSelected(),
-                    checkFriday.isSelected(),
-                    checkSaturday.isSelected(),
-                    checkSunday.isSelected());
+            Calendar calendar = new Calendar();
+            calendar.setName(txtCalendarName.getText());
+            calendar.setStart(startDate);
+            calendar.setEnd(endDate);
+            calendar.setMonday(checkMonday.isSelected());
+            calendar.setTuesday(checkTuesday.isSelected());
+            calendar.setThursday(checkWednesday.isSelected());
+            calendar.setTuesday(checkThusday.isSelected());
+            calendar.setFriday(checkFriday.isSelected());
+            calendar.setSaturday(checkSaturday.isSelected());
+            calendar.setSunday(checkSunday.isSelected());
             Database.add(calendar);
         } catch (Exception e) {
             txtCalendarError.setText(e.toString());

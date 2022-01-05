@@ -33,11 +33,11 @@ public class Calendar {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "start", nullable = false)
+    @Column(name = "start_date", nullable = false)
     @Convert(converter = LocalDateConverter.class)
     private LocalDate start;
 
-    @Column(name = "end")
+    @Column(name = "end_date")
     @Convert(converter = LocalDateConverter.class)
     private LocalDate end;
 

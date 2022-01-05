@@ -31,7 +31,7 @@ public class PatternStop {
     @JoinColumn(name = "pattern_id", nullable = false)
     private Pattern pattern;
 
-    @Column(name = "index")
+    @Column(name = "idx")
     private int index;
 
     @Column(name = "travel_time")
