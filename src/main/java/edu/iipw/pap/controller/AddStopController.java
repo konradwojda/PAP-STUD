@@ -144,13 +144,17 @@ public class AddStopController implements Initializable, IController {
     @FXML
     void onStopOk(ActionEvent event) throws Exception {
         try {
-            Stop stop = new Stop();
-            stop.setName(txtStopName.getText());
-            stop.setCode(txtStopCode.getText());
-            stop.setLat(spinStopLat.getValue());
-            stop.setLon(spinStopLon.getValue());
-            stop.setWheelchairAccessible(getAccessibilityStatus());
-            Database.add(stop);
+            // Stop stop = new Stop();
+            // stop_.setName(txtStopName.getText());
+            // stop_.setCode(txtStopCode.getText());
+            // stop_.setLat(spinStopLat.getValue());
+            // stop_.setLon(spinStopLon.getValue());
+            // stop_.setWheelchairAccessible(getAccessibilityStatus());
+            Database.add(stop_);
+
+            this.txtStopName.textProperty().unbindBidirectional(this.stop_.nameProperty());
+
+            this.txtStopCode.textProperty().unbindBidirectional(this.stop_.codeProperty());
 
             // Close the popup on successful entry
             Stage stage = (Stage) btnStopOk.getScene().getWindow();
@@ -180,8 +184,11 @@ public class AddStopController implements Initializable, IController {
     public <T> void setObject(T obj) throws Exception {
         if (Stop.class.isInstance(obj)) {
             this.stop_ = (Stop) obj;
-            this.txtStopName.setText(this.stop_.getName());
-            this.txtStopCode.setText(this.stop_.getCode());
+
+            this.txtStopName.textProperty().bindBidirectional(this.stop_.nameProperty());
+
+            this.txtStopCode.textProperty().bindBidirectional(this.stop_.codeProperty());
+
             this.spinStopLat.getValueFactory().setValue(this.stop_.getLat());
             this.spinStopLon.getValueFactory().setValue(this.stop_.getLon());
             if (this.stop_.getWheelchairAccessible().equals(WheelchairAccessibility.UNKNOWN)) {

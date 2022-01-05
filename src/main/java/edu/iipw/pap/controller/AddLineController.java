@@ -97,10 +97,9 @@ public class AddLineController implements Initializable, IController {
         Pattern pattern = new Pattern();
         pattern.setLine(line_);
         // rozwiązanie tymczasowe
-        Set<Pattern> linePatterns = line_.getPatterns();
-        if (linePatterns == null) {
-            linePatterns = new HashSet<Pattern>();
-            line_.setPatterns(linePatterns);
+        var linePatterns = line_.patternsProperty();
+        if (linePatterns.get() == null) {
+            line_.setPatterns(new HashSet<Pattern>());
         }
         linePatterns.add(pattern);
         // line_.getPatterns().add(pattern);
@@ -111,8 +110,8 @@ public class AddLineController implements Initializable, IController {
 
     // TODO: wyświetlanie listy patternów
     private void refreshPatterns() {
-        if (!(this.line_.getPatterns() == null))
-            tblPattern.getItems().setAll(this.line_.getPatterns());
+        if (!(this.line_.patternsProperty() == null))
+            tblPattern.getItems().setAll(this.line_.patternsProperty());
     }
 
     public void InitializePatternTable() {
@@ -153,7 +152,7 @@ public class AddLineController implements Initializable, IController {
     void onRemovePattern(ActionEvent event) {
         // FIXME: nie działa
         Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
-        line_.getPatterns().remove(patternToRemove);
+        line_.patternsProperty().remove(patternToRemove);
         Database.delete(patternToRemove);
         Database.add(line_);
         refreshPatterns();
