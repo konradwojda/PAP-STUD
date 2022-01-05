@@ -23,7 +23,6 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "lines")
@@ -109,21 +108,20 @@ public final class Line {
 
     @OneToMany(mappedBy = "line")
     private SetProperty<Pattern> patterns = new SimpleSetProperty<Pattern>();
+    private Set<Pattern> patternsRaw;
 
     public SetProperty<Pattern> patternsProperty() {
         return patterns;
     }
 
-    public ObservableSet<Pattern> getPatterns() {
-        return patterns.get();
+    @Deprecated Set<Pattern> getPatterns() {
+        assert patterns.equals(patternsRaw) : "Illegal state - patternsProperty().set() was probably called";
+        return patternsRaw;
     }
 
     public void setPatterns(Set<Pattern> value) {
-        if (ObservableSet.class.isAssignableFrom(value.getClass())) {
-            patterns.set((ObservableSet<Pattern>) value);
-        } else {
-            patterns.set(FXCollections.observableSet(value));
-        }
+        patternsRaw = value;
+        patterns.set(FXCollections.observableSet(value));
     }
 
     public String toString() {

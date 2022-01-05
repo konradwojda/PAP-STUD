@@ -17,7 +17,6 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "agencies")
@@ -101,21 +100,21 @@ public final class Agency {
 
     @OneToMany(mappedBy = "agency")
     private SetProperty<Line> lines = new SimpleSetProperty<Line>();
+    private Set<Line> linesRaw;
 
     public SetProperty<Line> linesProperty() {
         return lines;
     }
 
-    public ObservableSet<Line> getLines() {
-        return lines.get();
+    @Deprecated
+    public Set<Line> getLines() {
+        assert lines.equals(linesRaw) : "Illegal state - linesProperty().set() was probably called";
+        return linesRaw;
     }
 
     public void setLines(Set<Line> value) {
-        if (ObservableSet.class.isAssignableFrom(value.getClass())) {
-            lines.set((ObservableSet<Line>) value);
-        } else {
-            lines.set(FXCollections.observableSet(value));
-        }
+        linesRaw = value;
+        lines.set(FXCollections.observableSet(value));
     }
 
     public String toString() {
