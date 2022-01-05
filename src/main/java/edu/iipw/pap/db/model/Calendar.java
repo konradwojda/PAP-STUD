@@ -30,7 +30,7 @@ import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "calendars")
-public class Calendar {
+public final class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "calendar_id")

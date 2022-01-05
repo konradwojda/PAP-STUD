@@ -18,7 +18,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 @Entity
 @Table(name = "trips")
-public class Trip {
+public final class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "trip_id")

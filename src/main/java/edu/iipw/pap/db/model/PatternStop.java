@@ -16,7 +16,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 @Entity
 @Table(name = "pattern_stops")
-public class PatternStop {
+public final class PatternStop {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pattern_stop_id")

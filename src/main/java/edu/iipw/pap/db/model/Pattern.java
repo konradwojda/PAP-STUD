@@ -31,7 +31,7 @@ import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "patterns")
-public class Pattern {
+public final class Pattern {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pattern_id")

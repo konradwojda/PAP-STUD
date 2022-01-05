@@ -27,7 +27,7 @@ import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "stops")
-public class Stop {
+public final class Stop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

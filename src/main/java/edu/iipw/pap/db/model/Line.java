@@ -27,7 +27,7 @@ import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "lines")
-public class Line {
+public final class Line {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "line_id")
