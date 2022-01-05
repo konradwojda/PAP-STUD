@@ -15,40 +15,132 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleSetProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 @Entity
 @Table(name = "patterns")
-@NoArgsConstructor
-@Data
 public class Pattern {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pattern_id")
-    private int patternId;
+    private IntegerProperty patternId = new SimpleIntegerProperty();
+
+    public IntegerProperty patternIdProperty() {
+        return patternId;
+    }
+
+    public int getPatternId() {
+        return patternId.get();
+    }
+
+    public void setPatternId(int value) {
+        patternId.set(value);
+    }
 
     @Column(name = "headsign")
-    private String headsign;
+    private StringProperty headsign = new SimpleStringProperty();
+
+    public StringProperty headsignProperty() {
+        return headsign;
+    }
+
+    public String getHeadsign() {
+        return headsign.get();
+    }
+
+    public void setHeadsign(String value) {
+        headsign.set(value);
+    }
 
     @Column(name = "direction")
     @Enumerated(EnumType.ORDINAL)
-    private PatternDirection direction;
+    private ObjectProperty<PatternDirection> direction = new SimpleObjectProperty<PatternDirection>();
+
+    public ObjectProperty<PatternDirection> directionProperty() {
+        return direction;
+    }
+
+    public PatternDirection getDirection() {
+        return direction.get();
+    }
+
+    public void setDirection(PatternDirection value) {
+        direction.set(value);
+    }
 
     @ManyToOne
     @JoinColumn(name = "line_id", nullable = false)
-    private Line line;
+    private ObjectProperty<Line> line = new SimpleObjectProperty<Line>();
+
+    public ObjectProperty<Line> lineProperty() {
+        return line;
+    }
+
+    public Line getLine() {
+        return line.get();
+    }
+
+    public void setLine(Line value) {
+        line.set(value);
+    }
 
     @OneToMany(mappedBy = "pattern")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<PatternStop> patternStops;
+    private ListProperty<PatternStop> patternStops = new SimpleListProperty<PatternStop>();
+
+    public ListProperty<PatternStop> patternStopsProperty() {
+        return patternStops;
+    }
+
+    public ObservableList<PatternStop> getPatternStops() {
+        return patternStops.get();
+    }
+
+    public void setPatternStops(List<PatternStop> value) {
+        if (ObservableList.class.isAssignableFrom(value.getClass())) {
+            patternStops.set((ObservableList<PatternStop>) value);
+        } else {
+            patternStops.set(FXCollections.observableList(value));
+        }
+    }
 
     @OneToMany(mappedBy = "pattern")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Trip> trips;
+    private SetProperty<Trip> trips = new SimpleSetProperty<Trip>();
+
+    public SetProperty<Trip> tripsProperty() {
+        return trips;
+    }
+
+    public ObservableSet<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(Set<Trip> value) {
+        if (ObservableSet.class.isAssignableFrom(value.getClass())) {
+            trips.set((ObservableSet<Trip>) value);
+        } else {
+            trips.set(FXCollections.observableSet(value));
+        }
+    }
+
+    public String toString() {
+        return String.format(
+                "Pattern(%d, headsign=%s, direction=%s, line=%s, %d stops)",
+                getPatternId(),
+                getHeadsign(),
+                getDirection(),
+                getLine(),
+                getPatternStops() == null ? 0 : getPatternStops().size());
+    }
 }
