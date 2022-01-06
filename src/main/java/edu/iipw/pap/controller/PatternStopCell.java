@@ -4,14 +4,11 @@ import java.io.IOException;
 
 import java.util.Collections;
 
-import org.hibernate.sql.Delete;
-
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;

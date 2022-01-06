@@ -1,7 +1,6 @@
 package edu.iipw.pap.controller;
 
 import edu.iipw.pap.db.model.Trip;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ListCell;
 
 public class TripCellControler extends ListCell<Trip>{
