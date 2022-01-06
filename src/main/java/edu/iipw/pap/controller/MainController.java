@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,13 +49,25 @@ public class MainController {
     @FXML
     private ListStopController listStopController;
 
-    public void CreatePopUp(String fxml_template, Button button) throws IOException {
+    public void CreatePopUp(String fxml_template, Button button) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
         VBox page = (VBox) loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(page));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(button.getScene().getWindow());
+        stage.showAndWait();
+    }
+
+    public <T> void CreatePopUpAndSetObj(String fxml_template, Button button, T obj) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
+        VBox page = (VBox) loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(page));
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(button.getScene().getWindow());
+        IController controller = loader.getController();
+        controller.setObject(obj);
         stage.showAndWait();
     }
 

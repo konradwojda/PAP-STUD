@@ -4,25 +4,34 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import java.util.Set;
+import java.util.HashSet;
+
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.db.model.Pattern;
+import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class AddLineController implements Initializable {
+public class AddLineController implements Initializable, IController {
     @FXML
     private Button btnAddPattern;
 
@@ -36,16 +45,16 @@ public class AddLineController implements Initializable {
     private ChoiceBox<LineType> choiceLineType;
 
     @FXML
-    private TableColumn<?, ?> colLineType;
+    private TableColumn<Pattern, PatternDirection> colPatternDirection;
 
     @FXML
-    private TableColumn<?, ?> colPatternDirection;
+    private TableColumn<Pattern, String> colPatternHeadsign;
 
     @FXML
-    private TableColumn<?, ?> colPatternHeadsign;
+    private TableColumn<Pattern, Integer> colPatternId;
 
     @FXML
-    private TableColumn<?, ?> colPatternId;
+    private TableView<Pattern> tblPattern;
 
     @FXML
     private TextField txtLineCode;
@@ -56,8 +65,26 @@ public class AddLineController implements Initializable {
     @FXML
     private Text txtStopError;
 
+    private Line line_;
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if (Line.class.isInstance(obj)) {
+            this.line_ = (Line) obj;
+            InitializePatternTable();
+            this.txtLineCode.textProperty().bindBidirectional(this.line_.codeProperty());
+            this.txtLineDescription.textProperty().bindBidirectional(this.line_.descriptionProperty());
+            this.choiceLineAgency.valueProperty().bindBidirectional(this.line_.agencyProperty());
+            this.choiceLineType.valueProperty().bindBidirectional(this.line_.typeProperty());
+        } else {
+            // FIXME: wlasny wyjatek
+            throw new Exception("błąd");
+        }
+
+    }
+
     @FXML
-    void onAddPattern(ActionEvent event) throws IOException {
+    void onAddPattern(ActionEvent event) throws Exception {
         // FIXME: no tego tu nie powinno być, trzeba dać jakaś referencje do referencji
         // na referencji
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addPattern.fxml"));
@@ -66,7 +93,32 @@ public class AddLineController implements Initializable {
         stage.setScene(new Scene(page));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(btnAddPattern.getScene().getWindow());
+        IController controller = loader.getController();
+        Pattern pattern = new Pattern();
+        pattern.setLine(line_);
+        // rozwiązanie tymczasowe
+        var linePatterns = line_.patternsProperty();
+        if (linePatterns.get() == null) {
+            line_.setPatterns(new HashSet<Pattern>());
+        }
+        linePatterns.add(pattern);
+        // line_.getPatterns().add(pattern);
+        controller.setObject(pattern);
         stage.showAndWait();
+        refreshPatterns();
+    }
+
+    // TODO: wyświetlanie listy patternów
+    private void refreshPatterns() {
+        if (!(this.line_.patternsProperty() == null))
+            tblPattern.getItems().setAll(this.line_.patternsProperty());
+    }
+
+    public void InitializePatternTable() {
+        colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern, PatternDirection>("direction"));
+        colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern, String>("headsign"));
+        colPatternId.setCellValueFactory(new PropertyValueFactory<Pattern, Integer>("patternId"));
+        refreshPatterns();
     }
 
     @FXML
@@ -77,12 +129,12 @@ public class AddLineController implements Initializable {
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
-            Line line = new Line();
-            line.setCode(txtLineCode.getText());
-            line.setDescription(txtLineDescription.getText());
-            line.setType(choiceLineType.getValue());
-            line.setAgency(choiceLineAgency.getValue());
-            Database.add(line);
+            // Line line = new Line();
+            // line.setCode(txtLineCode.getText());
+            // line.setDescription(txtLineDescription.getText());
+            // line.setType(choiceLineType.getValue());
+            // line.setAgency(choiceLineAgency.getValue());
+            Database.add(line_);
         } catch (Exception e) {
             txtStopError.setText(e.toString());
         }
@@ -98,7 +150,12 @@ public class AddLineController implements Initializable {
 
     @FXML
     void onRemovePattern(ActionEvent event) {
-
+        // FIXME: nie działa
+        Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
+        line_.patternsProperty().remove(patternToRemove);
+        Database.delete(patternToRemove);
+        Database.add(line_);
+        refreshPatterns();
     }
 
     @FXML

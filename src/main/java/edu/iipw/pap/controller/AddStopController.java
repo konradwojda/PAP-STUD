@@ -8,6 +8,13 @@ import java.util.ResourceBundle;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
+import edu.iipw.pap.interfaces.IController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +30,7 @@ import javafx.util.StringConverter;
 /**
  * Controller for the "create stop" popup
  */
-public class AddStopController implements Initializable {
+public class AddStopController implements Initializable, IController {
 
     /**
      * The OK button in the popup
@@ -143,13 +150,17 @@ public class AddStopController implements Initializable {
     @FXML
     void onStopOk(ActionEvent event) throws Exception {
         try {
-            Stop stop = new Stop();
-            stop.setName(txtStopName.getText());
-            stop.setCode(txtStopCode.getText());
-            stop.setLat(spinStopLat.getValue());
-            stop.setLon(spinStopLon.getValue());
-            stop.setWheelchairAccessible(getAccessibilityStatus());
-            Database.add(stop);
+            // Stop stop = new Stop();
+            // stop_.setName(txtStopName.getText());
+            // stop_.setCode(txtStopCode.getText());
+            // stop_.setLat(spinStopLat.getValue());
+            // stop_.setLon(spinStopLon.getValue());
+            // stop_.setWheelchairAccessible(getAccessibilityStatus());
+            Database.add(stop_);
+
+            this.txtStopName.textProperty().unbindBidirectional(this.stop_.nameProperty());
+
+            this.txtStopCode.textProperty().unbindBidirectional(this.stop_.codeProperty());
 
             // Close the popup on successful entry
             Stage stage = (Stage) btnStopOk.getScene().getWindow();
@@ -172,4 +183,100 @@ public class AddStopController implements Initializable {
         spinStopLat.setValueFactory(latInputFactory);
         spinStopLon.setValueFactory(lonInputFactory);
     }
+
+    private Stop stop_;
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if (Stop.class.isInstance(obj)) {
+            this.stop_ = (Stop) obj;
+
+            this.txtStopName.textProperty().bindBidirectional(this.stop_.nameProperty());
+
+            this.txtStopCode.textProperty().bindBidirectional(this.stop_.codeProperty());
+
+            this.spinStopLat.getValueFactory().valueProperty().bindBidirectional(this.stop_.latProperty().asObject());
+
+            this.spinStopLon.getValueFactory().valueProperty().bindBidirectional(this.stop_.lonProperty().asObject());
+
+            WheelchairAccessibilityMux wam = new WheelchairAccessibilityMux();
+
+            wam.accessibleProperty().set(this.stop_.getWheelchairAccessible());
+
+            this.stop_.wheelchairAccessibleProperty().bindBidirectional(wam.accessibleProperty());
+
+            this.checkStopWheelchairAccessible.selectedProperty().bindBidirectional(wam.checkedProperty());
+
+            this.checkStopWheelchairAccessible.indeterminateProperty().bindBidirectional(wam.indeterminateProperty());
+
+
+
+        } else {
+            // FIXME: wlasny wyjatek
+            throw new Exception("błąd");
+        }
+
+    }
+
+    private class WheelchairAccessibilityMux {
+        private BooleanProperty indeterminate = new SimpleBooleanProperty();
+        private BooleanProperty checked = new SimpleBooleanProperty();
+        private ObjectProperty<WheelchairAccessibility> accessible = new SimpleObjectProperty<>();
+
+        private ChangeListener<Boolean> accessibilitySetter = (ObservableValue<? extends Boolean> observable,
+                Boolean oldValue, Boolean newValue) -> {
+            setAccessibility();
+        };
+
+        private ChangeListener<WheelchairAccessibility> checkboxSetter = (
+                ObservableValue<? extends WheelchairAccessibility> observable, WheelchairAccessibility oldValue,
+                WheelchairAccessibility newValue) -> {
+            setCheckbox();
+        };
+
+        public WheelchairAccessibilityMux() {
+            indeterminate.addListener(accessibilitySetter);
+            checked.addListener(accessibilitySetter);
+            accessible.addListener(checkboxSetter);
+        }
+
+        private void setCheckbox() {
+            switch (accessible.get()) {
+                case UNKNOWN:
+                    indeterminate.set(true);
+                    break;
+                case ACCESSIBLE:
+                    indeterminate.set(false);
+                    checked.set(true);
+                    break;
+                case INACCESSIBLE:
+                    indeterminate.set(false);
+                    checked.set(false);
+                    break;
+            }
+        }
+
+        private void setAccessibility() {
+            if (indeterminate.get()) {
+                accessible.set(WheelchairAccessibility.UNKNOWN);
+            } else if (checked.get()) {
+                accessible.set(WheelchairAccessibility.ACCESSIBLE);
+            } else {
+                accessible.set(WheelchairAccessibility.INACCESSIBLE);
+            }
+        }
+
+        public BooleanProperty indeterminateProperty() {
+            return indeterminate;
+        }
+
+        public BooleanProperty checkedProperty() {
+            return checked;
+        }
+
+        public ObjectProperty<WheelchairAccessibility> accessibleProperty() {
+            return accessible;
+        }
+    }
+
 }

@@ -76,14 +76,21 @@ public class ListStopController {
     }
 
     @FXML
-    void onAddStop(ActionEvent event) throws IOException {
-        mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
+    void onAddStop(ActionEvent event) throws Exception {
+        // mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
+        Stop stop = new Stop();
+        mainController.CreatePopUpAndSetObj("/view/addStop.fxml", btnAddStop, stop);
         refreshStops();
     }
 
     @FXML
     void onEditStop(ActionEvent event) {
-
+        try {
+            Stop stopToEdit = tblStop.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addStop.fxml", btnAddStop, stopToEdit);
+            refreshStops();
+        } catch (Exception e) {
+        }
     }
 
     @FXML

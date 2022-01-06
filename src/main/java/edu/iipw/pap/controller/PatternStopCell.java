@@ -11,9 +11,12 @@ public class PatternStopCell extends ListCell<PatternStop> {
         if (patternStop != null) {
             PatternViewController patternViewController = new PatternViewController();
             // TODO:
-            patternViewController.setIndex("1");
-            patternViewController.setHour("00");
-            patternViewController.setMinutes("00");
+            patternStop.setStop(patternViewController.getChoiceStop().getValue());
+            // tu trzeba policzyć
+            patternStop.setTravelTime(100);
+            // patternViewController.setIndex("1");
+            // patternViewController.setHour("00");
+            // patternViewController.setMinutes("00");
 
             patternViewController.setUpButton((ActionEvent event) -> {
                 System.out.println("Up ");

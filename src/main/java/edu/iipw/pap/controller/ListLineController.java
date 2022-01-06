@@ -6,6 +6,7 @@ import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -72,13 +73,22 @@ public class ListLineController {
     }
 
     @FXML
-    void onAddLine(ActionEvent event) throws IOException {
-        mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
+    void onAddLine(ActionEvent event) throws Exception {
+        // create pop up and set obj
+        // mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
+        Line line = new Line();
+        mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, line);
         refreshLines();
     }
 
     @FXML
     void onEditLine(ActionEvent event) {
+        try {
+            Line lineToEdit = tblLine.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, lineToEdit);
+            refreshLines();
+        } catch (Exception e) {
+        }
 
     }
 

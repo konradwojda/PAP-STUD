@@ -95,13 +95,21 @@ public class ListCalendarController {
     }
 
     @FXML
-    void onAddCalendar(ActionEvent event) throws IOException {
-        mainController.CreatePopUp("/view/addCalendar.fxml", btnAddCalendar);
+    void onAddCalendar(ActionEvent event) throws Exception {
+        // mainController.CreatePopUp("/view/addCalendar.fxml", btnAddCalendar);
+        Calendar calendar = new Calendar();
+        mainController.CreatePopUpAndSetObj("/view/addCalendar.fxml", btnAddCalendar, calendar);
         refreshCalendars();
     }
 
     @FXML
     void onEditCalendar(ActionEvent event) {
+        try {
+            Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
+            mainController.CreatePopUpAndSetObj("/view/addCalendar.fxml", btnAddCalendar, calendarToEdit);
+            refreshCalendars();
+        } catch (Exception e) {
+        }
 
     }
 
