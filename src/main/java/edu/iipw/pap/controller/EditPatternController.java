@@ -3,10 +3,7 @@ package edu.iipw.pap.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
-import java.util.List;
-
 import edu.iipw.pap.db.model.PatternStop;
-import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Trip;
