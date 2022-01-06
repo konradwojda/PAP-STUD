@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.List;
 
-import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
@@ -13,7 +12,6 @@ import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;

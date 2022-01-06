@@ -1,6 +1,5 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;

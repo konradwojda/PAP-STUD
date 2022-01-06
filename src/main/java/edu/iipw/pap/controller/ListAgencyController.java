@@ -1,10 +1,8 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
-import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,7 +41,7 @@ public class ListAgencyController {
     private TableColumn<Agency, String> colAgencyWebsite;
 
     @FXML
-    private VBox listAgency;
+    private VBox viewAgency;
 
     @FXML
     private GridPane pnAgency;

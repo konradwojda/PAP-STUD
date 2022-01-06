@@ -1,7 +1,5 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
-
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
