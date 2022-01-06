@@ -10,13 +10,6 @@ public class TripCellControler extends ListCell<Trip>{
         super.updateItem(trip, empty);
         if (trip != null) {
             TripCell tripCell= new TripCell();
-            // TODO:
-            // tripViewController.setHour("12");
-
-            tripCell.setRemovePatternStopButton((ActionEvent event) -> {
-                // TODO:
-                System.out.println("Remove ");
-            });
 
             setGraphic(tripCell.getHboxRoot());
         }

@@ -31,12 +31,13 @@ public class TripCell extends HBox{
     @FXML
     private TextField txtDeparture;
 
-    HBox getHboxRoot() {
-        return hboxRoot;
+    @FXML
+    void onRemove(ActionEvent event) {
+
     }
 
-    void setRemovePatternStopButton(EventHandler<ActionEvent> event) {
-        btnRemoveTrip.setOnAction(event);
+    HBox getHboxRoot() {
+        return hboxRoot;
     }
 
     public TripCell() {

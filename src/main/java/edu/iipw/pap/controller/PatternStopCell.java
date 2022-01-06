@@ -38,6 +38,21 @@ public class PatternStopCell extends HBox implements IController{
     @FXML
     private TextField txtTravelTime;
 
+    @FXML
+    void onDown(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRemove(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onUp(ActionEvent event) {
+
+    }
+
     HBox getHboxRoot() {
         return hboxRoot;
     }
@@ -45,18 +60,6 @@ public class PatternStopCell extends HBox implements IController{
     ChoiceBox<Stop> getChoiceStop()
     {
         return this.choiceStop;
-    }
-
-    void setDownButton(EventHandler<ActionEvent> event) {
-        btnDown.setOnAction(event);
-    }
-
-    void setRemovePatternStopButton(EventHandler<ActionEvent> event) {
-        btnRemovePatternStop.setOnAction(event);
-    }
-
-    void setUpButton(EventHandler<ActionEvent> event) {
-        btnUp.setOnAction(event);
     }
 
     public PatternStopCell() {
