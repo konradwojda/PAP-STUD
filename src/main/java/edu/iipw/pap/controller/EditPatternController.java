@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.iipw.pap.db.model.PatternStop;
@@ -55,6 +56,8 @@ public class EditPatternController implements Initializable, IController {
 
             this.listPatternStop.itemsProperty().bindBidirectional(this.pattern_.patternStopsProperty());
 
+            this.listTrip.getItems().setAll(new ArrayList<Trip>(this.pattern_.tripsProperty()));
+
             if(pattern_.patternStopsProperty().get() == null)
             {
                 pattern_.setPatternStops(FXCollections.observableArrayList());
@@ -76,7 +79,9 @@ public class EditPatternController implements Initializable, IController {
 
     @FXML
     void onNewTrip(ActionEvent event) {
-        listTrip.getItems().add(new Trip());
+        Trip trip = new Trip();
+        trip.setPattern(this.pattern_);
+        listTrip.getItems().add(trip);
     }
 
     @FXML
@@ -86,6 +91,7 @@ public class EditPatternController implements Initializable, IController {
             // pattern_.setPatternStops(patternStops);
             System.out.println(pattern_.directionProperty());
             System.out.println(pattern_.headsignProperty());
+            System.out.println(pattern_.patternStopsProperty());
         }
         catch (Exception e) {
             txtPatternError.setText(e.toString());

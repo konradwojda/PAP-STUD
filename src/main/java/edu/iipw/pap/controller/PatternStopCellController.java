@@ -10,6 +10,11 @@ public class PatternStopCellController extends ListCell<PatternStop> {
         super.updateItem(patternStop, empty);
         if (patternStop != null) {
             PatternStopCell patternStopCell = new PatternStopCell();
+            try {
+                patternStopCell.setObject(patternStop);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             setGraphic(patternStopCell.getHboxRoot());
         }
