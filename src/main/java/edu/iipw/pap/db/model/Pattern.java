@@ -223,6 +223,9 @@ public final class Pattern {
      * Swaps the underlying set of attached trips.
      */
     public void setTrips(Set<Trip> value) {
+        if(value == null) {
+            value = new HashSet<>();
+        }
         tripsRaw = value;
         trips.set(FXCollections.observableSet(value));
     }

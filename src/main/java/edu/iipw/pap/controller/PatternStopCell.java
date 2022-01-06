@@ -3,7 +3,9 @@ package edu.iipw.pap.controller;
 import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-public class PatternStopCell extends HBox {
+public class PatternStopCell extends HBox implements IController{
     @FXML
     private Button btnDown;
 
@@ -70,5 +72,15 @@ public class PatternStopCell extends HBox {
 
     void setIndex(String text) {
         txtIndex.setText(text);
+    }
+
+    private PatternStop patternStop_;
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if(PatternStop.class.isInstance(obj)) {
+
+        }
+
     }
 }

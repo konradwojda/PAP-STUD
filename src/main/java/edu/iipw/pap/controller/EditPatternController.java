@@ -5,10 +5,12 @@ import java.util.ResourceBundle;
 import java.util.List;
 
 import edu.iipw.pap.db.model.PatternStop;
+import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Trip;
 import edu.iipw.pap.interfaces.IController;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,7 +51,14 @@ public class EditPatternController implements Initializable, IController {
 
             this.txtLineHeadsign.textProperty().bindBidirectional(this.pattern_.headsignProperty());
 
-            // FIXME: Line DIRECTION powinien byc dropdownem z dwoma wartościami
+            this.choiceDirection.valueProperty().bindBidirectional(this.pattern_.directionProperty());
+
+            this.listPatternStop.itemsProperty().bindBidirectional(this.pattern_.patternStopsProperty());
+
+            if(pattern_.patternStopsProperty().get() == null)
+            {
+                pattern_.setPatternStops(FXCollections.observableArrayList());
+            }
 
         }
         else {
@@ -73,12 +82,10 @@ public class EditPatternController implements Initializable, IController {
     @FXML
     void onPatternOk(ActionEvent event) throws Exception{
         try {
-            // FIXME: niewłaściwe boxy
-            // pattern_.setHeadsign(txtLineCode.getText());
-            pattern_.setDirection(PatternDirection.INBOUND);
-            List<PatternStop> patternStops = listPatternStop.getItems();
-            pattern_.setPatternStops(patternStops);
-            // System.out.println(pattern_.getPatternStops());
+            // List<PatternStop> patternStops = listPatternStop.getItems();
+            // pattern_.setPatternStops(patternStops);
+            System.out.println(pattern_.directionProperty());
+            System.out.println(pattern_.headsignProperty());
         }
         catch (Exception e) {
             txtPatternError.setText(e.toString());
@@ -90,6 +97,7 @@ public class EditPatternController implements Initializable, IController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        choiceDirection.getItems().setAll(PatternDirection.values());
         listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>() {
             @Override
             public ListCell<PatternStop> call(ListView<PatternStop> param) {
