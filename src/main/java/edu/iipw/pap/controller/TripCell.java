@@ -1,24 +1,52 @@
 package edu.iipw.pap.controller;
 
-import edu.iipw.pap.db.model.Trip;
+import java.io.IOException;
+
+import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.Calendar;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ListCell;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
-public class TripCell extends ListCell<Trip>{
-    @Override
-    public void updateItem(Trip trip, boolean empty) {
-        super.updateItem(trip, empty);
-        if (trip != null) {
-            TripViewController tripViewController= new TripViewController();
-            // TODO:
-            // tripViewController.setHour("12");
+public class TripCell extends HBox{
 
-            tripViewController.setRemovePatternStopButton((ActionEvent event) -> {
-                // TODO:
-                System.out.println("Remove ");
-            });
+    @FXML
+    private Button btnRemoveTrip;
 
-            setGraphic(tripViewController.getHboxRoot());
+    @FXML
+    private CheckBox checkWheelchairAccessibility;
+
+    @FXML
+    private ChoiceBox<Calendar> choiceCalendar;
+
+    @FXML
+    private HBox hboxRoot;
+
+    @FXML
+    private TextField txtDeparture;
+
+    HBox getHboxRoot() {
+        return hboxRoot;
+    }
+
+    void setRemovePatternStopButton(EventHandler<ActionEvent> event) {
+        btnRemoveTrip.setOnAction(event);
+    }
+
+    public TripCell() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/elemTrip.fxml"));
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 }

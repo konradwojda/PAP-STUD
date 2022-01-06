@@ -95,14 +95,14 @@ public class EditPatternController implements Initializable, IController {
         listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>() {
             @Override
             public ListCell<PatternStop> call(ListView<PatternStop> param) {
-                return new PatternStopCell();
+                return new PatternStopCellController();
             }
         });
 
         listTrip.setCellFactory(new Callback<ListView<Trip>, ListCell<Trip>>() {
             @Override
             public ListCell<Trip> call(ListView<Trip> param) {
-                return new TripCell();
+                return new TripCellControler();
             }
         });
     }
