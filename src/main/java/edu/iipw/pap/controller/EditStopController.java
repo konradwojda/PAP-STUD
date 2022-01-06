@@ -7,14 +7,7 @@ import java.util.ResourceBundle;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
-import edu.iipw.pap.db.model.WheelchairAccessibility;
 import edu.iipw.pap.interfaces.IController;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -129,17 +122,6 @@ public class EditStopController implements Initializable, IController {
             0,
             0.0001);
 
-    /**
-     * Converts the current value of the tri-state wheelchair accessibility
-     * into the WheelchairAccessibility instance.
-     *
-     * @return WheelchairAccessibility corresponding to the current checkbox status
-     */
-    private WheelchairAccessibility getAccessibilityStatus() {
-        return checkStopWheelchairAccessible.isIndeterminate() ? WheelchairAccessibility.UNKNOWN
-                : checkStopWheelchairAccessible.isSelected() ? WheelchairAccessibility.ACCESSIBLE
-                        : WheelchairAccessibility.INACCESSIBLE;
-    }
 
     /**
      * Event handler for the OK button
@@ -216,67 +198,6 @@ public class EditStopController implements Initializable, IController {
             throw new Exception("błąd");
         }
 
-    }
-
-    private class WheelchairAccessibilityMux {
-        private BooleanProperty indeterminate = new SimpleBooleanProperty();
-        private BooleanProperty checked = new SimpleBooleanProperty();
-        private ObjectProperty<WheelchairAccessibility> accessible = new SimpleObjectProperty<>();
-
-        private ChangeListener<Boolean> accessibilitySetter = (ObservableValue<? extends Boolean> observable,
-                Boolean oldValue, Boolean newValue) -> {
-            setAccessibility();
-        };
-
-        private ChangeListener<WheelchairAccessibility> checkboxSetter = (
-                ObservableValue<? extends WheelchairAccessibility> observable, WheelchairAccessibility oldValue,
-                WheelchairAccessibility newValue) -> {
-            setCheckbox();
-        };
-
-        public WheelchairAccessibilityMux() {
-            indeterminate.addListener(accessibilitySetter);
-            checked.addListener(accessibilitySetter);
-            accessible.addListener(checkboxSetter);
-        }
-
-        private void setCheckbox() {
-            switch (accessible.get()) {
-                case UNKNOWN:
-                    indeterminate.set(true);
-                    break;
-                case ACCESSIBLE:
-                    indeterminate.set(false);
-                    checked.set(true);
-                    break;
-                case INACCESSIBLE:
-                    indeterminate.set(false);
-                    checked.set(false);
-                    break;
-            }
-        }
-
-        private void setAccessibility() {
-            if (indeterminate.get()) {
-                accessible.set(WheelchairAccessibility.UNKNOWN);
-            } else if (checked.get()) {
-                accessible.set(WheelchairAccessibility.ACCESSIBLE);
-            } else {
-                accessible.set(WheelchairAccessibility.INACCESSIBLE);
-            }
-        }
-
-        public BooleanProperty indeterminateProperty() {
-            return indeterminate;
-        }
-
-        public BooleanProperty checkedProperty() {
-            return checked;
-        }
-
-        public ObjectProperty<WheelchairAccessibility> accessibleProperty() {
-            return accessible;
-        }
     }
 
 }

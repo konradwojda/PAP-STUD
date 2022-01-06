@@ -76,7 +76,6 @@
             <TableColumn fx:id="colPatternId" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="colPatternHeadsign" prefWidth="75.0" text="HEADSIGN" />
             <TableColumn fx:id="colPatternDirection" prefWidth="75.0" text="DIRECTION" />
-            <TableColumn fx:id="colLineType" prefWidth="75.0" text="LINE" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

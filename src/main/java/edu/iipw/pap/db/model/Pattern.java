@@ -223,6 +223,9 @@ public final class Pattern {
      * Swaps the underlying set of attached trips.
      */
     public void setTrips(Set<Trip> value) {
+        if(value == null) {
+            value = new HashSet<>();
+        }
         tripsRaw = value;
         trips.set(FXCollections.observableSet(value));
     }
@@ -284,6 +287,13 @@ public final class Pattern {
         // Validate the trips
         for (Trip t : tripsProperty()) {
             t.validateUserInput();
+        }
+    }
+
+    public void refreshIndicies() {
+        int i = 0;
+        for (var patternStop : this.patternStopsProperty()) {
+            patternStop.setIndex(i++);
         }
     }
 }

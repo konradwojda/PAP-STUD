@@ -2,19 +2,25 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import java.util.Collections;
+
 import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
-public class PatternStopCell extends HBox {
+public class PatternStopCell extends HBox implements IController {
     @FXML
     private Button btnDown;
 
@@ -36,6 +42,39 @@ public class PatternStopCell extends HBox {
     @FXML
     private TextField txtTravelTime;
 
+    private PatternStop patternStop_;
+
+    private ListView<PatternStop> listPatternStop_;
+
+    @FXML
+    void onDown(ActionEvent event) {
+        int idx = this.patternStop_.getIndex();
+        var pattern = this.patternStop_.getPattern();
+        if (pattern.patternStopsProperty().size() - 1 != idx) {
+            Collections.swap(pattern.patternStopsProperty(), idx, idx + 1);
+        }
+        pattern.refreshIndicies();
+        this.listPatternStop_.refresh();
+    }
+
+    @FXML
+    void onRemove(ActionEvent event) {
+        patternStop_.getPattern().patternStopsProperty().remove(this.patternStop_);
+        patternStop_.getPattern().refreshIndicies();
+        this.patternStop_.setPattern(null);
+        this.listPatternStop_.refresh();
+    }
+
+    @FXML
+    void onUp(ActionEvent event) {
+        int idx = this.patternStop_.getIndex();
+        if(idx > 0) {
+            Collections.swap(this.patternStop_.getPattern().patternStopsProperty(), idx, idx - 1);
+        }
+        this.patternStop_.getPattern().refreshIndicies();
+        this.listPatternStop_.refresh();
+    }
+
     HBox getHboxRoot() {
         return hboxRoot;
     }
@@ -43,18 +82,6 @@ public class PatternStopCell extends HBox {
     ChoiceBox<Stop> getChoiceStop()
     {
         return this.choiceStop;
-    }
-
-    void setDownButton(EventHandler<ActionEvent> event) {
-        btnDown.setOnAction(event);
-    }
-
-    void setRemovePatternStopButton(EventHandler<ActionEvent> event) {
-        btnRemovePatternStop.setOnAction(event);
-    }
-
-    void setUpButton(EventHandler<ActionEvent> event) {
-        btnUp.setOnAction(event);
     }
 
     public PatternStopCell() {
@@ -70,5 +97,77 @@ public class PatternStopCell extends HBox {
 
     void setIndex(String text) {
         txtIndex.setText(text);
+    }
+
+    private class MMSSToInt extends StringConverter<Integer> {
+
+        @Override
+        public String toString(Integer object) {
+
+            if (object == null)
+                return null;
+
+            int minutes = object.intValue() / 60;
+
+            int seconds = object.intValue() % 60;
+
+            return String.format("%02d:%02d", minutes, seconds);
+        }
+
+        @Override
+        public Integer fromString(String string) {
+            if (string == null)
+                return null;
+            String[] splitted = string.split(":", 2);
+
+            int minutes = 0;
+
+            int seconds = 0;
+            if(splitted.length == 2) {
+                minutes = Integer.parseInt(splitted[0]);
+                seconds = Integer.parseInt(splitted[1]);
+            }
+            else
+            {
+                seconds = Integer.parseInt(splitted[0]);
+            }
+
+            return minutes * 60 + seconds;
+        }
+
+    }
+
+    @Override
+    public <T> void setObject(T obj) throws Exception {
+        if(PatternStop.class.isInstance(obj)) {
+            this.patternStop_ = (PatternStop) obj;
+
+            //FIXME: nie dziala dla 0
+
+            StrIntMux sim = new StrIntMux();
+
+            sim.iProperty().set(this.patternStop_.getIndex());
+
+            this.patternStop_.indexProperty().bindBidirectional(sim.iProperty());
+
+            this.txtIndex.textProperty().bindBidirectional(sim.sProperty());
+
+            this.choiceStop.valueProperty().bindBidirectional(this.patternStop_.stopProperty());
+
+            TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(new MMSSToInt());
+
+            this.txtTravelTime.textFormatterProperty().set(travelTimeTextFormatter);
+
+            travelTimeTextFormatter.valueProperty().bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
+        }
+
+        else if(ListView.class.isInstance(obj)) {
+            this.listPatternStop_ = (ListView<PatternStop>) obj;
+        }
+        else {
+            // FIXME: wlasny wyjatek
+            throw new Exception("blad");
+        }
+
     }
 }

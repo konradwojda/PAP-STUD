@@ -103,7 +103,6 @@ public class EditLineController implements Initializable, IController {
         refreshPatterns();
     }
 
-    // TODO: wyświetlanie listy patternów
     private void refreshPatterns() {
         if (!(this.line_.patternsProperty() == null))
             tblPattern.getItems().setAll(this.line_.patternsProperty());
@@ -117,21 +116,36 @@ public class EditLineController implements Initializable, IController {
     }
 
     @FXML
-    void onEditPattern(ActionEvent event) {
-
+    void onEditPattern(ActionEvent event) throws Exception {
+        try {
+            Pattern patternToEdit = tblPattern.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editPattern.fxml"));
+            VBox page = (VBox) loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(page));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnAddPattern.getScene().getWindow());
+            IController controller = loader.getController();
+            controller.setObject(patternToEdit);
+            stage.showAndWait();
+            refreshPatterns();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
-            // Line line = new Line();
-            // line.setCode(txtLineCode.getText());
-            // line.setDescription(txtLineDescription.getText());
-            // line.setType(choiceLineType.getValue());
-            // line.setAgency(choiceLineAgency.getValue());
             Database.INSTANCE.save(line_);
+            for (var pattern : line_.patternsProperty())
+            {
+                Database.INSTANCE.save(pattern);
+            }
         } catch (Exception e) {
             txtStopError.setText(e.toString());
+            throw e;
         }
         Stage stage = (Stage) btnLineOk.getScene().getWindow();
         stage.close();
@@ -145,7 +159,7 @@ public class EditLineController implements Initializable, IController {
 
     @FXML
     void onRemovePattern(ActionEvent event) {
-        // FIXME: nie działa
+        // FIXME: nadal nie działa
         Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
         line_.patternsProperty().remove(patternToRemove);
         Database.INSTANCE.delete(patternToRemove);
