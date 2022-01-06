@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.AddLineController">
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.EditLineController">
    <children>
       <VBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-background-color: #2b6777;" VBox.vgrow="ALWAYS">
          <children>
@@ -71,7 +71,7 @@
             <Button mnemonicParsing="false" onAction="#onRemovePattern" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #b5d2d6;" text="Remove Pattern" textFill="#111e1e" />
          </children>
       </HBox>
-      <TableView prefWidth="900.0" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tblPattern" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colPatternId" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="colPatternHeadsign" prefWidth="75.0" text="HEADSIGN" />

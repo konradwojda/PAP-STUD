@@ -1,12 +1,10 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
-import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -77,7 +75,7 @@ public class ListLineController {
         // create pop up and set obj
         // mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
         Line line = new Line();
-        mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, line);
+        mainController.CreatePopUpAndSetObj("/view/editLine.fxml", btnAddLine, line);
         refreshLines();
     }
 
@@ -85,7 +83,7 @@ public class ListLineController {
     void onEditLine(ActionEvent event) {
         try {
             Line lineToEdit = tblLine.getSelectionModel().getSelectedItem();
-            mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, lineToEdit);
+            mainController.CreatePopUpAndSetObj("/view/editLine.fxml", btnAddLine, lineToEdit);
             refreshLines();
         } catch (Exception e) {
         }

@@ -1,10 +1,8 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import java.util.Set;
 import java.util.HashSet;
 
 import edu.iipw.pap.db.Database;
@@ -19,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -31,7 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class AddLineController implements Initializable, IController {
+public class EditLineController implements Initializable, IController {
     @FXML
     private Button btnAddPattern;
 
@@ -85,9 +82,7 @@ public class AddLineController implements Initializable, IController {
 
     @FXML
     void onAddPattern(ActionEvent event) throws Exception {
-        // FIXME: no tego tu nie powinno być, trzeba dać jakaś referencje do referencji
-        // na referencji
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addPattern.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editPattern.fxml"));
         VBox page = (VBox) loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(page));

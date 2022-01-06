@@ -1,39 +1,74 @@
 package edu.iipw.pap.controller;
 
-import edu.iipw.pap.db.model.PatternStop;
+import java.io.IOException;
+
+import edu.iipw.pap.db.Database;
+import edu.iipw.pap.db.model.Stop;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ListCell;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
-public class PatternStopCell extends ListCell<PatternStop> {
-    @Override
-    public void updateItem(PatternStop patternStop, boolean empty) {
-        super.updateItem(patternStop, empty);
-        if (patternStop != null) {
-            PatternViewController patternViewController = new PatternViewController();
-            // TODO:
-            patternStop.setStop(patternViewController.getChoiceStop().getValue());
-            // tu trzeba policzyć
-            patternStop.setTravelTime(100);
-            // patternViewController.setIndex("1");
-            // patternViewController.setHour("00");
-            // patternViewController.setMinutes("00");
+public class PatternStopCell extends HBox {
+    @FXML
+    private Button btnDown;
 
-            patternViewController.setUpButton((ActionEvent event) -> {
-                System.out.println("Up ");
-                // TODO:
-            });
+    @FXML
+    private Button btnRemovePatternStop;
 
-            patternViewController.setDownButton((ActionEvent event) -> {
-                // TODO:
-                System.out.println("Down ");
-            });
+    @FXML
+    private Button btnUp;
 
-            patternViewController.setRemovePatternStopButton((ActionEvent event) -> {
-                // TODO:
-                System.out.println("Remove ");
-            });
+    @FXML
+    private ChoiceBox<Stop> choiceStop;
 
-            setGraphic(patternViewController.getHboxRoot());
+    @FXML
+    private HBox hboxRoot;
+
+    @FXML
+    private Text txtIndex;
+
+    @FXML
+    private TextField txtTravelTime;
+
+    HBox getHboxRoot() {
+        return hboxRoot;
+    }
+
+    ChoiceBox<Stop> getChoiceStop()
+    {
+        return this.choiceStop;
+    }
+
+    void setDownButton(EventHandler<ActionEvent> event) {
+        btnDown.setOnAction(event);
+    }
+
+    void setRemovePatternStopButton(EventHandler<ActionEvent> event) {
+        btnRemovePatternStop.setOnAction(event);
+    }
+
+    void setUpButton(EventHandler<ActionEvent> event) {
+        btnUp.setOnAction(event);
+    }
+
+    public PatternStopCell() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/elemPatternStop.fxml"));
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        choiceStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
+    }
+
+    void setIndex(String text) {
+        txtIndex.setText(text);
     }
 }

@@ -1,10 +1,8 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
-import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,7 +41,7 @@ public class ListAgencyController {
     private TableColumn<Agency, String> colAgencyWebsite;
 
     @FXML
-    private VBox listAgency;
+    private VBox viewAgency;
 
     @FXML
     private GridPane pnAgency;
@@ -74,7 +72,7 @@ public class ListAgencyController {
     void onAddAgency(ActionEvent event) throws Exception {
         // mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
         Agency agency = new Agency();
-        mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agency);
+        mainController.CreatePopUpAndSetObj("/view/editAgency.fxml", btnAddAgency, agency);
         refreshAgencies();
     }
 
@@ -82,7 +80,7 @@ public class ListAgencyController {
     void onEditAgency(ActionEvent event) throws Exception {
         try {
             Agency agencyToEdit = tblAgency.getSelectionModel().getSelectedItem();
-            mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agencyToEdit);
+            mainController.CreatePopUpAndSetObj("/view/editAgency.fxml", btnAddAgency, agencyToEdit);
             refreshAgencies();
         } catch (Exception e) {
         }

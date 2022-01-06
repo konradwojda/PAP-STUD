@@ -30,7 +30,7 @@ import javafx.util.StringConverter;
 /**
  * Controller for the "create stop" popup
  */
-public class AddStopController implements Initializable, IController {
+public class EditStopController implements Initializable, IController {
 
     /**
      * The OK button in the popup

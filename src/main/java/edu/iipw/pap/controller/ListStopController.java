@@ -1,6 +1,5 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
@@ -79,7 +78,7 @@ public class ListStopController {
     void onAddStop(ActionEvent event) throws Exception {
         // mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
         Stop stop = new Stop();
-        mainController.CreatePopUpAndSetObj("/view/addStop.fxml", btnAddStop, stop);
+        mainController.CreatePopUpAndSetObj("/view/editStop.fxml", btnAddStop, stop);
         refreshStops();
     }
 
@@ -87,7 +86,7 @@ public class ListStopController {
     void onEditStop(ActionEvent event) {
         try {
             Stop stopToEdit = tblStop.getSelectionModel().getSelectedItem();
-            mainController.CreatePopUpAndSetObj("/view/addStop.fxml", btnAddStop, stopToEdit);
+            mainController.CreatePopUpAndSetObj("/view/editStop.fxml", btnAddStop, stopToEdit);
             refreshStops();
         } catch (Exception e) {
         }

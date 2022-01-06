@@ -45,10 +45,10 @@
       </VBox>
       <StackPane HBox.hgrow="ALWAYS">
          <children>
-            <fx:include fx:id="listLine" source="listLine.fxml" />
-            <fx:include fx:id="listAgency" source="listAgency.fxml" />
-            <fx:include fx:id="listCalendar" source="listCalendar.fxml" />
-            <fx:include fx:id="listStop" source="listStop.fxml" />
+            <fx:include fx:id="listLine" source="viewLine.fxml" />
+            <fx:include fx:id="listAgency" source="viewAgency.fxml" />
+            <fx:include fx:id="listCalendar" source="viewCalendar.fxml" />
+            <fx:include fx:id="listStop" source="viewStop.fxml" />
          </children>
       </StackPane>
    </children>

@@ -31,18 +31,12 @@
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <TextField fx:id="txtHour" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" />
-                        <TextField fx:id="txtMinutes" />
-                     </children>
-                  </HBox>
+                  <TextField fx:id="txtTravelTime" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ChoiceBox fx:id="choiceStop" prefWidth="10000.0" VBox.vgrow="ALWAYS" />
+                  <ChoiceBox fx:id="choiceStop" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
