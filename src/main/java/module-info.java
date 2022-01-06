@@ -5,6 +5,7 @@ module edu.iipw.pap {
     requires java.persistence;
     requires javafx.fxml;
     requires java.sql;
+    requires transitive java.logging;
     requires lombok;
 
     exports edu.iipw.pap;
