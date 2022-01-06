@@ -53,14 +53,14 @@ public class PatternStopCell extends HBox implements IController {
         if (pattern.patternStopsProperty().size() - 1 != idx) {
             Collections.swap(pattern.patternStopsProperty(), idx, idx + 1);
         }
-        pattern.refreshIndicies();
+        pattern.refreshIndices();
         this.listPatternStop_.refresh();
     }
 
     @FXML
     void onRemove(ActionEvent event) {
         patternStop_.getPattern().patternStopsProperty().remove(this.patternStop_);
-        patternStop_.getPattern().refreshIndicies();
+        patternStop_.getPattern().refreshIndices();
         this.patternStop_.setPattern(null);
         this.listPatternStop_.refresh();
     }
@@ -71,7 +71,7 @@ public class PatternStopCell extends HBox implements IController {
         if(idx > 0) {
             Collections.swap(this.patternStop_.getPattern().patternStopsProperty(), idx, idx - 1);
         }
-        this.patternStop_.getPattern().refreshIndicies();
+        this.patternStop_.getPattern().refreshIndices();
         this.listPatternStop_.refresh();
     }
 

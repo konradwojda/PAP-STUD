@@ -1,5 +1,7 @@
 package edu.iipw.pap.db.model;
 
+import java.util.stream.Stream;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -206,4 +208,15 @@ public final class Trip {
         if (getWheelchairAccessible() == null)
             throw new InvalidData("WheelchairAccessibility cannot be null");
     }
+
+    /**
+     * Generate all StopTimes from combining this trip and the corresponding pattern stop
+     */
+    public Stream<StopTime> getStopTimes() {
+        return getPattern()
+            .patternStopsProperty()
+            .stream()
+            .map(ps -> StopTime.tripAtPatternStop(this, ps));
+    }
+
 }

@@ -1,6 +1,7 @@
 package edu.iipw.pap.db.model;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -280,5 +281,14 @@ public final class Stop {
         // Validate wheelchair accessibility
         if (getWheelchairAccessible() == null)
             throw new InvalidData("WheelchairAccessibility cannot be null");
+    }
+
+    /**
+     * Returns all StopTimes stopping at this stop.
+     */
+    public Stream<StopTime> getStopTimes() {
+        return patternStopsProperty()
+            .stream()
+            .flatMap(ps -> ps.getStopTimes());
     }
 }

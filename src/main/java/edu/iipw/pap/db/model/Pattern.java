@@ -3,6 +3,7 @@ package edu.iipw.pap.db.model;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -290,10 +291,23 @@ public final class Pattern {
         }
     }
 
-    public void refreshIndicies() {
+    /**
+     * Resets all of the indices of the attached patterStops.
+     * Should be called after updating the patternStops list
+     * (unless the move doesn't invalidate the indices).
+     */
+    public void refreshIndices() {
         int i = 0;
-        for (var patternStop : this.patternStopsProperty()) {
+        for (var patternStop : this.patternStopsProperty())
             patternStop.setIndex(i++);
-        }
+    }
+
+    /**
+     * Generate all StopTime from all trips of this pattern.
+     */
+    public Stream<StopTime> getStopTimes() {
+        return tripsProperty()
+            .stream()
+            .flatMap(t -> t.getStopTimes());
     }
 }
