@@ -29,11 +29,11 @@ public class App extends Application {
                 "java.util.logging.config.file",
                 App.class.getClassLoader().getResource("logging.properties").getFile());
 
-        Database.initialize();
+        Database.INSTANCE.initialize();
         try {
             launch();
         } finally {
-            Database.close();
+            Database.INSTANCE.close();
         }
     }
 

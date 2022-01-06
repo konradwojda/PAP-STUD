@@ -70,7 +70,7 @@ public class PatternViewController extends HBox {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        choiceStop.getItems().setAll(Database.listAll(Stop.class));
+        choiceStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
     }
 
     void setIndex(String text) {

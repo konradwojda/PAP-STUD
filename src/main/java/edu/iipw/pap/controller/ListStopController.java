@@ -61,7 +61,7 @@ public class ListStopController {
     }
 
     private void refreshStops() {
-        tblStop.getItems().setAll(Database.listAll(Stop.class));
+        tblStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
     }
 
     public void InitializeStopTable() {
@@ -97,7 +97,7 @@ public class ListStopController {
     void onRemoveStop(ActionEvent event) {
         Stop stopToRemove = tblStop.getSelectionModel().getSelectedItem();
         tblStop.getItems().remove(stopToRemove);
-        Database.delete(stopToRemove);
+        Database.INSTANCE.delete(stopToRemove);
         refreshStops();
     }
 

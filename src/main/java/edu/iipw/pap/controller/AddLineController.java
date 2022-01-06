@@ -134,7 +134,7 @@ public class AddLineController implements Initializable, IController {
             // line.setDescription(txtLineDescription.getText());
             // line.setType(choiceLineType.getValue());
             // line.setAgency(choiceLineAgency.getValue());
-            Database.add(line_);
+            Database.INSTANCE.save(line_);
         } catch (Exception e) {
             txtStopError.setText(e.toString());
         }
@@ -145,7 +145,7 @@ public class AddLineController implements Initializable, IController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceLineType.getItems().setAll(LineType.values());
-        choiceLineAgency.getItems().setAll(Database.listAll(Agency.class));
+        choiceLineAgency.getItems().setAll(Database.INSTANCE.listAll(Agency.class));
     }
 
     @FXML
@@ -153,8 +153,8 @@ public class AddLineController implements Initializable, IController {
         // FIXME: nie działa
         Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
         line_.patternsProperty().remove(patternToRemove);
-        Database.delete(patternToRemove);
-        Database.add(line_);
+        Database.INSTANCE.delete(patternToRemove);
+        Database.INSTANCE.save(line_);
         refreshPatterns();
     }
 

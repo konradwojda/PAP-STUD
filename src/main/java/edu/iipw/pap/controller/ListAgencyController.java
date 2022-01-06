@@ -58,7 +58,7 @@ public class ListAgencyController {
     }
 
     private void refreshAgencies() {
-        tblAgency.getItems().setAll(Database.listAll(Agency.class));
+        tblAgency.getItems().setAll(Database.INSTANCE.listAll(Agency.class));
     }
 
     public void InitializeAgencyTable() {
@@ -92,7 +92,7 @@ public class ListAgencyController {
     void onRemoveAgency(ActionEvent event) {
         Agency agencyToRemove = tblAgency.getSelectionModel().getSelectedItem();
         tblAgency.getItems().remove(agencyToRemove);
-        Database.delete(agencyToRemove);
+        Database.INSTANCE.delete(agencyToRemove);
         refreshAgencies();
     }
 
