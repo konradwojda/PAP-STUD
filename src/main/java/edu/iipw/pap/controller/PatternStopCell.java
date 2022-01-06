@@ -2,6 +2,8 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import java.util.Collections;
+
 import org.hibernate.sql.Delete;
 
 import edu.iipw.pap.db.Database;
@@ -14,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
@@ -44,20 +47,35 @@ public class PatternStopCell extends HBox implements IController {
 
     private PatternStop patternStop_;
 
+    private ListView<PatternStop> listPatternStop_;
+
     @FXML
     void onDown(ActionEvent event) {
-        System.out.println("Dupa downs ");
+        int idx = this.patternStop_.getIndex();
+        var pattern = this.patternStop_.getPattern();
+        if (pattern.patternStopsProperty().size() - 1 != idx) {
+            Collections.swap(pattern.patternStopsProperty(), idx, idx + 1);
+        }
+        pattern.refreshIndicies();
+        this.listPatternStop_.refresh();
     }
 
     @FXML
     void onRemove(ActionEvent event) {
-        System.out.println("Dupa remove ");
-        // patternStop_.getPattern().patternStopsProperty().remove(this.patternStop_);
+        patternStop_.getPattern().patternStopsProperty().remove(this.patternStop_);
+        patternStop_.getPattern().refreshIndicies();
+        this.patternStop_.setPattern(null);
+        this.listPatternStop_.refresh();
     }
 
     @FXML
     void onUp(ActionEvent event) {
-        System.out.println("Dupa up ");
+        int idx = this.patternStop_.getIndex();
+        if(idx > 0) {
+            Collections.swap(this.patternStop_.getPattern().patternStopsProperty(), idx, idx - 1);
+        }
+        this.patternStop_.getPattern().refreshIndicies();
+        this.listPatternStop_.refresh();
     }
 
     HBox getHboxRoot() {
@@ -144,6 +162,10 @@ public class PatternStopCell extends HBox implements IController {
             this.txtTravelTime.textFormatterProperty().set(travelTimeTextFormatter);
 
             travelTimeTextFormatter.valueProperty().bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
+        }
+
+        else if(ListView.class.isInstance(obj)) {
+            this.listPatternStop_ = (ListView<PatternStop>) obj;
         }
         else {
             // FIXME: wlasny wyjatek

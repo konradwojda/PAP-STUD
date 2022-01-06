@@ -17,12 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class EditPatternController implements Initializable, IController {
     @FXML
@@ -75,6 +73,7 @@ public class EditPatternController implements Initializable, IController {
         PatternStop patternStop = new PatternStop();
         patternStop.setPattern(this.pattern_);
         listPatternStop.getItems().add(patternStop);
+        this.pattern_.refreshIndicies();
     }
 
     @FXML
@@ -104,18 +103,8 @@ public class EditPatternController implements Initializable, IController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceDirection.getItems().setAll(PatternDirection.values());
-        listPatternStop.setCellFactory(new Callback<ListView<PatternStop>, ListCell<PatternStop>>() {
-            @Override
-            public ListCell<PatternStop> call(ListView<PatternStop> param) {
-                return new PatternStopCellController();
-            }
-        });
+        listPatternStop.setCellFactory(param -> new PatternStopCellController());
 
-        listTrip.setCellFactory(new Callback<ListView<Trip>, ListCell<Trip>>() {
-            @Override
-            public ListCell<Trip> call(ListView<Trip> param) {
-                return new TripCellControler();
-            }
-        });
+        listTrip.setCellFactory(param -> new TripCellControler());
     }
 }

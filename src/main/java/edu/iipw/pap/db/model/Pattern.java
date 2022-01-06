@@ -289,4 +289,11 @@ public final class Pattern {
             t.validateUserInput();
         }
     }
+
+    public void refreshIndicies() {
+        int i = 0;
+        for (var patternStop : this.patternStopsProperty()) {
+            patternStop.setIndex(i++);
+        }
+    }
 }
