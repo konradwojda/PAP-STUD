@@ -54,6 +54,12 @@ public class AddPatternController implements Initializable, IController {
     public <T> void setObject(T obj) throws Exception {
         if(Pattern.class.isInstance(obj)) {
             this.pattern_ = (Pattern) obj;
+
+            // FIXME: HEADSIGN a nie line code
+            this.txtLineCode.textProperty().bindBidirectional(this.pattern_.headsignProperty());
+
+            // FIXME: Line DIRECTION powinien byc dropdownem z dwoma wartościami
+
         }
         else {
             // FIXME: wlasny wyjatek
@@ -77,11 +83,11 @@ public class AddPatternController implements Initializable, IController {
     void onPatternOk(ActionEvent event) throws Exception{
         try {
             // FIXME: niewłaściwe boxy
-            pattern_.setHeadsign(txtLineCode.getText());
+            // pattern_.setHeadsign(txtLineCode.getText());
             pattern_.setDirection(PatternDirection.INBOUND);
             List<PatternStop> patternStops = listPatternStop.getItems();
             pattern_.setPatternStops(patternStops);
-            System.out.println(pattern_.getPatternStops());
+            // System.out.println(pattern_.getPatternStops());
         }
         catch (Exception e) {
             txtStopError.setText(e.toString());

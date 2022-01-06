@@ -32,12 +32,12 @@ public class AddAgencyController implements IController {
     @FXML
     void onAgencyOk(ActionEvent event) throws Exception {
         try {
-            Agency agency = new Agency();
-            agency.setName(txtAgencyName.getText());
-            agency.setWebsite(txtAgencyWebsite.getText());
-            agency.setTimezone(txtAgencyTimezone.getText());
-            agency.setTelephone(txtAgencyTelephone.getText());
-            Database.add(agency);
+            // Agency agency = new Agency();
+            // agency.setName(txtAgencyName.getText());
+            // agency.setWebsite(txtAgencyWebsite.getText());
+            // agency.setTimezone(txtAgencyTimezone.getText());
+            // agency.setTelephone(txtAgencyTelephone.getText());
+            Database.add(agency_);
         } catch (Exception e) {
             txtStopError.setText(e.toString());
         }
@@ -52,10 +52,13 @@ public class AddAgencyController implements IController {
     public <T> void setObject(T obj) throws Exception {
         if (Agency.class.isInstance(obj)) {
             this.agency_ = (Agency) obj;
-            this.txtAgencyName.setText(this.agency_.getName());
-            this.txtAgencyTelephone.setText(this.agency_.getTelephone());
-            this.txtAgencyTimezone.setText(this.agency_.getTimezone());
-            this.txtAgencyWebsite.setText(this.agency_.getWebsite());
+            this.txtAgencyName.textProperty().bindBidirectional(this.agency_.nameProperty());
+
+            this.txtAgencyTelephone.textProperty().bindBidirectional(this.agency_.telephoneProperty());
+
+            this.txtAgencyTimezone.textProperty().bindBidirectional(this.agency_.timezoneProperty());
+
+            this.txtAgencyWebsite.textProperty().bindBidirectional(this.agency_.websiteProperty());
         } else {
             // FIXME: wlasny wyjatek
             throw new Exception("bład");

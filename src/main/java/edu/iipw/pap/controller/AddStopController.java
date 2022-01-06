@@ -9,6 +9,12 @@ import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 import edu.iipw.pap.interfaces.IController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -189,19 +195,88 @@ public class AddStopController implements Initializable, IController {
 
             this.txtStopCode.textProperty().bindBidirectional(this.stop_.codeProperty());
 
-            this.spinStopLat.getValueFactory().setValue(this.stop_.getLat());
-            this.spinStopLon.getValueFactory().setValue(this.stop_.getLon());
-            if (this.stop_.getWheelchairAccessible().equals(WheelchairAccessibility.UNKNOWN)) {
-                this.checkStopWheelchairAccessible.setIndeterminate(true);
-            } else if (this.stop_.getWheelchairAccessible().equals(WheelchairAccessibility.ACCESSIBLE)) {
-                this.checkStopWheelchairAccessible.setSelected(true);
-            } else {
-                this.checkStopWheelchairAccessible.setSelected(false);
-            }
+            this.spinStopLat.getValueFactory().valueProperty().bindBidirectional(this.stop_.latProperty().asObject());
+
+            this.spinStopLon.getValueFactory().valueProperty().bindBidirectional(this.stop_.lonProperty().asObject());
+
+            WheelchairAccessibilityMux wam = new WheelchairAccessibilityMux();
+
+            wam.accessibleProperty().set(this.stop_.getWheelchairAccessible());
+
+            this.stop_.wheelchairAccessibleProperty().bindBidirectional(wam.accessibleProperty());
+
+            this.checkStopWheelchairAccessible.selectedProperty().bindBidirectional(wam.checkedProperty());
+
+            this.checkStopWheelchairAccessible.indeterminateProperty().bindBidirectional(wam.indeterminateProperty());
+
+
+
         } else {
             // FIXME: wlasny wyjatek
             throw new Exception("błąd");
         }
 
     }
+
+    private class WheelchairAccessibilityMux {
+        private BooleanProperty indeterminate = new SimpleBooleanProperty();
+        private BooleanProperty checked = new SimpleBooleanProperty();
+        private ObjectProperty<WheelchairAccessibility> accessible = new SimpleObjectProperty<>();
+
+        private ChangeListener<Boolean> accessibilitySetter = (ObservableValue<? extends Boolean> observable,
+                Boolean oldValue, Boolean newValue) -> {
+            setAccessibility();
+        };
+
+        private ChangeListener<WheelchairAccessibility> checkboxSetter = (
+                ObservableValue<? extends WheelchairAccessibility> observable, WheelchairAccessibility oldValue,
+                WheelchairAccessibility newValue) -> {
+            setCheckbox();
+        };
+
+        public WheelchairAccessibilityMux() {
+            indeterminate.addListener(accessibilitySetter);
+            checked.addListener(accessibilitySetter);
+            accessible.addListener(checkboxSetter);
+        }
+
+        private void setCheckbox() {
+            switch (accessible.get()) {
+                case UNKNOWN:
+                    indeterminate.set(true);
+                    break;
+                case ACCESSIBLE:
+                    indeterminate.set(false);
+                    checked.set(true);
+                    break;
+                case INACCESSIBLE:
+                    indeterminate.set(false);
+                    checked.set(false);
+                    break;
+            }
+        }
+
+        private void setAccessibility() {
+            if (indeterminate.get()) {
+                accessible.set(WheelchairAccessibility.UNKNOWN);
+            } else if (checked.get()) {
+                accessible.set(WheelchairAccessibility.ACCESSIBLE);
+            } else {
+                accessible.set(WheelchairAccessibility.INACCESSIBLE);
+            }
+        }
+
+        public BooleanProperty indeterminateProperty() {
+            return indeterminate;
+        }
+
+        public BooleanProperty checkedProperty() {
+            return checked;
+        }
+
+        public ObjectProperty<WheelchairAccessibility> accessibleProperty() {
+            return accessible;
+        }
+    }
+
 }

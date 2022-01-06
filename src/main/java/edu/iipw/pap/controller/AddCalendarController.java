@@ -11,8 +11,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+// import net.bytebuddy.asm.Advice.Local;
+import javafx.util.StringConverter;
 
 public class AddCalendarController implements IController {
     @FXML
@@ -54,26 +57,26 @@ public class AddCalendarController implements IController {
     @FXML
     void onCalendarOk(ActionEvent event) throws Exception {
         try {
-            String startDateStr = txtCalendarStart.getText();
-            LocalDate startDate = startDateStr.isEmpty() ? null
-                    : LocalDate.parse(startDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+            // String startDateStr = txtCalendarStart.getText();
+            // LocalDate startDate = startDateStr.isEmpty() ? null
+            //         : LocalDate.parse(startDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
-            String endDateStr = txtCalendarEnd.getText();
-            LocalDate endDate = endDateStr.isEmpty() ? null
-                    : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+            // String endDateStr = txtCalendarEnd.getText();
+            // LocalDate endDate = endDateStr.isEmpty() ? null
+            //         : LocalDate.parse(endDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
-            Calendar calendar = new Calendar();
-            calendar.setName(txtCalendarName.getText());
-            calendar.setStart(startDate);
-            calendar.setEnd(endDate);
-            calendar.setMonday(checkMonday.isSelected());
-            calendar.setTuesday(checkTuesday.isSelected());
-            calendar.setThursday(checkWednesday.isSelected());
-            calendar.setTuesday(checkThusday.isSelected());
-            calendar.setFriday(checkFriday.isSelected());
-            calendar.setSaturday(checkSaturday.isSelected());
-            calendar.setSunday(checkSunday.isSelected());
-            Database.add(calendar);
+            // Calendar calendar = new Calendar();
+            // calendar.setName(txtCalendarName.getText());
+            // calendar.setStart(startDate);
+            // calendar.setEnd(endDate);
+            // calendar.setMonday(checkMonday.isSelected());
+            // calendar.setTuesday(checkTuesday.isSelected());
+            // calendar.setThursday(checkWednesday.isSelected());
+            // calendar.setTuesday(checkThusday.isSelected());
+            // calendar.setFriday(checkFriday.isSelected());
+            // calendar.setSaturday(checkSaturday.isSelected());
+            // calendar.setSunday(checkSunday.isSelected());
+            Database.add(calendar_);
         } catch (Exception e) {
             txtCalendarError.setText(e.toString());
         }
@@ -81,24 +84,54 @@ public class AddCalendarController implements IController {
         stage.close();
     }
 
+    private class StringToDate extends StringConverter<LocalDate> {
+
+        @Override
+        public String toString(LocalDate object) {
+            if (object == null)
+            return null;
+        return object.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        }
+
+        @Override
+        public LocalDate fromString(String string) {
+            if (string == null)
+            return null;
+        return LocalDate.parse(string, DateTimeFormatter.ISO_LOCAL_DATE);
+        }
+
+    }
+
+    final TextFormatter<LocalDate> startDateTextFormatter = new TextFormatter<>(new StringToDate());
+
+    final TextFormatter<LocalDate> endDateTextFormatter = new TextFormatter<>(new StringToDate());
+
+
     private Calendar calendar_;
 
     @Override
     public <T> void setObject(T obj) throws Exception {
         if (Calendar.class.isInstance(obj)) {
             this.calendar_ = (Calendar) obj;
-            this.txtCalendarName.setText(this.calendar_.getName());
-            if (this.calendar_.getStart() != null)
-                this.txtCalendarStart.setText(this.calendar_.getStart().toString());
-            if (this.calendar_.getEnd() != null)
-                this.txtCalendarEnd.setText(this.calendar_.getEnd().toString());
-            this.checkMonday.setSelected(this.calendar_.getMonday());
-            this.checkTuesday.setSelected(this.calendar_.getTuesday());
-            this.checkWednesday.setSelected(this.calendar_.getWednesday());
-            this.checkThusday.setSelected(this.calendar_.getThursday());
-            this.checkFriday.setSelected(this.calendar_.getFriday());
-            this.checkSaturday.setSelected(this.calendar_.getSaturday());
-            this.checkSunday.setSelected(this.calendar_.getSunday());
+            this.txtCalendarName.textProperty().bindBidirectional(this.calendar_.nameProperty());
+
+            // nie propaguje się na okno niżej
+
+            this.txtCalendarStart.textFormatterProperty().set(startDateTextFormatter);
+
+            startDateTextFormatter.valueProperty().bindBidirectional(this.calendar_.startProperty());
+
+            this.txtCalendarEnd.textFormatterProperty().set(endDateTextFormatter);
+
+            endDateTextFormatter.valueProperty().bindBidirectional(this.calendar_.endProperty());
+
+            this.checkMonday.selectedProperty().bindBidirectional(this.calendar_.mondayProperty());
+            this.checkTuesday.selectedProperty().bindBidirectional(this.calendar_.tuesdayProperty());
+            this.checkWednesday.selectedProperty().bindBidirectional(this.calendar_.wednesdayProperty());
+            this.checkThusday.selectedProperty().bindBidirectional(this.calendar_.thursdayProperty());
+            this.checkFriday.selectedProperty().bindBidirectional(this.calendar_.fridayProperty());
+            this.checkSaturday.selectedProperty().bindBidirectional(this.calendar_.saturdayProperty());
+            this.checkSunday.selectedProperty().bindBidirectional(this.calendar_.sundayProperty());
         } else {
             // FIXME: wlasny wyjatek
             throw new Exception("błąd");

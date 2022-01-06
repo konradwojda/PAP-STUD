@@ -72,10 +72,10 @@ public class AddLineController implements Initializable, IController {
         if (Line.class.isInstance(obj)) {
             this.line_ = (Line) obj;
             InitializePatternTable();
-            this.txtLineCode.setText(this.line_.getCode());
-            this.txtLineDescription.setText(this.line_.getDescription());
-            this.choiceLineAgency.setValue(this.line_.getAgency());
-            this.choiceLineType.setValue(this.line_.getType());
+            this.txtLineCode.textProperty().bindBidirectional(this.line_.codeProperty());
+            this.txtLineDescription.textProperty().bindBidirectional(this.line_.descriptionProperty());
+            this.choiceLineAgency.valueProperty().bindBidirectional(this.line_.agencyProperty());
+            this.choiceLineType.valueProperty().bindBidirectional(this.line_.typeProperty());
         } else {
             // FIXME: wlasny wyjatek
             throw new Exception("błąd");
@@ -129,12 +129,12 @@ public class AddLineController implements Initializable, IController {
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
-            Line line = new Line();
-            line.setCode(txtLineCode.getText());
-            line.setDescription(txtLineDescription.getText());
-            line.setType(choiceLineType.getValue());
-            line.setAgency(choiceLineAgency.getValue());
-            Database.add(line);
+            // Line line = new Line();
+            // line.setCode(txtLineCode.getText());
+            // line.setDescription(txtLineDescription.getText());
+            // line.setType(choiceLineType.getValue());
+            // line.setAgency(choiceLineAgency.getValue());
+            Database.add(line_);
         } catch (Exception e) {
             txtStopError.setText(e.toString());
         }
