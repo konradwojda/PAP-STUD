@@ -116,8 +116,23 @@ public class EditLineController implements Initializable, IController {
     }
 
     @FXML
-    void onEditPattern(ActionEvent event) {
-
+    void onEditPattern(ActionEvent event) throws Exception {
+        try {
+            Pattern patternToEdit = tblPattern.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editPattern.fxml"));
+            VBox page = (VBox) loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(page));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnAddPattern.getScene().getWindow());
+            IController controller = loader.getController();
+            controller.setObject(patternToEdit);
+            stage.showAndWait();
+            refreshPatterns();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     @FXML
