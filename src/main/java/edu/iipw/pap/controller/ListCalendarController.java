@@ -98,7 +98,7 @@ public class ListCalendarController {
     void onAddCalendar(ActionEvent event) throws Exception {
         // mainController.CreatePopUp("/view/addCalendar.fxml", btnAddCalendar);
         Calendar calendar = new Calendar();
-        mainController.CreatePopUpAndSetObj("/view/addCalendar.fxml", btnAddCalendar, calendar);
+        mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendar);
         refreshCalendars();
     }
 
@@ -106,7 +106,7 @@ public class ListCalendarController {
     void onEditCalendar(ActionEvent event) {
         try {
             Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
-            mainController.CreatePopUpAndSetObj("/view/addCalendar.fxml", btnAddCalendar, calendarToEdit);
+            mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendarToEdit);
             refreshCalendars();
         } catch (Exception e) {
         }

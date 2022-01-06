@@ -74,7 +74,7 @@ public class ListAgencyController {
     void onAddAgency(ActionEvent event) throws Exception {
         // mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
         Agency agency = new Agency();
-        mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agency);
+        mainController.CreatePopUpAndSetObj("/view/editAgency.fxml", btnAddAgency, agency);
         refreshAgencies();
     }
 
@@ -82,7 +82,7 @@ public class ListAgencyController {
     void onEditAgency(ActionEvent event) throws Exception {
         try {
             Agency agencyToEdit = tblAgency.getSelectionModel().getSelectedItem();
-            mainController.CreatePopUpAndSetObj("/view/addAgency.fxml", btnAddAgency, agencyToEdit);
+            mainController.CreatePopUpAndSetObj("/view/editAgency.fxml", btnAddAgency, agencyToEdit);
             refreshAgencies();
         } catch (Exception e) {
         }

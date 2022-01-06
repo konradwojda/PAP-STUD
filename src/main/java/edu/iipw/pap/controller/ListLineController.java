@@ -77,7 +77,7 @@ public class ListLineController {
         // create pop up and set obj
         // mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
         Line line = new Line();
-        mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, line);
+        mainController.CreatePopUpAndSetObj("/view/editLine.fxml", btnAddLine, line);
         refreshLines();
     }
 
@@ -85,7 +85,7 @@ public class ListLineController {
     void onEditLine(ActionEvent event) {
         try {
             Line lineToEdit = tblLine.getSelectionModel().getSelectedItem();
-            mainController.CreatePopUpAndSetObj("/view/addLine.fxml", btnAddLine, lineToEdit);
+            mainController.CreatePopUpAndSetObj("/view/editLine.fxml", btnAddLine, lineToEdit);
             refreshLines();
         } catch (Exception e) {
         }

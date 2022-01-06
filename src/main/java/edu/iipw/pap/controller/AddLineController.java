@@ -85,7 +85,7 @@ public class AddLineController implements Initializable, IController {
 
     @FXML
     void onAddPattern(ActionEvent event) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addPattern.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editPattern.fxml"));
         VBox page = (VBox) loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(page));
