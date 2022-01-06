@@ -60,7 +60,7 @@ public class ListLineController {
     }
 
     private void refreshLines() {
-        tblLine.getItems().setAll(Database.listAll(Line.class));
+        tblLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
     }
 
     public void InitializeLineTable() {
@@ -96,7 +96,7 @@ public class ListLineController {
     void onRemoveLine(ActionEvent event) {
         Line lineToRemove = tblLine.getSelectionModel().getSelectedItem();
         tblLine.getItems().remove(lineToRemove);
-        Database.delete(lineToRemove);
+        Database.INSTANCE.delete(lineToRemove);
         refreshLines();
     }
 

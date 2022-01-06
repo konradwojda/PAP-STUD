@@ -76,7 +76,7 @@ public class ListCalendarController {
     }
 
     private void refreshCalendars() {
-        tblCalendar.getItems().setAll(Database.listAll(Calendar.class));
+        tblCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 
     public void InitializeCalnderTable() {
@@ -117,7 +117,7 @@ public class ListCalendarController {
     void onRemoveCalendar(ActionEvent event) {
         Calendar calendarToRemove = tblCalendar.getSelectionModel().getSelectedItem();
         tblCalendar.getItems().remove(calendarToRemove);
-        Database.delete(calendarToRemove);
+        Database.INSTANCE.delete(calendarToRemove);
         refreshCalendars();
     }
 

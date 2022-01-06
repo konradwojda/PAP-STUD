@@ -160,7 +160,7 @@ public class Controller implements Initializable {
     }
 
     private void refreshLines() {
-        tblLine.getItems().setAll(Database.listAll(Line.class));
+        tblLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
     }
 
     private void InitializeAgencyTable() {
@@ -173,7 +173,7 @@ public class Controller implements Initializable {
     }
 
     private void refreshAgencies() {
-        tblAgency.getItems().setAll(Database.listAll(Agency.class));
+        tblAgency.getItems().setAll(Database.INSTANCE.listAll(Agency.class));
     }
 
     private void InitializeStopTable() {
@@ -188,7 +188,7 @@ public class Controller implements Initializable {
     }
 
     private void refreshStops() {
-        tblStop.getItems().setAll(Database.listAll(Stop.class));
+        tblStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
     }
 
     @FXML
@@ -231,7 +231,7 @@ public class Controller implements Initializable {
     void onRemoveAgency(ActionEvent event) {
         Agency agencyToRemove = tblAgency.getSelectionModel().getSelectedItem();
         tblAgency.getItems().remove(agencyToRemove);
-        Database.delete(agencyToRemove);
+        Database.INSTANCE.delete(agencyToRemove);
         refreshAgencies();
     }
 
@@ -239,7 +239,7 @@ public class Controller implements Initializable {
     void onRemoveLine(ActionEvent event) {
         Line lineToRemove = tblLine.getSelectionModel().getSelectedItem();
         tblLine.getItems().remove(lineToRemove);
-        Database.delete(lineToRemove);
+        Database.INSTANCE.delete(lineToRemove);
         refreshLines();
     }
 
@@ -247,7 +247,7 @@ public class Controller implements Initializable {
     void onRemoveStop(ActionEvent event) {
         Stop stopToRemove = tblStop.getSelectionModel().getSelectedItem();
         tblStop.getItems().remove(stopToRemove);
-        Database.delete(stopToRemove);
+        Database.INSTANCE.delete(stopToRemove);
         refreshStops();
     }
 

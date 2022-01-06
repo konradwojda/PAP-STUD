@@ -50,7 +50,7 @@ public class TripViewController extends HBox{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        choiceCalendar.getItems().setAll(Database.listAll(Calendar.class));
+        choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 
     void setHour(String text) {

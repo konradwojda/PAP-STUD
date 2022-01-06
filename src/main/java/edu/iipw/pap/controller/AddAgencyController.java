@@ -37,7 +37,7 @@ public class AddAgencyController implements IController {
             // agency.setWebsite(txtAgencyWebsite.getText());
             // agency.setTimezone(txtAgencyTimezone.getText());
             // agency.setTelephone(txtAgencyTelephone.getText());
-            Database.add(agency_);
+            Database.INSTANCE.save(agency_);
         } catch (Exception e) {
             txtStopError.setText(e.toString());
         }

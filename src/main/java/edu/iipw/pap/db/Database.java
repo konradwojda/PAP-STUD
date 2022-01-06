@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,49 +20,60 @@ import javafx.collections.ObservableSet;
 // cSpell: word rawtypes
 
 /**
- * Database is a singleton (static) object representing a connection with the database
+ * Database is a singleton (static) object representing
+ * a connection with the database
  */
-@SuppressWarnings("rawtypes")
-public class Database {
+@SuppressWarnings({"rawtypes", "unchecked"})
+public class Database implements ObjectPool {
+    public static final Database INSTANCE = new Database();
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
-    private static Session session = null;
+    private Session session = null;
+
+    /**
+     * Private constructor for the database - Database is a singleton
+     */
+    private Database() {
+    }
 
     /**
      * A cache for "top-level" objects - otherwise it's not possible
      * to provide an ObservableSet of those objects.
      */
-    private static Map<Class, ObservableSet> caches = new HashMap<>();
+    private Map<Class, ObservableSet> caches = new HashMap<>();
 
     /**
      * Creates a session for connection with the database
-     * @throws Exception
+     *
+     * @throws HibernateException
      */
-    public static void initialize() throws Exception {
+    public void initialize() throws HibernateException {
         session = SESSION_FACTORY.openSession();
     }
 
     /**
      * Closes the existing connection with the database
-     * @throws Exception
+     *
+     * @throws HibernateException
      */
-    public static void close() throws Exception {
+    public void close() throws HibernateException {
         session.close();
     }
 
     /**
-     * Checks if the provided class is cacheable - aka whether it's a top-level object.
+     * Checks if the provided class is cacheable - aka whether it's a top-level
+     * object.
      */
     public static boolean isCacheable(Class cls) {
         return cls.equals(Agency.class)
-            || cls.equals(Calendar.class)
-            || cls.equals(Line.class)
-            || cls.equals(Stop.class);
+                || cls.equals(Calendar.class)
+                || cls.equals(Line.class)
+                || cls.equals(Stop.class);
     }
 
     /**
      * Removes an object from the database - invalidating it.
      */
-    public static void delete(Object obj) {
+    public <T> void delete(T obj) {
         Transaction tx = null;
 
         try {
@@ -84,18 +96,11 @@ public class Database {
 
     /**
      * Persists an object.
-     * Use `save()` instead - the name `add` is confusing.
-     */
-    @Deprecated public static void add(Object obj) {
-        save(obj);
-    }
-
-    /**
-     * Persists an object.
-     * If an object with the same primary key is in the database - the appropriate row is updated.
+     * If an object with the same primary key is in the database - the appropriate
+     * row is updated.
      * Otherwise, creates a new row; and assigns a primary key for the new object.
      */
-    public static void save(Object obj) {
+    public <T> void save(T obj) {
         Transaction tx = null;
 
         try {
@@ -119,7 +124,7 @@ public class Database {
     /**
      * Makes a SELECT query to the database to return all known objects of a type.
      */
-    private static <T> List<T> listAllFromDatabase(Class<T> cls) {
+    private <T> List<T> listAllFromDatabase(Class<T> cls) {
         var criteriaQuery = session.getCriteriaBuilder().createQuery(cls);
         var root = criteriaQuery.from(cls);
         criteriaQuery.select(root);
@@ -130,17 +135,17 @@ public class Database {
     /**
      * Returns all known objects of a particular type.
      */
-    @SuppressWarnings("unchecked")
-    public static <T> ObservableSet<T> listAll(Class<T> cls) {
+    public <T> ObservableSet<T> listAll(Class<T> cls) {
         if (!isCacheable(cls)) {
             // TODO: Custom exception
             throw new RuntimeException("Only top-level types can be listed (Agency/Calendar/Line/Stop)");
         }
 
-        ObservableSet<T> cached = (ObservableSet<T>)caches.get(cls);
-        if (cached != null) return cached;
+        ObservableSet<T> cached = (ObservableSet<T>) caches.get(cls);
+        if (cached != null)
+            return cached;
 
-        cached = FXCollections.observableSet((T[])listAllFromDatabase(cls).toArray());
+        cached = FXCollections.observableSet((T[]) listAllFromDatabase(cls).toArray());
         caches.put(cls, cached);
         return cached;
     }

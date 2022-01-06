@@ -156,7 +156,7 @@ public class AddStopController implements Initializable, IController {
             // stop_.setLat(spinStopLat.getValue());
             // stop_.setLon(spinStopLon.getValue());
             // stop_.setWheelchairAccessible(getAccessibilityStatus());
-            Database.add(stop_);
+            Database.INSTANCE.save(stop_);
 
             this.txtStopName.textProperty().unbindBidirectional(this.stop_.nameProperty());
 

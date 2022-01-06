@@ -76,7 +76,7 @@ public class AddCalendarController implements IController {
             // calendar.setFriday(checkFriday.isSelected());
             // calendar.setSaturday(checkSaturday.isSelected());
             // calendar.setSunday(checkSunday.isSelected());
-            Database.add(calendar_);
+            Database.INSTANCE.save(calendar_);
         } catch (Exception e) {
             txtCalendarError.setText(e.toString());
         }
