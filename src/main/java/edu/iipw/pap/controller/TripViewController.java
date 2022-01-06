@@ -29,10 +29,7 @@ public class TripViewController extends HBox{
     private HBox hboxRoot;
 
     @FXML
-    private TextField txtHour;
-
-    @FXML
-    private TextField txtMinutes;
+    private TextField txtDeparture;
 
     HBox getHboxRoot() {
         return hboxRoot;
@@ -51,13 +48,5 @@ public class TripViewController extends HBox{
             throw new RuntimeException(e);
         }
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
-    }
-
-    void setHour(String text) {
-        txtHour.setText(text);
-    }
-
-    void setMinutes(String text) {
-        txtMinutes.setText(text);
     }
 }

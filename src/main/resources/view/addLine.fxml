@@ -71,7 +71,7 @@
             <Button mnemonicParsing="false" onAction="#onRemovePattern" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #b5d2d6;" text="Remove Pattern" textFill="#111e1e" />
          </children>
       </HBox>
-      <TableView prefWidth="900.0" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tblPattern" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="colPatternId" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="colPatternHeadsign" prefWidth="75.0" text="HEADSIGN" />

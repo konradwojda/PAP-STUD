@@ -85,8 +85,6 @@ public class AddLineController implements Initializable, IController {
 
     @FXML
     void onAddPattern(ActionEvent event) throws Exception {
-        // FIXME: no tego tu nie powinno być, trzeba dać jakaś referencje do referencji
-        // na referencji
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addPattern.fxml"));
         VBox page = (VBox) loader.load();
         Stage stage = new Stage();

@@ -11,8 +11,7 @@ public class TripCell extends ListCell<Trip>{
         if (trip != null) {
             TripViewController tripViewController= new TripViewController();
             // TODO:
-            tripViewController.setHour("12");
-            tripViewController.setMinutes("23");
+            // tripViewController.setHour("12");
 
             tripViewController.setRemovePatternStopButton((ActionEvent event) -> {
                 // TODO:

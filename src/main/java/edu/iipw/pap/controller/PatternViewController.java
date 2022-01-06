@@ -28,16 +28,13 @@ public class PatternViewController extends HBox {
     private ChoiceBox<Stop> choiceStop;
 
     @FXML
-    private TextField txtHour;
-
-    @FXML
     private HBox hboxRoot;
 
     @FXML
     private Text txtIndex;
 
     @FXML
-    private TextField txtMinutes;
+    private TextField txtTravelTime;
 
     HBox getHboxRoot() {
         return hboxRoot;
@@ -62,8 +59,6 @@ public class PatternViewController extends HBox {
 
     public PatternViewController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/elemPatternStop.fxml"));
-        // FIXME: NWM PO CO TU TO BYŁO
-        // fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
@@ -75,13 +70,5 @@ public class PatternViewController extends HBox {
 
     void setIndex(String text) {
         txtIndex.setText(text);
-    }
-
-    void setHour(String text) {
-        txtHour.setText(text);
-    }
-
-    void setMinutes(String text) {
-        txtMinutes.setText(text);
     }
 }

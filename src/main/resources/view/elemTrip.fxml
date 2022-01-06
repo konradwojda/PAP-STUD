@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <HBox fx:id="hboxRoot" alignment="CENTER_LEFT" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -29,9 +28,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <TextField fx:id="txtHour" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" />
-                        <TextField fx:id="txtMinutes" />
+                        <TextField fx:id="txtDeparture" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
@@ -47,7 +44,7 @@
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ChoiceBox fx:id="choiceCalendar" prefWidth="10000.0" VBox.vgrow="ALWAYS" />
+                  <ChoiceBox fx:id="choiceCalendar" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="254.0" layoutY="10.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
