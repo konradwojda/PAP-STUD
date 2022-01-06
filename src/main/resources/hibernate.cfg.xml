@@ -10,8 +10,6 @@
         <property name = "connection.url">jdbc:sqlite:db/rozklady.db</property>
         <property name = "connection.username"></property>
         <property name = "connection.password"></property>
-
-        <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">validate</property>
 
         <mapping resource = "rozkladonator4000.hbm.xml"/>

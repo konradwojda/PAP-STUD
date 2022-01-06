@@ -24,6 +24,11 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws Exception {
+        // Setup logging
+        System.setProperty(
+                "java.util.logging.config.file",
+                App.class.getClassLoader().getResource("logging.properties").getFile());
+
         Database.initialize();
         try {
             launch();
