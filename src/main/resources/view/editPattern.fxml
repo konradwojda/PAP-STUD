@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.AddPatternController">
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iipw.pap.controller.EditPatternController">
    <children>
       <VBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-background-color: #2C587A;" VBox.vgrow="ALWAYS">
          <children>

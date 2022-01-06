@@ -23,7 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class AddPatternController implements Initializable, IController {
+public class EditPatternController implements Initializable, IController {
     @FXML
     private Button btnPatternOk;
 

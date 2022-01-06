@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 // import net.bytebuddy.asm.Advice.Local;
 import javafx.util.StringConverter;
 
-public class AddCalendarController implements IController {
+public class EditCalendarController implements IController {
     @FXML
     private Button btnCalendarOk;
 

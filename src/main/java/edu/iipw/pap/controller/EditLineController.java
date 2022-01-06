@@ -31,7 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class AddLineController implements Initializable, IController {
+public class EditLineController implements Initializable, IController {
     @FXML
     private Button btnAddPattern;
 
