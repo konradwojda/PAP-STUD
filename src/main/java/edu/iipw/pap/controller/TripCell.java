@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
@@ -37,9 +38,14 @@ public class TripCell extends HBox implements IController {
 
     private Trip trip_;
 
+    private ListView<Trip> listTrip_;
+
     @FXML
     void onRemove(ActionEvent event) {
-
+        trip_.getPattern().tripsProperty().remove(this.trip_);
+        this.listTrip_.getItems().remove(this.trip_);
+        this.trip_.setPattern(null);
+        this.listTrip_.refresh();
     }
 
     HBox getHboxRoot() {
@@ -128,6 +134,9 @@ public class TripCell extends HBox implements IController {
 
             travelTimeTextFormatter.valueProperty().bindBidirectional(this.trip_.departureProperty().asObject());
 
+        }
+        else if(ListView.class.isInstance(obj)) {
+            this.listTrip_ = (ListView<Trip>) obj;
         } else {
             // FIXME: custom exception
             throw new Exception("blad");

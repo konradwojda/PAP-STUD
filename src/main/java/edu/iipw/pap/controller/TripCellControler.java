@@ -12,6 +12,7 @@ public class TripCellControler extends ListCell<Trip>{
             TripCell tripCell= new TripCell();
             try {
                 tripCell.setObject(trip);
+                tripCell.setObject(this.listViewProperty().get());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
