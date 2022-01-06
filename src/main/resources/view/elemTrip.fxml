@@ -40,7 +40,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnRemoveTrip" mnemonicParsing="false" text="Remove" />
+                        <Button fx:id="btnRemoveTrip" mnemonicParsing="false" style="-fx-background-color: #6b9cc2;" text="Remove" textFill="#111e1e" />
                      </children>
                   </HBox>
                </children>
