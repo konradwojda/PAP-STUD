@@ -70,7 +70,7 @@ public class EditPatternController implements Initializable, IController {
         PatternStop patternStop = new PatternStop();
         patternStop.setPattern(this.pattern_);
         listPatternStop.getItems().add(patternStop);
-        this.pattern_.refreshIndicies();
+        this.pattern_.refreshIndices();
     }
 
     @FXML

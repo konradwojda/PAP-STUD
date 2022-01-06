@@ -1,5 +1,7 @@
 package edu.iipw.pap.db.model;
 
+import java.util.stream.Stream;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -191,4 +193,17 @@ public final class PatternStop {
         if (getTravelTime() < 0)
             throw new InvalidData("Travel time cannot be negative");
     }
+
+    /**
+     * Generate all StopTimes at this stop from all trips
+     * attached to this PatternStop's pattern.
+     */
+    public Stream<StopTime> getStopTimes() {
+        return getPattern()
+            .tripsProperty()
+            .stream()
+            .map(trip -> StopTime.tripAtPatternStop(trip, this));
+    }
+
+
 }
