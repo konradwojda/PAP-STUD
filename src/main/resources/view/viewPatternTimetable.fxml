@@ -35,19 +35,19 @@
             <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Line" />
-                  <ChoiceBox fx:id="choiceLine" onAction="#onChoiceLine" maxWidth="1.7976931348623157E308" />
+                  <ChoiceBox fx:id="choiceLine" maxWidth="1.7976931348623157E308" onAction="#onChoiceLine" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="35.0" GridPane.columnIndex="1">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pattern" />
-                  <ChoiceBox fx:id="choicePattern" onAction="#onChoicePattern" maxWidth="1.7976931348623157E308" />
+                  <ChoiceBox fx:id="choicePattern" maxWidth="1.7976931348623157E308" onAction="#onChoicePattern" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="350.0" layoutY="15.0" GridPane.columnIndex="2">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Calendar" />
-                  <ChoiceBox fx:id="choiceCalendar" onAction="#onChoiceCalendar" maxWidth="1.7976931348623157E308" />
+                  <ChoiceBox fx:id="choiceCalendar" maxWidth="1.7976931348623157E308" onAction="#onChoiceCalendar" />
                </children>
             </VBox>
          </children>
@@ -57,7 +57,8 @@
       </GridPane>
       <TableView fx:id="tblLine" prefWidth="1000.0" VBox.vgrow="ALWAYS">
          <columns>
-            <TableColumn fx:id="colTrip" prefWidth="75.0" text="Trip" />
+            <TableColumn fx:id="colStop" prefWidth="75.0" text="STOP" />
+            <TableColumn fx:id="colTrips" prefWidth="75.0" text="TRIPS" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
