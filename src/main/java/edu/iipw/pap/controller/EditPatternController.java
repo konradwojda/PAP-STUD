@@ -8,6 +8,7 @@ import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Trip;
+import edu.iipw.pap.exceptions.InvalidData;
 import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.collections.FXCollections;
@@ -77,6 +78,13 @@ public class EditPatternController implements Initializable, IController {
 
     @FXML
     void onPatternOk(ActionEvent event) throws Exception {
+        try {
+            pattern_.validateUserInput();
+        }
+        catch (InvalidData e) {
+            // FIXME : gui
+            return;
+        }
         Stage stage = (Stage) btnPatternOk.getScene().getWindow();
         stage.close();
     }

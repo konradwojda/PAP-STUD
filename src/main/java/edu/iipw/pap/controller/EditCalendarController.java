@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
+import edu.iipw.pap.exceptions.InvalidData;
 import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
@@ -58,10 +59,12 @@ public class EditCalendarController implements IController {
     @FXML
     void onCalendarOk(ActionEvent event) throws Exception {
         try {
-            Database.INSTANCE.save(calendar_);
-        } catch (Exception e) {
+            calendar_.validateUserInput();
+        } catch (InvalidData e) {
             txtCalendarError.setText(e.toString());
+            return;
         }
+        Database.INSTANCE.save(calendar_);
         Stage stage = (Stage) btnCalendarOk.getScene().getWindow();
         stage.close();
     }
@@ -95,9 +98,6 @@ public class EditCalendarController implements IController {
         if (Calendar.class.isInstance(obj)) {
             this.calendar_ = (Calendar) obj;
             this.txtCalendarName.textProperty().bindBidirectional(this.calendar_.nameProperty());
-
-            // FIXME: nie propaguje się na okno niżej
-
             this.txtCalendarStart.textFormatterProperty().set(startDateTextFormatter);
             startDateTextFormatter.valueProperty().bindBidirectional(this.calendar_.startProperty());
             this.txtCalendarEnd.textFormatterProperty().set(endDateTextFormatter);

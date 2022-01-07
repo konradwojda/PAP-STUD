@@ -9,6 +9,7 @@ import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
+import edu.iipw.pap.exceptions.InvalidData;
 import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
@@ -143,12 +144,13 @@ public class EditLineController implements Initializable, IController {
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
-            Database.INSTANCE.markToSave(this.line_);
-            Database.INSTANCE.commitMarked();
-        } catch (Exception e) {
+            line_.validateUserInput();
+        } catch (InvalidData e) {
             txtStopError.setText(e.toString());
-            throw e;
+            return;
         }
+        Database.INSTANCE.markToSave(this.line_);
+        Database.INSTANCE.commitMarked();
         Stage stage = (Stage) btnLineOk.getScene().getWindow();
         stage.close();
     }

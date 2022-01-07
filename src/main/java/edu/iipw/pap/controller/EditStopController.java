@@ -132,17 +132,15 @@ public class EditStopController implements Initializable, IController {
     @FXML
     void onStopOk(ActionEvent event) throws Exception {
         try {
-            Database.INSTANCE.save(stop_);
-
-            this.txtStopName.textProperty().unbindBidirectional(this.stop_.nameProperty());
-            this.txtStopCode.textProperty().unbindBidirectional(this.stop_.codeProperty());
-
-            // Close the popup on successful entry
-            Stage stage = (Stage) btnStopOk.getScene().getWindow();
-            stage.close();
+            stop_.validateUserInput();
         } catch (Exception e) {
             this.txtStopError.setText(e.toString());
+            return;
         }
+        Database.INSTANCE.save(stop_);
+
+        Stage stage = (Stage) btnStopOk.getScene().getWindow();
+        stage.close();
     }
 
     /**

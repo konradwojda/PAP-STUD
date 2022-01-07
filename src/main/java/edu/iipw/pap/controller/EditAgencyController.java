@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.exceptions.InvalidData;
 import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
@@ -33,11 +34,12 @@ public class EditAgencyController implements IController {
     @FXML
     void onAgencyOk(ActionEvent event) throws Exception {
         try {
-            Database.INSTANCE.save(agency_);
-        } catch (Exception e) {
+            agency_.validateUserInput();
+        } catch (InvalidData e) {
             txtStopError.setText(e.toString());
+            return;
         }
-
+        Database.INSTANCE.save(agency_);
         Stage stage = (Stage) btnAgencyOk.getScene().getWindow();
         stage.close();
     }
