@@ -7,6 +7,7 @@ import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.StopTime;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -35,6 +36,17 @@ public class ViewStopTimetableController {
 
     @FXML
     private TableView<StopTime> tblStopTimetable;
+
+    @FXML
+    void onChoiceCalendar(ActionEvent event) {
+        System.out.println("Calendar");
+    }
+
+    @FXML
+    void onChoiceStop(ActionEvent event) {
+        System.out.println("Stop");
+    }
+
 
     private void refreshStopTimetableTable() {
         try {
