@@ -1,9 +1,11 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
+import edu.iipw.pap.exceptions.InvalidObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -95,7 +97,6 @@ public class ListCalendarController {
 
     @FXML
     void onAddCalendar(ActionEvent event) throws Exception {
-        // mainController.CreatePopUp("/view/addCalendar.fxml", btnAddCalendar);
         Calendar calendar = new Calendar();
         mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendar);
         refreshCalendars();
@@ -107,7 +108,11 @@ public class ListCalendarController {
             Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
             mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendarToEdit);
             refreshCalendars();
-        } catch (Exception e) {
+        } catch (InvalidObject e) {
+            // FIXME: gui
+            System.out.println("Nie wybrano obiektu do edycji");
+        } catch (IOException e) {
+            assert false;
         }
 
     }
@@ -119,10 +124,4 @@ public class ListCalendarController {
         Database.INSTANCE.delete(calendarToRemove);
         refreshCalendars();
     }
-
-    @FXML
-    void onSearchCalendar(ActionEvent event) {
-
-    }
-
 }

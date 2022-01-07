@@ -1,8 +1,8 @@
 package edu.iipw.pap.controller;
 
-
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.exceptions.InvalidObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -70,7 +70,6 @@ public class ListAgencyController {
 
     @FXML
     void onAddAgency(ActionEvent event) throws Exception {
-        // mainController.CreatePopUp("/view/addAgency.fxml", btnAddAgency);
         Agency agency = new Agency();
         mainController.CreatePopUpAndSetObj("/view/editAgency.fxml", btnAddAgency, agency);
         refreshAgencies();
@@ -82,7 +81,9 @@ public class ListAgencyController {
             Agency agencyToEdit = tblAgency.getSelectionModel().getSelectedItem();
             mainController.CreatePopUpAndSetObj("/view/editAgency.fxml", btnAddAgency, agencyToEdit);
             refreshAgencies();
-        } catch (Exception e) {
+        } catch (InvalidObject e) {
+            // FIXME: gui
+            System.out.println("Nie wybrano obiektu do edycji");
         }
     }
 
@@ -93,10 +94,4 @@ public class ListAgencyController {
         Database.INSTANCE.delete(agencyToRemove);
         refreshAgencies();
     }
-
-    @FXML
-    void onSearchAgency(ActionEvent event) {
-
-    }
-
 }

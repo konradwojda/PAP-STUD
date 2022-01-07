@@ -1,5 +1,8 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
+
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,7 +76,7 @@ public class MainController {
         stage.showAndWait();
     }
 
-    public <T> void CreatePopUpAndSetObj(String fxml_template, Button button, T obj) throws Exception {
+    public <T> void CreatePopUpAndSetObj(String fxml_template, Button button, T obj) throws InvalidObject, IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
         VBox page = (VBox) loader.load();
         Stage stage = new Stage();
@@ -110,17 +113,16 @@ public class MainController {
     }
 
     @FXML
-    void onStopTimetable(ActionEvent event){
+    void onStopTimetable(ActionEvent event) {
         paneBackground.toFront();
         viewStopTimetable.toFront();
     }
 
     @FXML
-    void onPatternTimetable(ActionEvent event){
+    void onPatternTimetable(ActionEvent event) {
         paneBackground.toFront();
         viewPatternTimetable.toFront();
     }
-
 
     @FXML
     private void initialize() {

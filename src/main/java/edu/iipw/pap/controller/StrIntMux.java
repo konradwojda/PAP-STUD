@@ -12,7 +12,7 @@ public class StrIntMux {
     private IntegerProperty i = new SimpleIntegerProperty();
 
     private ChangeListener<Number> sSetter = (ObservableValue<? extends Number> observable,
-        Number oldValue, Number newValue) -> {
+            Number oldValue, Number newValue) -> {
         setS();
     };
 

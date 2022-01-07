@@ -9,6 +9,7 @@ import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
 import edu.iipw.pap.interfaces.IController;
@@ -65,7 +66,7 @@ public class EditLineController implements Initializable, IController {
     private Line line_;
 
     @Override
-    public <T> void setObject(T obj) throws Exception {
+    public <T> void setObject(T obj) throws InvalidObject {
         if (Line.class.isInstance(obj)) {
             this.line_ = (Line) obj;
             InitializePatternTable();
@@ -74,8 +75,7 @@ public class EditLineController implements Initializable, IController {
             this.choiceLineAgency.valueProperty().bindBidirectional(this.line_.agencyProperty());
             this.choiceLineType.valueProperty().bindBidirectional(this.line_.typeProperty());
         } else {
-            // FIXME: wlasny wyjatek
-            throw new Exception("błąd");
+            throw new InvalidObject("Niepoprawny obiekt");
         }
 
     }
@@ -129,9 +129,8 @@ public class EditLineController implements Initializable, IController {
             controller.setObject(patternToEdit);
             stage.showAndWait();
             refreshPatterns();
-        }
-        catch (Exception e)
-        {
+        } catch (InvalidObject e) {
+            System.out.println("Nie wybrano obiektu do edycji");
         }
     }
 
@@ -139,8 +138,7 @@ public class EditLineController implements Initializable, IController {
     void onLineOk(ActionEvent event) throws Exception {
         try {
             Database.INSTANCE.save(line_);
-            for (var pattern : line_.patternsProperty())
-            {
+            for (var pattern : line_.patternsProperty()) {
                 Database.INSTANCE.save(pattern);
             }
         } catch (Exception e) {
@@ -165,11 +163,6 @@ public class EditLineController implements Initializable, IController {
         Database.INSTANCE.delete(patternToRemove);
         Database.INSTANCE.save(line_);
         refreshPatterns();
-    }
-
-    @FXML
-    void onSearchPattern(ActionEvent event) {
-
     }
 
 }

@@ -1,9 +1,11 @@
 package edu.iipw.pap.controller;
 
+import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
+import edu.iipw.pap.exceptions.InvalidObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -76,7 +78,6 @@ public class ListStopController {
 
     @FXML
     void onAddStop(ActionEvent event) throws Exception {
-        // mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
         Stop stop = new Stop();
         mainController.CreatePopUpAndSetObj("/view/editStop.fxml", btnAddStop, stop);
         refreshStops();
@@ -88,7 +89,11 @@ public class ListStopController {
             Stop stopToEdit = tblStop.getSelectionModel().getSelectedItem();
             mainController.CreatePopUpAndSetObj("/view/editStop.fxml", btnAddStop, stopToEdit);
             refreshStops();
-        } catch (Exception e) {
+        } catch (InvalidObject e) {
+            // FIXME: gui
+            System.out.println("Nie wybrano obiektu do edycji");
+        } catch (IOException e) {
+            assert false;
         }
     }
 
@@ -98,10 +103,5 @@ public class ListStopController {
         tblStop.getItems().remove(stopToRemove);
         Database.INSTANCE.delete(stopToRemove);
         refreshStops();
-    }
-
-    @FXML
-    void onSearchStop(ActionEvent event) {
-
     }
 }

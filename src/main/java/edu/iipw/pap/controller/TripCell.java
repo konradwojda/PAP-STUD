@@ -5,6 +5,7 @@ import java.io.IOException;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Trip;
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
-import javafx.util.StringConverter;
 
 public class TripCell extends HBox implements IController {
 
@@ -62,36 +62,26 @@ public class TripCell extends HBox implements IController {
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 
-
     @Override
-    public <T> void setObject(T obj) throws Exception {
+    public <T> void setObject(T obj) throws InvalidObject {
         if (Trip.class.isInstance(obj)) {
             this.trip_ = (Trip) obj;
-
             this.choiceCalendar.valueProperty().bindBidirectional(this.trip_.calendarProperty());
 
             WheelchairAccessibilityMux wam = new WheelchairAccessibilityMux();
-
             wam.accessibleProperty().set(this.trip_.getWheelchairAccessible());
-
             this.trip_.wheelchairAccessibleProperty().bindBidirectional(wam.accessibleProperty());
-
             this.checkWheelchairAccessibility.selectedProperty().bindBidirectional(wam.checkedProperty());
-
             this.checkWheelchairAccessibility.indeterminateProperty().bindBidirectional(wam.indeterminateProperty());
 
             TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(new HHMMSSToInt());
-
             this.txtDeparture.textFormatterProperty().set(travelTimeTextFormatter);
-
             travelTimeTextFormatter.valueProperty().bindBidirectional(this.trip_.departureProperty().asObject());
 
-        }
-        else if(ListView.class.isInstance(obj)) {
+        } else if (ListView.class.isInstance(obj)) {
             this.listTrip_ = (ListView<Trip>) obj;
         } else {
-            // FIXME: custom exception
-            throw new Exception("blad");
+            throw new InvalidObject("Niepoprawny obiekt");
         }
 
     }
