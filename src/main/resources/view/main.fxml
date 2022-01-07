@@ -60,8 +60,8 @@
       </VBox>
       <StackPane HBox.hgrow="ALWAYS">
          <children>
-            <fx:include fx:id="listPatternTimetable" source="viewPatternTimetable.fxml" />
-            <fx:include fx:id="listStopTimetable" source="viewStopTimetable.fxml" />
+            <fx:include fx:id="viewStopTimetable" source="viewStopTimetable.fxml" />
+            <fx:include fx:id="viewPatternTimetable" source="viewPatternTimetable.fxml" />
             <Pane fx:id="paneBackground" style="-fx-background-color: #FFFFFF;" StackPane.alignment="CENTER" />
             <fx:include fx:id="listLine" source="viewLine.fxml" />
             <fx:include fx:id="listAgency" source="viewAgency.fxml" />

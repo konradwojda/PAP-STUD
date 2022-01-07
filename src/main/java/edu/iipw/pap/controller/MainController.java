@@ -37,10 +37,10 @@ public class MainController {
     private VBox listCalendar;
 
     @FXML
-    private VBox listPatternTimetable;
+    private VBox viewPatternTimetable;
 
     @FXML
-    private VBox listStopTimetable;
+    private VBox viewStopTimetable;
 
     @FXML
     private Pane paneBackground;
@@ -57,11 +57,11 @@ public class MainController {
     @FXML
     private ListStopController listStopController;
 
-    // @FXML
-    // private ViewPatternTimetableController viewPatternTimetableController;
+    @FXML
+    private ViewPatternTimetableController viewPatternTimetableController;
 
-    // @FXML
-    // private ViewStopTimetableController viewStopTimetableController;
+    @FXML
+    private ViewStopTimetableController viewStopTimetableController;
 
     public void CreatePopUp(String fxml_template, Button button) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
@@ -112,13 +112,13 @@ public class MainController {
     @FXML
     void onStopTimetable(ActionEvent event){
         paneBackground.toFront();
-        listStopTimetable.toFront();
+        viewStopTimetable.toFront();
     }
 
     @FXML
     void onPatternTimetable(ActionEvent event){
         paneBackground.toFront();
-        listPatternTimetable.toFront();
+        viewPatternTimetable.toFront();
     }
 
 
@@ -133,7 +133,7 @@ public class MainController {
         listLineController.InitializeLineTable();
         listStopController.InitializeStopTable();
         listCalendarController.InitializeCalnderTable();
-        // viewPatternTimetableController.InitializePatternTimetableTable();
-        // viewStopTimetableController.InitializeStopTimetableTable();
+        viewPatternTimetableController.InitializePatternTimetableTable();
+        viewStopTimetableController.InitializeStopTimetableTable();
     }
 }
