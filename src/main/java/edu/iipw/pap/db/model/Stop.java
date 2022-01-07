@@ -34,7 +34,7 @@ import javafx.collections.FXCollections;
 public final class Stop {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stop_id")
     private IntegerProperty stopId = new SimpleIntegerProperty();
 
