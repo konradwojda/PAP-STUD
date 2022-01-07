@@ -1,8 +1,11 @@
 package edu.iipw.pap.controller;
 
+import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.Pattern;
+import edu.iipw.pap.db.model.PatternStop;
+import edu.iipw.pap.db.model.StopTime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -22,17 +25,21 @@ public class ViewPatternTimetableController {
     private ChoiceBox<Pattern> choicePattern;
 
     @FXML
-    private TableColumn<?, ?> colTrip;
+    private TableColumn<StopTime, String> colTrip;
+
+    @FXML
+    private TableColumn<PatternStop, String> colPatternStop;
 
     @FXML
     private VBox listLine;
 
     @FXML
-    private TableView<?> tblLine;
+    private TableView<Line> tblLine;
 
     @FXML
     void onChoiceLine(ActionEvent event) {
         System.out.println("Line");
+        choicePattern.getItems().setAll(choiceLine.getSelectionModel().getSelectedItem().patternsProperty());
     }
 
     @FXML
@@ -51,6 +58,11 @@ public class ViewPatternTimetableController {
 
     public void InitializePatternTimetableTable() {
         // TODO: fill
+        choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
+        choiceLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
+
+        colTrip.getColumns().add(new TableColumn<>("STOP"));
+
         refreshPatternTimetableTable();
     }
 }
