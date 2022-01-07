@@ -50,18 +50,16 @@ public class ViewStopTimetableController {
     final HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
 
     private void refreshStopTimetableTable() {
-        try {
-            Calendar chosenCalendar = choiceCalendar.getValue();
-            Stop chosenStop = choiceStop.getValue();
-            List<StopTime> stopTimes = new ArrayList<StopTime>();
-            for (var stopTime : chosenStop.getStopTimes().filter(s -> s.getTrip().getCalendar() == chosenCalendar)
-                    .toArray()) {
-                stopTimes.add((StopTime) stopTime);
-            }
-            this.tblStopTimetable.getItems().setAll(stopTimes);
-        } catch (NullPointerException e) {
-            // FIXME: co z tym wyjatkiem?
+        Calendar chosenCalendar = choiceCalendar.getValue();
+        Stop chosenStop = choiceStop.getValue();
+        if (chosenCalendar == null || chosenStop == null)
+            return;
+        List<StopTime> stopTimes = new ArrayList<StopTime>();
+        for (var stopTime : chosenStop.getStopTimes().filter(s -> s.getTrip().getCalendar() == chosenCalendar)
+                .toArray()) {
+            stopTimes.add((StopTime) stopTime);
         }
+        this.tblStopTimetable.getItems().setAll(stopTimes);
     }
 
     public void InitializeStopTimetableTable() {

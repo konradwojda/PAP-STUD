@@ -102,7 +102,6 @@ public class ViewPatternTimetableController {
     }
 
     public void InitializePatternTimetableTable() {
-        // TODO: fill
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
         choiceLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
         refreshPatternTimetableTable();
