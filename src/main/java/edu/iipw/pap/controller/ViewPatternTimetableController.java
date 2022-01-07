@@ -1,23 +1,24 @@
 package edu.iipw.pap.controller;
 
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternStop;
-import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.StopTime;
 import edu.iipw.pap.db.model.Trip;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 public class ViewPatternTimetableController {
@@ -32,23 +33,14 @@ public class ViewPatternTimetableController {
     private ChoiceBox<Pattern> choicePattern;
 
     @FXML
-    private TableColumn<StopTime, String> colStop;
-
-    @FXML
-    private TableColumn<StopTime, String> colTrips;
-
-    @FXML
     private VBox listLine;
 
     @FXML
-    private TableView<StopTime> tblLine;
+    private TableView<Trip> tblLine;
 
     @FXML
     void onChoiceLine(ActionEvent event) {
-        System.out.println("Line");
         choicePattern.getItems().setAll(choiceLine.getSelectionModel().getSelectedItem().patternsProperty());
-        colStop.getColumns().clear();
-        colTrips.getColumns().clear();
         tblLine.getItems().clear();
         choicePattern.valueProperty().set(null);
         choiceCalendar.valueProperty().set(null);
@@ -56,61 +48,63 @@ public class ViewPatternTimetableController {
 
     @FXML
     void onChoicePattern(ActionEvent event) {
-        System.out.println("Pattern");
         refreshPatternTimetableTable();
     }
 
     @FXML
     void onChoiceCalendar(ActionEvent event) {
-        System.out.println("Calendar");
         refreshPatternTimetableTable();
     }
 
     private HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
 
-    private void refreshPatternTimetableTable() {
-        try {
-            // TODO: fill
-            Calendar chosenCalendar = choiceCalendar.getValue();
-            Pattern chosenPattern = choicePattern.getValue();
+    private Map<Trip, List<StopTime>> cacheStopTimes(Pattern pattern, Calendar calendar) {
+        Map<Trip, List<StopTime>> cachedStopTimes = new HashMap<>();
 
-            List<StopTime> stopTimes = new ArrayList<StopTime>();
-            for (var stopTime : chosenPattern.getStopTimes().filter(s -> s.getTrip().getCalendar() == chosenCalendar)
-                    .toArray()) {
+        for (Trip t : pattern.tripsProperty()) {
+            if (!t.getCalendar().equals(calendar))
+                continue;
 
-                stopTimes.add((StopTime) stopTime);
-            }
-
-            this.tblLine.getItems().setAll(stopTimes);
-
-            colTrips.getColumns().clear();
-
-            colStop.getColumns().clear();
-
-            // for (var trip : chosenPattern.tripsProperty()) {
-            //     TableColumn<StopTime, String> depColumn = new TableColumn<>(String.valueOf(trip.getTripId()));
-
-            //     depColumn.setCellValueFactory(cellData -> new SimpleStringProperty(depTimeFormatter.toString(cellData.getValue().getDepartureTime())));
-            //     colTrips.getColumns().add(depColumn);
-            // }
-
-            colTrips.setCellValueFactory(cellData -> new SimpleStringProperty(depTimeFormatter.toString(cellData.getValue().getDepartureTime())));
-
-        } catch (NullPointerException e) {
-            // FIXME: co z tym wyjatkiem?
+            List<StopTime> stopTimes = t.getStopTimes().collect(Collectors.toList());
+            stopTimes.sort(Comparator.comparingInt(st -> st.getIndex()));
+            cachedStopTimes.put(t, stopTimes);
         }
+
+        return cachedStopTimes;
+    }
+
+    private void refreshPatternTimetableTable() {
+        Pattern pattern = choicePattern.getValue();
+        Calendar calendar = choiceCalendar.getValue();
+        if (pattern == null || calendar == null)
+            return;
+
+        var allColumns = tblLine.getColumns();
+        allColumns.clear();
+
+        Map<Trip, List<StopTime>> cachedStopTimes = cacheStopTimes(pattern, calendar);
+
+        int idx = 0;
+        for (PatternStop ps : pattern.patternStopsProperty()) {
+            final int idxCopy = idx++;
+
+            TableColumn<Trip, String> column = new TableColumn<>(ps.getStop().getName());
+            column.setCellValueFactory(c -> {
+                var st = cachedStopTimes.get(c.getValue()).get(idxCopy);
+                var time = depTimeFormatter.toString(st.getDepartureTime());
+                return new ReadOnlyStringWrapper(time);
+            });
+
+            allColumns.add(column);
+        }
+
+        tblLine.getItems().setAll(cachedStopTimes.keySet());
     }
 
     public void InitializePatternTimetableTable() {
         // TODO: fill
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
         choiceLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
-
-        colStop.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStop().getName()));
-
-        // colTrips.getColumns().add(new TableColumn<>("ID KURSU"));
-        // colTrips.getColumns().add(new TableColumn<>("ID KURSU"));
-
         refreshPatternTimetableTable();
     }
 }
