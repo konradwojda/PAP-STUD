@@ -75,6 +75,7 @@ public class EditLineController implements Initializable, IController {
             this.txtLineDescription.textProperty().bindBidirectional(this.line_.descriptionProperty());
             this.choiceLineAgency.valueProperty().bindBidirectional(this.line_.agencyProperty());
             this.choiceLineType.valueProperty().bindBidirectional(this.line_.typeProperty());
+            Database.INSTANCE.markToSave(this.line_);
         } else {
             throw new InvalidObject("Niepoprawny obiekt");
         }
@@ -149,7 +150,6 @@ public class EditLineController implements Initializable, IController {
             txtStopError.setText(e.toString());
             return;
         }
-        Database.INSTANCE.markToSave(this.line_);
         Database.INSTANCE.commitMarked();
         Stage stage = (Stage) btnLineOk.getScene().getWindow();
         stage.close();

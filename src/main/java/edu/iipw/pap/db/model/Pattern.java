@@ -283,6 +283,7 @@ public final class Pattern {
                         String.format("Stoppage %d - travel time must be grater than previous travel time", sIdx));
 
             prevDeparture = sTravelTime;
+            first = false;
         }
 
         // Validate the trips

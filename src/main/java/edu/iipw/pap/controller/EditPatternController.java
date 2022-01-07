@@ -3,6 +3,8 @@ package edu.iipw.pap.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
+import java.util.HashSet;
+
 import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Pattern;
@@ -72,6 +74,9 @@ public class EditPatternController implements Initializable, IController {
     void onNewTrip(ActionEvent event) {
         Trip trip = new Trip();
         trip.setPattern(this.pattern_);
+        if (this.pattern_.tripsProperty().get() == null)
+            this.pattern_.setTrips(new HashSet<>());
+        this.pattern_.tripsProperty().add(trip);
         listTrip.getItems().add(trip);
         Database.INSTANCE.markToSave(trip);
     }
@@ -82,6 +87,7 @@ public class EditPatternController implements Initializable, IController {
             pattern_.validateUserInput();
         } catch (InvalidData e) {
             // FIXME : gui
+            System.out.println(e.toString());
             return;
         }
         Stage stage = (Stage) btnPatternOk.getScene().getWindow();
