@@ -43,6 +43,7 @@ public class TripCell extends HBox implements IController {
     void onRemove(ActionEvent event) {
         trip_.getPattern().tripsProperty().remove(this.trip_);
         this.listTrip_.getItems().remove(this.trip_);
+        Database.INSTANCE.markToDelete(this.trip_);
         this.trip_.setPattern(null);
         this.listTrip_.refresh();
     }

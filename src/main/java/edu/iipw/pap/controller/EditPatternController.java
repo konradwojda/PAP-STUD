@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
 import edu.iipw.pap.db.model.PatternStop;
+import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Trip;
@@ -62,6 +63,7 @@ public class EditPatternController implements Initializable, IController {
         PatternStop patternStop = new PatternStop();
         patternStop.setPattern(this.pattern_);
         listPatternStop.getItems().add(patternStop);
+        Database.INSTANCE.markToSave(patternStop);
         this.pattern_.refreshIndices();
     }
 
@@ -70,6 +72,7 @@ public class EditPatternController implements Initializable, IController {
         Trip trip = new Trip();
         trip.setPattern(this.pattern_);
         listTrip.getItems().add(trip);
+        Database.INSTANCE.markToSave(trip);
     }
 
     @FXML

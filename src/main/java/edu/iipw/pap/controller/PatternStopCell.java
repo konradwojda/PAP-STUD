@@ -44,24 +44,28 @@ public class PatternStopCell extends HBox implements IController {
     private TextField txtTravelTime;
 
     private PatternStop patternStop_;
-
     private ListView<PatternStop> listPatternStop_;
 
     @FXML
     void onDown(ActionEvent event) {
         int idx = this.patternStop_.getIndex();
         var pattern = this.patternStop_.getPattern();
-        if (pattern.patternStopsProperty().size() - 1 != idx) {
-            Collections.swap(pattern.patternStopsProperty(), idx, idx + 1);
+        var allPatternStops = pattern.patternStopsProperty();
+
+        if (allPatternStops.size() - 1 != idx) {
+            Collections.swap(allPatternStops, idx, idx + 1);
+            Database.INSTANCE.markToSave(allPatternStops.get(idx));
+            Database.INSTANCE.markToSave(allPatternStops.get(idx + 1));
+            pattern.refreshIndices();
+            this.listPatternStop_.refresh();
         }
-        pattern.refreshIndices();
-        this.listPatternStop_.refresh();
     }
 
     @FXML
     void onRemove(ActionEvent event) {
         patternStop_.getPattern().patternStopsProperty().remove(this.patternStop_);
         patternStop_.getPattern().refreshIndices();
+        Database.INSTANCE.markToDelete(this.patternStop_);
         this.patternStop_.setPattern(null);
         this.listPatternStop_.refresh();
     }
@@ -69,11 +73,15 @@ public class PatternStopCell extends HBox implements IController {
     @FXML
     void onUp(ActionEvent event) {
         int idx = this.patternStop_.getIndex();
+        var pattern = this.patternStop_.getPattern();
+        var allPatternStops = pattern.patternStopsProperty();
         if (idx > 0) {
-            Collections.swap(this.patternStop_.getPattern().patternStopsProperty(), idx, idx - 1);
+            Collections.swap(allPatternStops, idx, idx - 1);
+            Database.INSTANCE.markToSave(allPatternStops.get(idx));
+            Database.INSTANCE.markToSave(allPatternStops.get(idx - 1));
+            pattern.refreshIndices();
+            this.listPatternStop_.refresh();
         }
-        this.patternStop_.getPattern().refreshIndices();
-        this.listPatternStop_.refresh();
     }
 
     HBox getHboxRoot() {
@@ -150,6 +158,5 @@ public class PatternStopCell extends HBox implements IController {
         } else {
             throw new InvalidObject("Niewłaściwy obiekt");
         }
-
     }
 }

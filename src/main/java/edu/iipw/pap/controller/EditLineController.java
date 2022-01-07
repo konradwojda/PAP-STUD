@@ -99,6 +99,8 @@ public class EditLineController implements Initializable, IController {
         linePatterns.add(pattern);
         // line_.getPatterns().add(pattern);
         controller.setObject(pattern);
+        Database.INSTANCE.markToSave(pattern);
+
         stage.showAndWait();
         refreshPatterns();
     }
@@ -127,20 +129,22 @@ public class EditLineController implements Initializable, IController {
             stage.initOwner(btnAddPattern.getScene().getWindow());
             IController controller = loader.getController();
             controller.setObject(patternToEdit);
+            Database.INSTANCE.markToSave(patternToEdit);
+
             stage.showAndWait();
             refreshPatterns();
         } catch (InvalidObject e) {
             System.out.println("Nie wybrano obiektu do edycji");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
-            Database.INSTANCE.save(line_);
-            for (var pattern : line_.patternsProperty()) {
-                Database.INSTANCE.save(pattern);
-            }
+            Database.INSTANCE.markToSave(this.line_);
+            Database.INSTANCE.commitMarked();
         } catch (Exception e) {
             txtStopError.setText(e.toString());
             throw e;
@@ -157,11 +161,9 @@ public class EditLineController implements Initializable, IController {
 
     @FXML
     void onRemovePattern(ActionEvent event) {
-        // FIXME: nadal nie działa
         Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
         line_.patternsProperty().remove(patternToRemove);
-        Database.INSTANCE.delete(patternToRemove);
-        Database.INSTANCE.save(line_);
+        Database.INSTANCE.markToDelete(patternToRemove);
         refreshPatterns();
     }
 

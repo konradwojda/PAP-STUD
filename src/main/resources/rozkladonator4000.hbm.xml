@@ -12,7 +12,7 @@
         <property name="website" type="string" />
         <property name="timezone" type="string" />
         <property name="telephone" type="string" />
-        <set name="lines">
+        <set name="lines" inverse="true" cascade="all-delete-orphan">
             <key column="agency_id" />
             <one-to-many class="edu.iipw.pap.db.model.Line" />
         </set>
@@ -31,7 +31,7 @@
         <property name="friday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
         <property name="saturday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
         <property name="sunday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <set name="trips">
+        <set name="trips" inverse="true" cascade="all-delete-orphan">
             <key column="calendar_id" />
             <one-to-many class="edu.iipw.pap.db.model.Trip" />
         </set>
@@ -48,7 +48,7 @@
             </type>
         </property>
         <many-to-one name="agency" column="agency_id" class="edu.iipw.pap.db.model.Agency" not-null="true" />
-        <set name="patterns" cascade="save-update">
+        <set name="patterns" inverse="true" cascade="all-delete-orphan">
             <key column="line_id" />
             <one-to-many class="edu.iipw.pap.db.model.Pattern" />
         </set>
@@ -64,12 +64,12 @@
             </type>
         </property>
         <many-to-one name="line" column="line_id" class="edu.iipw.pap.db.model.Line" not-null="true" />
-        <list name="patternStops" cascade="save-update">
+        <list name="patternStops" inverse="true" cascade="all-delete-orphan">
             <key column="pattern_id" />
             <list-index column="idx" />
             <one-to-many class="edu.iipw.pap.db.model.PatternStop" />
         </list>
-        <set name="trips" cascade="save-update">
+        <set name="trips" inverse="true" cascade="all-delete-orphan">
             <key column="pattern_id" />
             <one-to-many class="edu.iipw.pap.db.model.Trip" />
         </set>
@@ -96,7 +96,7 @@
                 <param name="enumClass">edu.iipw.pap.db.model.WheelchairAccessibility</param>
             </type>
         </property>
-        <set name="patternStops">
+        <set name="patternStops" inverse="true" cascade="all-delete-orphan">
             <key column="stop_id" />
             <one-to-many class="edu.iipw.pap.db.model.PatternStop" />
         </set>
