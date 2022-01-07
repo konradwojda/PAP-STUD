@@ -23,8 +23,8 @@ import javafx.collections.ObservableSet;
  * Database is a singleton (static) object representing
  * a connection with the database
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class Database implements ObjectPool {
+@SuppressWarnings({ "rawtypes", "unchecked" })
+public class Database extends ObjectPool {
     public static final Database INSTANCE = new Database();
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
     private Session session = null;
@@ -105,7 +105,7 @@ public class Database implements ObjectPool {
 
         try {
             tx = session.beginTransaction();
-            session.save(obj);
+            session.saveOrUpdate(obj);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -118,6 +118,97 @@ public class Database implements ObjectPool {
         Class objClass = obj.getClass();
         if (isCacheable(obj.getClass()) && caches.containsKey(objClass)) {
             caches.get(objClass).add(obj);
+        }
+    }
+
+    /**
+     * Persists multiple objects in one transaction.
+     */
+    public final void batchSave(Object... objs) {
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            for (Object obj : objs)
+                session.saveOrUpdate(obj);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        }
+
+        // Add to cache
+        for (Object obj : objs) {
+            Class objClass = obj.getClass();
+            if (isCacheable(obj.getClass()) && caches.containsKey(objClass)) {
+                caches.get(objClass).add(obj);
+            }
+        }
+    }
+
+    /**
+     * Deletes multiple objects in one go.
+     */
+    public void batchDelete(Object... objs) {
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            for (Object obj : objs)
+                session.delete(obj);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        }
+
+        // Remove from cache
+        for (Object obj : objs) {
+            Class objClass = obj.getClass();
+            if (isCacheable(obj.getClass()) && caches.containsKey(objClass)) {
+                caches.get(objClass).remove(obj);
+            }
+        }
+    }
+
+    /**
+     * Persists and deletes multiple objects in one go.
+     */
+    public void batchSaveAndDelete(Object[] toSave, Object[] toDelete) {
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            for (Object obj : toDelete)
+                session.delete(obj);
+            for (Object obj : toSave)
+                session.saveOrUpdate(obj);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        }
+
+        // Remove from cache
+        for (Object obj : toDelete) {
+            Class objClass = obj.getClass();
+            if (isCacheable(obj.getClass()) && caches.containsKey(objClass)) {
+                caches.get(objClass).remove(obj);
+            }
+        }
+
+        // Add to cache
+        for (Object obj : toSave) {
+            Class objClass = obj.getClass();
+            if (isCacheable(obj.getClass()) && caches.containsKey(objClass)) {
+                caches.get(objClass).add(obj);
+            }
         }
     }
 
