@@ -33,7 +33,7 @@ import javafx.collections.FXCollections;
 @Table(name = "lines")
 public final class Line {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "line_id")
     private IntegerProperty lineId = new SimpleIntegerProperty();
 

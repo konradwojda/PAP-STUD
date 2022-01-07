@@ -30,7 +30,7 @@ import javafx.collections.FXCollections;
 @Table(name = "agencies")
 public final class Agency {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "agency_id")
     private IntegerProperty agencyId = new SimpleIntegerProperty();
 
