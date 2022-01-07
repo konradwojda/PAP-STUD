@@ -247,5 +247,9 @@ public final class Line {
         // Validate the line type
         if (getType() == null)
             throw new InvalidData("Type cannot be empty");
+
+        // Validate patterns
+        for (Pattern p : patternsProperty())
+            p.validateUserInput();
     }
 }
