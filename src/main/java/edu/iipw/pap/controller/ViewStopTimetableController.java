@@ -1,5 +1,6 @@
 package edu.iipw.pap.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.iipw.pap.db.Database;
@@ -7,11 +8,14 @@ import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.StopTime;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
@@ -23,13 +27,13 @@ public class ViewStopTimetableController {
     private ChoiceBox<Stop> choiceStop;
 
     @FXML
-    private TableColumn<StopTime, Integer> colDeparture;
+    private TableColumn<StopTime, String> colDeparture;
 
     @FXML
     private TableColumn<StopTime, String> colHeadsign;
 
     @FXML
-    private TableColumn<StopTime, Line> colLine;
+    private TableColumn<StopTime, String> colLine;
 
     @FXML
     private VBox listLine;
@@ -39,34 +43,41 @@ public class ViewStopTimetableController {
 
     @FXML
     void onChoiceCalendar(ActionEvent event) {
-        System.out.println("Calendar");
+        refreshStopTimetableTable();
     }
 
     @FXML
     void onChoiceStop(ActionEvent event) {
-        System.out.println("Stop");
+        refreshStopTimetableTable();
     }
 
+    final HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
 
     private void refreshStopTimetableTable() {
         try {
             Calendar chosenCalendar = choiceCalendar.getValue();
             Stop chosenStop = choiceStop.getValue();
-            this.tblStopTimetable.getItems().setAll((StopTime[])chosenStop.getStopTimes().filter(s -> s.getTrip().getCalendar() == chosenCalendar).toArray());
-        }
-        catch (Exception e)
-        {
+            System.out.println(chosenCalendar);
+            System.out.println(chosenStop);
+            List<StopTime> stopTimes = new ArrayList<StopTime>();
+            for (var stopTime : chosenStop.getStopTimes().filter(s -> s.getTrip().getCalendar() == chosenCalendar)
+                    .toArray()) {
+                stopTimes.add((StopTime) stopTime);
+            }
+            this.tblStopTimetable.getItems().setAll(stopTimes);
+        } catch (Exception e) {
         }
     }
 
     public void InitializeStopTimetableTable() {
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
         choiceStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
-
-        colDeparture.setCellValueFactory(new PropertyValueFactory<StopTime, Integer>("departureTime"));
-        colLine.setCellValueFactory(new PropertyValueFactory<StopTime, Line>("trip.getPattern().getLine()"));
-        colHeadsign.setCellValueFactory(new PropertyValueFactory<StopTime, String>("trip.getPattern().getHeadsign()"));
-
+        colDeparture.setCellValueFactory(cellData -> new SimpleStringProperty(
+                depTimeFormatter.toString(cellData.getValue().getDepartureTime())));
+        colHeadsign.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getTrip().getPattern().getHeadsign()));
+        colLine.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getTrip().getPattern().getLine().getCode()));
         refreshStopTimetableTable();
     }
 
