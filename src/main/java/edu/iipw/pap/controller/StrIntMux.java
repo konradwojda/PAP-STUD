@@ -8,8 +8,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class StrIntMux {
-    private StringProperty s = new SimpleStringProperty();
-    private IntegerProperty i = new SimpleIntegerProperty();
+    private StringProperty s = new SimpleStringProperty("0");
+    private IntegerProperty i = new SimpleIntegerProperty(0);
 
     private ChangeListener<Number> sSetter = (ObservableValue<? extends Number> observable,
             Number oldValue, Number newValue) -> {
