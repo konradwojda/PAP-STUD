@@ -57,11 +57,11 @@ public class MainController {
     @FXML
     private ListStopController listStopController;
 
-    @FXML
-    private ViewPatternTimetableController viewPatternTimetableController;
+    // @FXML
+    // private ViewPatternTimetableController viewPatternTimetableController;
 
-    @FXML
-    private ViewStopPatternTimetable viewStopPatternTimetable;
+    // @FXML
+    // private ViewStopTimetableController viewStopTimetableController;
 
     public void CreatePopUp(String fxml_template, Button button) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
@@ -133,7 +133,7 @@ public class MainController {
         listLineController.InitializeLineTable();
         listStopController.InitializeStopTable();
         listCalendarController.InitializeCalnderTable();
-        viewPatternTimetableController.InitializePatternTimetableTable();
-        viewStopPatternTimetable.InitializeStopTimetableTable();
+        // viewPatternTimetableController.InitializePatternTimetableTable();
+        // viewStopTimetableController.InitializeStopTimetableTable();
     }
 }
