@@ -90,6 +90,7 @@ public class MainController {
 
     @FXML
     void onAgency(ActionEvent event) {
+        listAgencyController.InitializeAgencyTable();
         paneBackground.toFront();
         listAgency.toFront();
     }
@@ -102,26 +103,31 @@ public class MainController {
 
     @FXML
     void onLine(ActionEvent event) {
+        listLineController.InitializeLineTable();
         paneBackground.toFront();
         listLine.toFront();
     }
 
     @FXML
     void onStop(ActionEvent event) {
+        listStopController.InitializeStopTable();
         paneBackground.toFront();
         listStop.toFront();
     }
 
     @FXML
     void onStopTimetable(ActionEvent event) {
+        viewStopTimetableController.InitializeStopTimetableTable();
         paneBackground.toFront();
         viewStopTimetable.toFront();
     }
 
     @FXML
     void onPatternTimetable(ActionEvent event) {
+        viewPatternTimetableController.InitializePatternTimetableTable();
         paneBackground.toFront();
         viewPatternTimetable.toFront();
+
     }
 
     @FXML
@@ -130,12 +136,5 @@ public class MainController {
         listLineController.refrenceMainController(this);
         listCalendarController.refrenceMainController(this);
         listStopController.refrenceMainController(this);
-
-        listAgencyController.InitializeAgencyTable();
-        listLineController.InitializeLineTable();
-        listStopController.InitializeStopTable();
-        listCalendarController.InitializeCalnderTable();
-        viewPatternTimetableController.InitializePatternTimetableTable();
-        viewStopTimetableController.InitializeStopTimetableTable();
     }
 }
