@@ -7,6 +7,7 @@ import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.db.model.Trip;
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -41,27 +42,20 @@ public class EditPatternController implements Initializable, IController {
     private Pattern pattern_;
 
     @Override
-    public <T> void setObject(T obj) throws Exception {
+    public <T> void setObject(T obj) throws InvalidObject {
         if(Pattern.class.isInstance(obj)) {
             this.pattern_ = (Pattern) obj;
-
             this.txtLineHeadsign.textProperty().bindBidirectional(this.pattern_.headsignProperty());
-
             this.choiceDirection.valueProperty().bindBidirectional(this.pattern_.directionProperty());
-
             this.listPatternStop.itemsProperty().bindBidirectional(this.pattern_.patternStopsProperty());
-
             this.listTrip.getItems().setAll(new ArrayList<Trip>(this.pattern_.tripsProperty()));
-
             if(pattern_.patternStopsProperty().get() == null)
             {
                 pattern_.setPatternStops(FXCollections.observableArrayList());
             }
-
         }
         else {
-            // FIXME: wlasny wyjatek
-            throw new Exception("dupa");
+            throw new InvalidObject("Niepoprawny obiekt");
         }
     }
 

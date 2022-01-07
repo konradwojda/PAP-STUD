@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.util.Collections;
 
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Stop;
@@ -138,7 +139,7 @@ public class PatternStopCell extends HBox implements IController {
     }
 
     @Override
-    public <T> void setObject(T obj) throws Exception {
+    public <T> void setObject(T obj) throws InvalidObject {
         if(PatternStop.class.isInstance(obj)) {
             this.patternStop_ = (PatternStop) obj;
 
@@ -165,8 +166,7 @@ public class PatternStopCell extends HBox implements IController {
             this.listPatternStop_ = (ListView<PatternStop>) obj;
         }
         else {
-            // FIXME: wlasny wyjatek
-            throw new Exception("blad");
+            throw new InvalidObject("Niewłaściwy obiekt");
         }
 
     }

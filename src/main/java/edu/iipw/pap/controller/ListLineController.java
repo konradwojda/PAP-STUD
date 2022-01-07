@@ -1,10 +1,13 @@
 package edu.iipw.pap.controller;
 
 
+import java.io.IOException;
+
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Line;
 import edu.iipw.pap.db.model.LineType;
+import edu.iipw.pap.exceptions.InvalidObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -85,7 +88,12 @@ public class ListLineController {
             Line lineToEdit = tblLine.getSelectionModel().getSelectedItem();
             mainController.CreatePopUpAndSetObj("/view/editLine.fxml", btnAddLine, lineToEdit);
             refreshLines();
-        } catch (Exception e) {
+        } catch (InvalidObject e) {
+            // FIXME: gui
+            System.out.println("Nie wybrano obiektu do edycji");
+        }
+        catch (IOException e) {
+            assert false;
         }
 
     }

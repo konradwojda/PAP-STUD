@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -169,7 +170,7 @@ public class EditStopController implements Initializable, IController {
     private Stop stop_;
 
     @Override
-    public <T> void setObject(T obj) throws Exception {
+    public <T> void setObject(T obj) throws InvalidObject {
         if (Stop.class.isInstance(obj)) {
             this.stop_ = (Stop) obj;
 
@@ -194,8 +195,7 @@ public class EditStopController implements Initializable, IController {
 
 
         } else {
-            // FIXME: wlasny wyjatek
-            throw new Exception("błąd");
+            throw new InvalidObject("Niepoprawny obiekt");
         }
 
     }

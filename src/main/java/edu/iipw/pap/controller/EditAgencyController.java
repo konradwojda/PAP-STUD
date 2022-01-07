@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,11 +33,6 @@ public class EditAgencyController implements IController {
     @FXML
     void onAgencyOk(ActionEvent event) throws Exception {
         try {
-            // Agency agency = new Agency();
-            // agency.setName(txtAgencyName.getText());
-            // agency.setWebsite(txtAgencyWebsite.getText());
-            // agency.setTimezone(txtAgencyTimezone.getText());
-            // agency.setTelephone(txtAgencyTelephone.getText());
             Database.INSTANCE.save(agency_);
         } catch (Exception e) {
             txtStopError.setText(e.toString());
@@ -49,19 +45,15 @@ public class EditAgencyController implements IController {
     private Agency agency_;
 
     @Override
-    public <T> void setObject(T obj) throws Exception {
+    public <T> void setObject(T obj) throws InvalidObject {
         if (Agency.class.isInstance(obj)) {
             this.agency_ = (Agency) obj;
             this.txtAgencyName.textProperty().bindBidirectional(this.agency_.nameProperty());
-
             this.txtAgencyTelephone.textProperty().bindBidirectional(this.agency_.telephoneProperty());
-
             this.txtAgencyTimezone.textProperty().bindBidirectional(this.agency_.timezoneProperty());
-
             this.txtAgencyWebsite.textProperty().bindBidirectional(this.agency_.websiteProperty());
         } else {
-            // FIXME: wlasny wyjatek
-            throw new Exception("bład");
+            throw new InvalidObject("Niepoprawny obiekt");
         }
     }
 
