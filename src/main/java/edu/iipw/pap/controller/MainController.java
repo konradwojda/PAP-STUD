@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,6 +37,15 @@ public class MainController {
     private VBox listCalendar;
 
     @FXML
+    private VBox viewPatternTimetable;
+
+    @FXML
+    private VBox viewStopTimetable;
+
+    @FXML
+    private Pane paneBackground;
+
+    @FXML
     private ListAgencyController listAgencyController;
 
     @FXML
@@ -46,6 +56,12 @@ public class MainController {
 
     @FXML
     private ListStopController listStopController;
+
+    @FXML
+    private ViewPatternTimetableController viewPatternTimetableController;
+
+    @FXML
+    private ViewStopTimetableController viewStopTimetableController;
 
     public void CreatePopUp(String fxml_template, Button button) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
@@ -71,23 +87,40 @@ public class MainController {
 
     @FXML
     void onAgency(ActionEvent event) {
+        paneBackground.toFront();
         listAgency.toFront();
     }
 
     @FXML
     void onCalendar(ActionEvent event) {
+        paneBackground.toFront();
         listCalendar.toFront();
     }
 
     @FXML
     void onLine(ActionEvent event) {
+        paneBackground.toFront();
         listLine.toFront();
     }
 
     @FXML
     void onStop(ActionEvent event) {
+        paneBackground.toFront();
         listStop.toFront();
     }
+
+    @FXML
+    void onStopTimetable(ActionEvent event){
+        paneBackground.toFront();
+        viewStopTimetable.toFront();
+    }
+
+    @FXML
+    void onPatternTimetable(ActionEvent event){
+        paneBackground.toFront();
+        viewPatternTimetable.toFront();
+    }
+
 
     @FXML
     private void initialize() {
@@ -100,5 +133,7 @@ public class MainController {
         listLineController.InitializeLineTable();
         listStopController.InitializeStopTable();
         listCalendarController.InitializeCalnderTable();
+        viewPatternTimetableController.InitializePatternTimetableTable();
+        viewStopTimetableController.InitializeStopTimetableTable();
     }
 }
