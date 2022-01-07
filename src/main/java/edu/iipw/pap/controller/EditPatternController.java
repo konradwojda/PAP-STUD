@@ -80,8 +80,7 @@ public class EditPatternController implements Initializable, IController {
     void onPatternOk(ActionEvent event) throws Exception {
         try {
             pattern_.validateUserInput();
-        }
-        catch (InvalidData e) {
+        } catch (InvalidData e) {
             // FIXME : gui
             return;
         }

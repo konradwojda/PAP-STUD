@@ -141,7 +141,6 @@ public class PatternStopCell extends HBox implements IController {
         if (PatternStop.class.isInstance(obj)) {
             this.patternStop_ = (PatternStop) obj;
 
-            // FIXME: nie dziala dla 0
             StrIntMux sim = new StrIntMux();
             sim.iProperty().set(this.patternStop_.getIndex());
 

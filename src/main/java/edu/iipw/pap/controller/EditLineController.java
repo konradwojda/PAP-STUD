@@ -122,6 +122,8 @@ public class EditLineController implements Initializable, IController {
     void onEditPattern(ActionEvent event) throws Exception {
         try {
             Pattern patternToEdit = tblPattern.getSelectionModel().getSelectedItem();
+            if (patternToEdit == null)
+                return;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editPattern.fxml"));
             VBox page = (VBox) loader.load();
             Stage stage = new Stage();
@@ -134,8 +136,6 @@ public class EditLineController implements Initializable, IController {
 
             stage.showAndWait();
             refreshPatterns();
-        } catch (InvalidObject e) {
-            System.out.println("Nie wybrano obiektu do edycji");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -164,6 +164,8 @@ public class EditLineController implements Initializable, IController {
     @FXML
     void onRemovePattern(ActionEvent event) {
         Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
+        if (patternToRemove == null)
+            return;
         line_.patternsProperty().remove(patternToRemove);
         Database.INSTANCE.markToDelete(patternToRemove);
         refreshPatterns();

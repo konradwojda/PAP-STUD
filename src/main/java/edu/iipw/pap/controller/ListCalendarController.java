@@ -1,11 +1,9 @@
 package edu.iipw.pap.controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
-import edu.iipw.pap.exceptions.InvalidObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -106,12 +104,12 @@ public class ListCalendarController {
     void onEditCalendar(ActionEvent event) {
         try {
             Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
+            if (calendarToEdit == null)
+                return;
             mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendarToEdit);
             refreshCalendars();
-        } catch (InvalidObject e) {
-            // FIXME: gui
-            System.out.println("Nie wybrano obiektu do edycji");
-        } catch (IOException e) {
+        } catch (Exception e) {
+            // FIXME: ?
             assert false;
         }
 
@@ -120,6 +118,8 @@ public class ListCalendarController {
     @FXML
     void onRemoveCalendar(ActionEvent event) {
         Calendar calendarToRemove = tblCalendar.getSelectionModel().getSelectedItem();
+        if (calendarToRemove == null)
+            return;
         tblCalendar.getItems().remove(calendarToRemove);
         Database.INSTANCE.delete(calendarToRemove);
         refreshCalendars();
