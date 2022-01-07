@@ -38,7 +38,7 @@ import javafx.collections.FXCollections;
 @Table(name = "patterns")
 public final class Pattern {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pattern_id")
     private IntegerProperty patternId = new SimpleIntegerProperty();
 

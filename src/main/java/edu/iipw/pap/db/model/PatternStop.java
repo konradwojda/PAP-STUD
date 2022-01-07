@@ -24,7 +24,7 @@ import javafx.beans.property.SimpleObjectProperty;
 @Table(name = "pattern_stops")
 public final class PatternStop {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pattern_stop_id")
     private IntegerProperty patternStopId = new SimpleIntegerProperty();
 

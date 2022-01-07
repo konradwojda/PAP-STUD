@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import edu.iipw.pap.db.typeConverters.BooleanConverter;
+import edu.iipw.pap.db.typeConverters.LocalDateConverter;
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -34,7 +37,7 @@ import javafx.collections.FXCollections;
 @Table(name = "calendars")
 public final class Calendar {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "calendar_id")
     private IntegerProperty calendarId = new SimpleIntegerProperty();
 
@@ -90,6 +93,7 @@ public final class Calendar {
     }
 
     @Column(name = "start_date", nullable = false)
+    @Convert(converter = LocalDateConverter.class)
     private ObjectProperty<LocalDate> start = new SimpleObjectProperty<LocalDate>();
 
     /**
@@ -121,6 +125,7 @@ public final class Calendar {
     }
 
     @Column(name = "end_date")
+    @Convert(converter = LocalDateConverter.class)
     private ObjectProperty<LocalDate> end = new SimpleObjectProperty<LocalDate>();
 
     /**
@@ -153,6 +158,7 @@ public final class Calendar {
     }
 
     @Column(name = "monday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty monday = new SimpleBooleanProperty(false);
 
     /**
@@ -179,6 +185,7 @@ public final class Calendar {
     }
 
     @Column(name = "tuesday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty tuesday = new SimpleBooleanProperty(false);
 
     /**
@@ -205,6 +212,7 @@ public final class Calendar {
     }
 
     @Column(name = "wednesday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty wednesday = new SimpleBooleanProperty(false);
 
     /**
@@ -231,6 +239,7 @@ public final class Calendar {
     }
 
     @Column(name = "thursday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty thursday = new SimpleBooleanProperty(false);
 
     /**
@@ -257,6 +266,7 @@ public final class Calendar {
     }
 
     @Column(name = "friday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty friday = new SimpleBooleanProperty(false);
 
     /**
@@ -283,6 +293,7 @@ public final class Calendar {
     }
 
     @Column(name = "saturday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty saturday = new SimpleBooleanProperty(false);
 
     /**
@@ -309,6 +320,7 @@ public final class Calendar {
     }
 
     @Column(name = "sunday")
+    @Convert(converter = BooleanConverter.class)
     private BooleanProperty sunday = new SimpleBooleanProperty(false);
 
     /**

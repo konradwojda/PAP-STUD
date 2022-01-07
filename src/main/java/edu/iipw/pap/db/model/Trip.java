@@ -27,7 +27,7 @@ import javafx.beans.property.SimpleObjectProperty;
 @Table(name = "trips")
 public final class Trip {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "trip_id")
     private IntegerProperty tripId = new SimpleIntegerProperty();
 
