@@ -69,7 +69,7 @@ public class PatternStopCell extends HBox implements IController {
     @FXML
     void onUp(ActionEvent event) {
         int idx = this.patternStop_.getIndex();
-        if(idx > 0) {
+        if (idx > 0) {
             Collections.swap(this.patternStop_.getPattern().patternStopsProperty(), idx, idx - 1);
         }
         this.patternStop_.getPattern().refreshIndices();
@@ -80,8 +80,7 @@ public class PatternStopCell extends HBox implements IController {
         return hboxRoot;
     }
 
-    ChoiceBox<Stop> getChoiceStop()
-    {
+    ChoiceBox<Stop> getChoiceStop() {
         return this.choiceStop;
     }
 
@@ -104,14 +103,10 @@ public class PatternStopCell extends HBox implements IController {
 
         @Override
         public String toString(Integer object) {
-
             if (object == null)
                 return null;
-
             int minutes = object.intValue() / 60;
-
             int seconds = object.intValue() % 60;
-
             return String.format("%02d:%02d", minutes, seconds);
         }
 
@@ -120,19 +115,14 @@ public class PatternStopCell extends HBox implements IController {
             if (string == null)
                 return null;
             String[] splitted = string.split(":", 2);
-
             int minutes = 0;
-
             int seconds = 0;
-            if(splitted.length == 2) {
+            if (splitted.length == 2) {
                 minutes = Integer.parseInt(splitted[0]);
                 seconds = Integer.parseInt(splitted[1]);
-            }
-            else
-            {
+            } else {
                 seconds = Integer.parseInt(splitted[0]);
             }
-
             return minutes * 60 + seconds;
         }
 
@@ -140,32 +130,24 @@ public class PatternStopCell extends HBox implements IController {
 
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
-        if(PatternStop.class.isInstance(obj)) {
+        if (PatternStop.class.isInstance(obj)) {
             this.patternStop_ = (PatternStop) obj;
 
-            //FIXME: nie dziala dla 0
-
+            // FIXME: nie dziala dla 0
             StrIntMux sim = new StrIntMux();
-
             sim.iProperty().set(this.patternStop_.getIndex());
 
             this.patternStop_.indexProperty().bindBidirectional(sim.iProperty());
-
             this.txtIndex.textProperty().bindBidirectional(sim.sProperty());
-
             this.choiceStop.valueProperty().bindBidirectional(this.patternStop_.stopProperty());
 
             TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(new MMSSToInt());
-
             this.txtTravelTime.textFormatterProperty().set(travelTimeTextFormatter);
-
-            travelTimeTextFormatter.valueProperty().bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
-        }
-
-        else if(ListView.class.isInstance(obj)) {
+            travelTimeTextFormatter.valueProperty()
+                    .bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
+        } else if (ListView.class.isInstance(obj)) {
             this.listPatternStop_ = (ListView<PatternStop>) obj;
-        }
-        else {
+        } else {
             throw new InvalidObject("Niewłaściwy obiekt");
         }
 

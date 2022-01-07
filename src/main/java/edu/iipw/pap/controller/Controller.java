@@ -252,29 +252,6 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void onSearchAgency(ActionEvent event) {
-        // InitializeAgencyTable();
-        // Agency a1 = new Agency("MZK Stalowa Wola", "mzk.pl", "UTF+1", "123456789");
-        // tblAgency.getItems().add(a1);
-    }
-
-    @FXML
-    void onSearchLine(ActionEvent event) {
-        // InitializeLineTable();
-        // Agency a1 = new Agency("MZK Stalowa Wola", "mzk.pl", "UTF+1", "123456789");
-        // Line l1 = new Line("2", "Winnica/Metro Młociny", LineType.TRAM, a1);
-        // tblLine.getItems().add(l1);
-    }
-
-    @FXML
-    void onSearchStop(ActionEvent event) {
-        // InitializeStopTable();
-        // Stop s1 = new Stop("Nowodwory", "11312", 21424.121, -214234.22,
-        // WheelchairAccessibility.ACCESSIBLE);
-        // tblStop.getItems().add(s1);
-    }
-
-    @FXML
     void onStop(ActionEvent event) {
         textHeader.setText("Stops");
         plnStatus.setBackground(

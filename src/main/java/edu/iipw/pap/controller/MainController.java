@@ -113,17 +113,16 @@ public class MainController {
     }
 
     @FXML
-    void onStopTimetable(ActionEvent event){
+    void onStopTimetable(ActionEvent event) {
         paneBackground.toFront();
         viewStopTimetable.toFront();
     }
 
     @FXML
-    void onPatternTimetable(ActionEvent event){
+    void onPatternTimetable(ActionEvent event) {
         paneBackground.toFront();
         viewPatternTimetable.toFront();
     }
-
 
     @FXML
     private void initialize() {

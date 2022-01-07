@@ -1,6 +1,5 @@
 package edu.iipw.pap.controller;
 
-
 import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
@@ -79,7 +78,6 @@ public class ListStopController {
 
     @FXML
     void onAddStop(ActionEvent event) throws Exception {
-        // mainController.CreatePopUp("/view/addStop.fxml", btnAddStop);
         Stop stop = new Stop();
         mainController.CreatePopUpAndSetObj("/view/editStop.fxml", btnAddStop, stop);
         refreshStops();
@@ -94,8 +92,7 @@ public class ListStopController {
         } catch (InvalidObject e) {
             // FIXME: gui
             System.out.println("Nie wybrano obiektu do edycji");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             assert false;
         }
     }
@@ -106,10 +103,5 @@ public class ListStopController {
         tblStop.getItems().remove(stopToRemove);
         Database.INSTANCE.delete(stopToRemove);
         refreshStops();
-    }
-
-    @FXML
-    void onSearchStop(ActionEvent event) {
-
     }
 }

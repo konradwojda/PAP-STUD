@@ -1,6 +1,5 @@
 package edu.iipw.pap.controller;
 
-
 import java.io.IOException;
 
 import edu.iipw.pap.db.Database;
@@ -75,8 +74,6 @@ public class ListLineController {
 
     @FXML
     void onAddLine(ActionEvent event) throws Exception {
-        // create pop up and set obj
-        // mainController.CreatePopUp("/view/addLine.fxml", btnAddLine);
         Line line = new Line();
         mainController.CreatePopUpAndSetObj("/view/editLine.fxml", btnAddLine, line);
         refreshLines();
@@ -91,8 +88,7 @@ public class ListLineController {
         } catch (InvalidObject e) {
             // FIXME: gui
             System.out.println("Nie wybrano obiektu do edycji");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             assert false;
         }
 
@@ -105,10 +101,4 @@ public class ListLineController {
         Database.INSTANCE.delete(lineToRemove);
         refreshLines();
     }
-
-    @FXML
-    void onSearchLine(ActionEvent event) {
-
-    }
-
 }

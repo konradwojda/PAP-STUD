@@ -43,18 +43,16 @@ public class EditPatternController implements Initializable, IController {
 
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
-        if(Pattern.class.isInstance(obj)) {
+        if (Pattern.class.isInstance(obj)) {
             this.pattern_ = (Pattern) obj;
             this.txtLineHeadsign.textProperty().bindBidirectional(this.pattern_.headsignProperty());
             this.choiceDirection.valueProperty().bindBidirectional(this.pattern_.directionProperty());
             this.listPatternStop.itemsProperty().bindBidirectional(this.pattern_.patternStopsProperty());
             this.listTrip.getItems().setAll(new ArrayList<Trip>(this.pattern_.tripsProperty()));
-            if(pattern_.patternStopsProperty().get() == null)
-            {
+            if (pattern_.patternStopsProperty().get() == null) {
                 pattern_.setPatternStops(FXCollections.observableArrayList());
             }
-        }
-        else {
+        } else {
             throw new InvalidObject("Niepoprawny obiekt");
         }
     }
@@ -75,27 +73,15 @@ public class EditPatternController implements Initializable, IController {
     }
 
     @FXML
-    void onPatternOk(ActionEvent event) throws Exception{
-        try {
-            // List<PatternStop> patternStops = listPatternStop.getItems();
-            // pattern_.setPatternStops(patternStops);
-            System.out.println(pattern_.directionProperty());
-            System.out.println(pattern_.headsignProperty());
-            System.out.println(pattern_.patternStopsProperty());
-        }
-        catch (Exception e) {
-            txtPatternError.setText(e.toString());
-        }
+    void onPatternOk(ActionEvent event) throws Exception {
         Stage stage = (Stage) btnPatternOk.getScene().getWindow();
         stage.close();
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceDirection.getItems().setAll(PatternDirection.values());
         listPatternStop.setCellFactory(param -> new PatternStopCellController());
-
         listTrip.setCellFactory(param -> new TripCellControler());
     }
 }

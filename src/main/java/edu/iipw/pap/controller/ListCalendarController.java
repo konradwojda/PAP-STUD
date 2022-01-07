@@ -97,7 +97,6 @@ public class ListCalendarController {
 
     @FXML
     void onAddCalendar(ActionEvent event) throws Exception {
-        // mainController.CreatePopUp("/view/addCalendar.fxml", btnAddCalendar);
         Calendar calendar = new Calendar();
         mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendar);
         refreshCalendars();
@@ -112,8 +111,7 @@ public class ListCalendarController {
         } catch (InvalidObject e) {
             // FIXME: gui
             System.out.println("Nie wybrano obiektu do edycji");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             assert false;
         }
 
@@ -126,10 +124,4 @@ public class ListCalendarController {
         Database.INSTANCE.delete(calendarToRemove);
         refreshCalendars();
     }
-
-    @FXML
-    void onSearchCalendar(ActionEvent event) {
-
-    }
-
 }

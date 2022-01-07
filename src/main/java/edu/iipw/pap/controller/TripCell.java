@@ -62,32 +62,23 @@ public class TripCell extends HBox implements IController {
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 
-
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (Trip.class.isInstance(obj)) {
             this.trip_ = (Trip) obj;
-
             this.choiceCalendar.valueProperty().bindBidirectional(this.trip_.calendarProperty());
 
             WheelchairAccessibilityMux wam = new WheelchairAccessibilityMux();
-
             wam.accessibleProperty().set(this.trip_.getWheelchairAccessible());
-
             this.trip_.wheelchairAccessibleProperty().bindBidirectional(wam.accessibleProperty());
-
             this.checkWheelchairAccessibility.selectedProperty().bindBidirectional(wam.checkedProperty());
-
             this.checkWheelchairAccessibility.indeterminateProperty().bindBidirectional(wam.indeterminateProperty());
 
             TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(new HHMMSSToInt());
-
             this.txtDeparture.textFormatterProperty().set(travelTimeTextFormatter);
-
             travelTimeTextFormatter.valueProperty().bindBidirectional(this.trip_.departureProperty().asObject());
 
-        }
-        else if(ListView.class.isInstance(obj)) {
+        } else if (ListView.class.isInstance(obj)) {
             this.listTrip_ = (ListView<Trip>) obj;
         } else {
             throw new InvalidObject("Niepoprawny obiekt");

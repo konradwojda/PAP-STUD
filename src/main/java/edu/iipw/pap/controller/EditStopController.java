@@ -123,7 +123,6 @@ public class EditStopController implements Initializable, IController {
             0,
             0.0001);
 
-
     /**
      * Event handler for the OK button
      *
@@ -133,16 +132,9 @@ public class EditStopController implements Initializable, IController {
     @FXML
     void onStopOk(ActionEvent event) throws Exception {
         try {
-            // Stop stop = new Stop();
-            // stop_.setName(txtStopName.getText());
-            // stop_.setCode(txtStopCode.getText());
-            // stop_.setLat(spinStopLat.getValue());
-            // stop_.setLon(spinStopLon.getValue());
-            // stop_.setWheelchairAccessible(getAccessibilityStatus());
             Database.INSTANCE.save(stop_);
 
             this.txtStopName.textProperty().unbindBidirectional(this.stop_.nameProperty());
-
             this.txtStopCode.textProperty().unbindBidirectional(this.stop_.codeProperty());
 
             // Close the popup on successful entry
@@ -173,27 +165,17 @@ public class EditStopController implements Initializable, IController {
     public <T> void setObject(T obj) throws InvalidObject {
         if (Stop.class.isInstance(obj)) {
             this.stop_ = (Stop) obj;
-
             this.txtStopName.textProperty().bindBidirectional(this.stop_.nameProperty());
-
             this.txtStopCode.textProperty().bindBidirectional(this.stop_.codeProperty());
-
             this.spinStopLat.getValueFactory().valueProperty().bindBidirectional(this.stop_.latProperty().asObject());
-
             this.spinStopLon.getValueFactory().valueProperty().bindBidirectional(this.stop_.lonProperty().asObject());
 
             WheelchairAccessibilityMux wam = new WheelchairAccessibilityMux();
-
             wam.accessibleProperty().set(this.stop_.getWheelchairAccessible());
 
             this.stop_.wheelchairAccessibleProperty().bindBidirectional(wam.accessibleProperty());
-
             this.checkStopWheelchairAccessible.selectedProperty().bindBidirectional(wam.checkedProperty());
-
             this.checkStopWheelchairAccessible.indeterminateProperty().bindBidirectional(wam.indeterminateProperty());
-
-
-
         } else {
             throw new InvalidObject("Niepoprawny obiekt");
         }
