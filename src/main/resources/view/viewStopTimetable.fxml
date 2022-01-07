@@ -34,13 +34,13 @@
             <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stop" />
-                  <ChoiceBox fx:id="choiceStop" maxWidth="1.7976931348623157E308" />
+                  <ChoiceBox fx:id="choiceStop" onAction="#onChoiceStop" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="310.0" layoutY="35.0" GridPane.columnIndex="1">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Calendar" />
-                  <ChoiceBox fx:id="choiceCalendar" maxWidth="1.7976931348623157E308" />
+                  <ChoiceBox fx:id="choiceCalendar" onAction="#onChoiceCalendar" maxWidth="1.7976931348623157E308" />
                </children>
             </VBox>
          </children>
