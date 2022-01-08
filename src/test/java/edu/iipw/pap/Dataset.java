@@ -37,7 +37,7 @@ public final class Dataset extends ObjectPool {
     public Line lineM1;
     public Line lineM2;
 
-    public static Dataset INSTANCE = new Dataset();
+    final public static Dataset INSTANCE = new Dataset();
     private int tripIdEnum = 1;
 
     private Dataset() {

@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.db.model.StopTime;
 import edu.iipw.pap.db.model.WheelchairAccessibility;
 import edu.iipw.pap.exceptions.InvalidData;
 
@@ -61,5 +65,22 @@ public class TestsStop {
         // Validate wheelchair-accessibility checking
         s.setWheelchairAccessible(null);
         assertThrows(InvalidData.class, () -> s.validateUserInput());
+    }
+
+    @Test
+    void checkStopTimes() {
+        // Test Świętokrzyska - both M1 and M2 trips
+        List<StopTime> s = Dataset.INSTANCE.stopSwietokrzyska.getStopTimes().collect(Collectors.toList());
+        assertEquals(40, s.size());
+        for (StopTime st : s)
+            assertEquals(st.getStop(), Dataset.INSTANCE.stopSwietokrzyska);
+
+        // Test Trocka - only M2 trips
+        s = Dataset.INSTANCE.stopTrocka.getStopTimes().collect(Collectors.toList());
+        assertEquals(20, s.size());
+        for (StopTime st : s) {
+            assertEquals(st.getStop(), Dataset.INSTANCE.stopTrocka);
+            assertEquals(st.getTrip().getPattern().getLine(), Dataset.INSTANCE.lineM2);
+        }
     }
 }
