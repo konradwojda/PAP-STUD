@@ -100,6 +100,7 @@ public class MainController {
 
     @FXML
     void onCalendar(ActionEvent event) {
+        listCalendarController.InitializeCalnderTable();
         paneBackground.toFront();
         listCalendar.toFront();
     }
@@ -143,5 +144,13 @@ public class MainController {
         listLineController.refrenceMainController(this);
         listCalendarController.refrenceMainController(this);
         listStopController.refrenceMainController(this);
+
+        listAgencyController.InitializeAgencyTable();
+        listCalendarController.InitializeCalnderTable();
+        listLineController.InitializeLineTable();
+        listStopController.InitializeStopTable();
+        listAgencyController.InitializeAgencyTable();
+        viewPatternTimetableController.InitializePatternTimetableTable();
+        viewStopTimetableController.InitializeStopTimetableTable();
     }
 }
