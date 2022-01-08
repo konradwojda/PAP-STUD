@@ -28,6 +28,9 @@ public class MainController {
     private Button btnStop;
 
     @FXML
+    private Button btnExportToGTFS;
+
+    @FXML
     private VBox listLine;
 
     @FXML
@@ -127,7 +130,11 @@ public class MainController {
         viewPatternTimetableController.InitializePatternTimetableTable();
         paneBackground.toFront();
         viewPatternTimetable.toFront();
+    }
 
+    @FXML
+    void onExportToGTFS(ActionEvent event) throws Exception {
+        CreatePopUp("/view/exportToGTFS.fxml", btnExportToGTFS);
     }
 
     @FXML
