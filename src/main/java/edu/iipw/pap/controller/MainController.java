@@ -1,18 +1,25 @@
 package edu.iipw.pap.controller;
 
+import java.io.File;
 import java.io.IOException;
 
+import edu.iipw.pap.GTFSExporter;
+import edu.iipw.pap.db.Database;
 import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class MainController {
     @FXML
@@ -135,7 +142,20 @@ public class MainController {
 
     @FXML
     void onExportToGTFS(ActionEvent event) throws Exception {
-        CreatePopUp("/view/exportToGTFS.fxml", btnExportToGTFS);
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Where to save the GTFS?");
+        fc.getExtensionFilters().add(
+            new ExtensionFilter("ZIP archive", "*.zip")
+        );
+        File f = fc.showSaveDialog(this.btnExportToGTFS.getScene().getWindow());
+        if (f == null) return;
+
+        try {
+            GTFSExporter.exportToZip(f.getAbsolutePath(), Database.INSTANCE);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, e.toString());
+            alert.showAndWait();
+        }
     }
 
     @FXML

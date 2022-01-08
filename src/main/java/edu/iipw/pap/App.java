@@ -16,8 +16,6 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("/view/main.fxml"));
         HBox page = (HBox) loader.load();
-        // FXMLLoader loader = new FXMLLoader(App.class.getResource("/view/gui.fxml"));
-        // AnchorPane page = (AnchorPane) loader.load();
         Scene scene = new Scene(page);
         stage.setScene(scene);
         stage.show();
