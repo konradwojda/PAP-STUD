@@ -55,9 +55,9 @@ public class ViewStopTimetableController {
         if (wa.equals(WheelchairAccessibility.ACCESSIBLE))
             return "\u2713";
         else if (wa.equals(WheelchairAccessibility.INACCESSIBLE))
-            return "\u274C";
+            return "\u2715";
         else
-            return "\u2753";
+            return "?";
     }
 
     final HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
