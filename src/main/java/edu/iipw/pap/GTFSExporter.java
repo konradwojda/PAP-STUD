@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -101,6 +103,7 @@ public class GTFSExporter implements AutoCloseable {
 
     private Set<Stop> exportedStops = new HashSet<>();
     private Set<Calendar> exportedCalendars = new HashSet<>();
+    private static final Logger logger = Logger.getLogger("GTFSExporter");
 
     public GTFSExporter(Writer writerAgency_, Writer writerStops_, Writer writerRoutes_, Writer writerTrips_,
             Writer writerStopTimes_, Writer writerCalendar_) {
@@ -338,9 +341,10 @@ public class GTFSExporter implements AutoCloseable {
      */
     public static Path exportToTempDir(ObjectPool pool) throws IOException {
         Path tempDir = Files.createTempDirectory("rozkladonator4000-");
-        FunctionThrowingIO<String, Writer> opener = fname -> Files.newBufferedWriter(tempDir.resolve("agency.txt"),
-                StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+        FunctionThrowingIO<String, Writer> opener = fname -> Files.newBufferedWriter(tempDir.resolve(fname),
+                StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
+        logger.info("Opening files in a temporary directory");
         GTFSExporter exporter = new GTFSExporter(
                 opener.apply("agency.txt"),
                 opener.apply("stops.txt"),
@@ -349,9 +353,13 @@ public class GTFSExporter implements AutoCloseable {
                 opener.apply("stop_times.txt"),
                 opener.apply("calendar.txt"));
         try {
+            logger.info("Writing headers");
             exporter.writeHeaders();
+
+            logger.info("Exporting the pool");
             exporter.exportPool(pool);
         } finally {
+            logger.info("Closing files");
             exporter.close();
         }
 
@@ -373,8 +381,10 @@ public class GTFSExporter implements AutoCloseable {
         // First, export to temp dir
         Path tempDir = exportToTempDir(pool);
 
+        logger.info("Opening the zip file");
         try (ZipOutputStream arch = new ZipOutputStream(new FileOutputStream(target))) {
             for (String file : filesToZip) {
+                logger.log(Level.INFO, "Compressing {0}", file);
                 FileInputStream in = new FileInputStream(tempDir.resolve(file).toString());
                 arch.putNextEntry(new ZipEntry(file));
 
@@ -387,6 +397,7 @@ public class GTFSExporter implements AutoCloseable {
             }
         }
 
+        logger.info("Compression finished, removing temporary directory");
         Files.delete(tempDir);
     }
 
