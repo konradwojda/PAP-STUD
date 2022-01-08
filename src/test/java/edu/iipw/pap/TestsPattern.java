@@ -16,7 +16,7 @@ import edu.iipw.pap.db.model.Trip;
 import edu.iipw.pap.exceptions.InvalidData;
 
 public class TestsPattern {
-    Pattern preparePattern() {
+    public static Pattern preparePattern() {
         Pattern p = new Pattern();
         p.setHeadsign("Młociny");
         p.setDirection(PatternDirection.OUTBOUND);
@@ -24,7 +24,7 @@ public class TestsPattern {
         return p;
     }
 
-    PatternStop[] preparePatternStops(Pattern p) {
+    public static PatternStop[] preparePatternStops(Pattern p) {
         PatternStop[] ps = { new PatternStop(), new PatternStop(), new PatternStop() };
         ps[0].setPattern(p);
         ps[0].setStop(Dataset.INSTANCE.stopKabaty);
@@ -34,12 +34,12 @@ public class TestsPattern {
         ps[1].setPattern(p);
         ps[1].setStop(Dataset.INSTANCE.stopSwietokrzyska);
         ps[1].setIndex(1);
-        ps[1].setTravelTime(1320);
+        ps[1].setTravelTime(22 * 60);
 
         ps[2].setPattern(p);
         ps[2].setStop(Dataset.INSTANCE.stopMlociny);
         ps[2].setIndex(2);
-        ps[2].setTravelTime(2340);
+        ps[2].setTravelTime(39 * 60);
 
         p.setPatternStops(Arrays.asList(ps));
         return ps;
