@@ -86,8 +86,7 @@ public class EditPatternController implements Initializable, IController {
         try {
             pattern_.validateUserInput();
         } catch (InvalidData e) {
-            // FIXME : gui
-            System.out.println(e.toString());
+            txtPatternError.setText(e.toString());
             return;
         }
         Stage stage = (Stage) btnPatternOk.getScene().getWindow();
