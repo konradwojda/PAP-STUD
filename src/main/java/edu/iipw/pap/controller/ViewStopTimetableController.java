@@ -7,6 +7,7 @@ import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Stop;
 import edu.iipw.pap.db.model.StopTime;
+import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,6 +33,9 @@ public class ViewStopTimetableController {
     private TableColumn<StopTime, String> colLine;
 
     @FXML
+    private TableColumn<StopTime, String> colWheelchairAccessibility;
+
+    @FXML
     private VBox listLine;
 
     @FXML
@@ -45,6 +49,15 @@ public class ViewStopTimetableController {
     @FXML
     void onChoiceStop(ActionEvent event) {
         refreshStopTimetableTable();
+    }
+
+    private String wheelchairAccessibilityToString(WheelchairAccessibility wa) {
+        if (wa.equals(WheelchairAccessibility.ACCESSIBLE))
+            return "\u2713";
+        else if (wa.equals(WheelchairAccessibility.INACCESSIBLE))
+            return "\u2715";
+        else
+            return "?";
     }
 
     final HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
@@ -63,8 +76,11 @@ public class ViewStopTimetableController {
     }
 
     public void InitializeStopTimetableTable() {
+        colWheelchairAccessibility.setText("\u267F");
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
         choiceStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
+        colWheelchairAccessibility.setCellValueFactory(cellData -> new SimpleStringProperty(
+                wheelchairAccessibilityToString(cellData.getValue().getTrip().getWheelchairAccessible())));
         colDeparture.setCellValueFactory(cellData -> new SimpleStringProperty(
                 depTimeFormatter.toString(cellData.getValue().getDepartureTime())));
         colHeadsign.setCellValueFactory(
