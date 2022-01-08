@@ -54,6 +54,11 @@
                         <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="btnExportToGTFS" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExportToGTFS" prefHeight="50.0" style="-fx-background-color: #AB636B;" text="Export To GTFS" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </children>
