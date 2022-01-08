@@ -1,6 +1,7 @@
 package edu.iipw.pap;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
@@ -85,5 +86,21 @@ public class TestsPattern {
         // Validate recursive checking of trips
         p.setTrips(Set.of(new Trip()));
         assertThrows(InvalidData.class, () -> p.validateUserInput());
+    }
+
+    @Test
+    void checkRefreshIndices() {
+        Pattern p = preparePattern();
+        PatternStop[] ps = preparePatternStops(p);
+
+        ps[0].setIndex(5);
+        ps[1].setIndex(10);
+        ps[2].setIndex(15);
+
+        p.refreshIndices();
+
+        assertEquals(ps[0].getIndex(), 0);
+        assertEquals(ps[1].getIndex(), 1);
+        assertEquals(ps[2].getIndex(), 2);
     }
 }
