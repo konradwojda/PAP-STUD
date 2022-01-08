@@ -32,6 +32,10 @@ public class ViewStopTimetableController {
     private TableColumn<StopTime, String> colLine;
 
     @FXML
+    private TableColumn<?, ?> colWheelchairAccessibility;
+
+
+    @FXML
     private VBox listLine;
 
     @FXML
