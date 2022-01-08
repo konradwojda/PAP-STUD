@@ -79,7 +79,7 @@ public class TestsPattern {
         ps[2].setTravelTime(2340);
 
         // Validate recursive checking of pattern-stops
-        ps[0].setStop(null);;
+        ps[0].setStop(null);
         assertThrows(InvalidData.class, () -> p.validateUserInput());
         ps[0].setStop(Dataset.INSTANCE.stopKabaty);
 
@@ -102,5 +102,15 @@ public class TestsPattern {
         assertEquals(ps[0].getIndex(), 0);
         assertEquals(ps[1].getIndex(), 1);
         assertEquals(ps[2].getIndex(), 2);
+    }
+
+    @Test
+    void checkStopTimes() {
+        // Every pattern in the test dataset has 10 trips, 3 stops each
+        for (Pattern p : Dataset.INSTANCE.lineM1.patternsProperty())
+            assertEquals(30, p.getStopTimes().count());
+
+        for (Pattern p : Dataset.INSTANCE.lineM2.patternsProperty())
+            assertEquals(30, p.getStopTimes().count());
     }
 }
