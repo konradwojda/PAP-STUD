@@ -6,13 +6,17 @@ public class HHMMSSToInt extends StringConverter<Integer> {
 
     @Override
     public String toString(Integer object) {
+        return toString(object, false);
+    }
+
+    public String toString(Integer object, boolean forceSeconds) {
         if (object == null)
             return null;
         int minutes = object.intValue() / 60;
         int seconds = object.intValue() % 60;
         int hours = minutes / 60;
         minutes = minutes % 60;
-        return seconds == 0 ? String.format("%02d:%02d", hours, minutes)
+        return seconds == 0 && !forceSeconds ? String.format("%02d:%02d", hours, minutes)
                 : String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
