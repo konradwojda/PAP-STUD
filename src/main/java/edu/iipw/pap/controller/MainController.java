@@ -151,7 +151,10 @@ public class MainController {
         if (f == null) return;
 
         try {
-            GTFSExporter.exportToZip(f.getAbsolutePath(), Database.INSTANCE);
+            String path = f.getAbsolutePath();
+            if(!path.endsWith(".zip"))
+                path += ".zip";
+            GTFSExporter.exportToZip(path, Database.INSTANCE);
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.ERROR, e.toString());
             alert.showAndWait();
