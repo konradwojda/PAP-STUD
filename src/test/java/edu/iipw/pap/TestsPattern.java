@@ -15,13 +15,15 @@ import edu.iipw.pap.db.model.Trip;
 import edu.iipw.pap.exceptions.InvalidData;
 
 public class TestsPattern {
-    @Test
-    void checkValidateUserInput() {
+    Pattern preparePattern() {
         Pattern p = new Pattern();
         p.setHeadsign("Młociny");
         p.setDirection(PatternDirection.OUTBOUND);
         p.setLine(Dataset.INSTANCE.lineM1);
+        return p;
+    }
 
+    PatternStop[] preparePatternStops(Pattern p) {
         PatternStop[] ps = { new PatternStop(), new PatternStop(), new PatternStop() };
         ps[0].setPattern(p);
         ps[0].setStop(Dataset.INSTANCE.stopKabaty);
@@ -39,6 +41,13 @@ public class TestsPattern {
         ps[2].setTravelTime(2340);
 
         p.setPatternStops(Arrays.asList(ps));
+        return ps;
+    }
+
+    @Test
+    void checkValidateUserInput() {
+        Pattern p = preparePattern();
+        PatternStop[] ps = preparePatternStops(p);
 
         // Check against a valid pattern
         assertDoesNotThrow(() -> p.validateUserInput());
