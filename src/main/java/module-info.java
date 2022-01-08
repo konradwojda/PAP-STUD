@@ -9,6 +9,7 @@ module edu.iipw.pap {
     requires lombok;
 
     exports edu.iipw.pap;
+    exports edu.iipw.pap.db;
     exports edu.iipw.pap.db.model;
     exports edu.iipw.pap.db.typeConverters;
 
