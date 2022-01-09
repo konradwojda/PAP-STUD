@@ -1,4 +1,4 @@
-package edu.iipw.pap;
+package edu.iipw.pap.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

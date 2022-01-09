@@ -9,6 +9,8 @@ import java.util.function.IntPredicate;
 
 import org.junit.jupiter.api.Test;
 
+import edu.iipw.pap.model.Dataset;
+
 public class TestsGTFSExporter {
     private static IntPredicate isNewline = c -> c == '\n';
 

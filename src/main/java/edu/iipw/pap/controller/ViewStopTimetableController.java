@@ -3,6 +3,7 @@ package edu.iipw.pap.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.iipw.pap.DepartureTimeConverter;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Stop;
@@ -60,8 +61,6 @@ public class ViewStopTimetableController {
             return "?";
     }
 
-    final HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
-
     private void refreshStopTimetableTable() {
         Calendar chosenCalendar = choiceCalendar.getValue();
         Stop chosenStop = choiceStop.getValue();
@@ -82,7 +81,7 @@ public class ViewStopTimetableController {
         colWheelchairAccessibility.setCellValueFactory(cellData -> new SimpleStringProperty(
                 wheelchairAccessibilityToString(cellData.getValue().getTrip().getWheelchairAccessible())));
         colDeparture.setCellValueFactory(cellData -> new SimpleStringProperty(
-                depTimeFormatter.toString(cellData.getValue().getDepartureTime())));
+                DepartureTimeConverter.INSTANCE.toString(cellData.getValue().getDepartureTime())));
         colHeadsign.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getTrip().getPattern().getHeadsign()));
         colLine.setCellValueFactory(

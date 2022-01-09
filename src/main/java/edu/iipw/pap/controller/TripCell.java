@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import java.io.IOException;
 
+import edu.iipw.pap.DepartureTimeConverter;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Trip;
@@ -75,7 +76,7 @@ public class TripCell extends HBox implements IController {
             this.checkWheelchairAccessibility.selectedProperty().bindBidirectional(wam.checkedProperty());
             this.checkWheelchairAccessibility.indeterminateProperty().bindBidirectional(wam.indeterminateProperty());
 
-            TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(new HHMMSSToInt());
+            TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(DepartureTimeConverter.INSTANCE);
             this.txtDeparture.textFormatterProperty().set(travelTimeTextFormatter);
             travelTimeTextFormatter.valueProperty().bindBidirectional(this.trip_.departureProperty().asObject());
 

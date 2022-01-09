@@ -21,7 +21,6 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import edu.iipw.pap.controller.HHMMSSToInt;
 import edu.iipw.pap.db.ObjectPool;
 import edu.iipw.pap.db.model.Agency;
 import edu.iipw.pap.db.model.Calendar;
@@ -40,7 +39,6 @@ public class GTFSExporter implements AutoCloseable {
     // Helpers
 
     private static final Pattern cellNeedsEscape = Pattern.compile("\"|,|\r|\n");
-    private static final HHMMSSToInt timeConverter = new HHMMSSToInt();
 
     /**
      * Coalesces an object as a String - by calling toString(),
@@ -210,7 +208,7 @@ public class GTFSExporter implements AutoCloseable {
      * @throws IOException
      */
     public void serializeStopTime(StopTime st) throws IOException {
-        String time = timeConverter.toString(st.getDepartureTime(), true);
+        String time = DepartureTimeConverter.INSTANCE.toString(st.getDepartureTime(), true);
 
         this.writerStopTimes.write(serializeRow(
                 st.getTrip().getTripId(),

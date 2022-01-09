@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import edu.iipw.pap.DepartureTimeConverter;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Line;
@@ -56,8 +57,6 @@ public class ViewPatternTimetableController {
         refreshPatternTimetableTable();
     }
 
-    private HHMMSSToInt depTimeFormatter = new HHMMSSToInt();
-
     private Map<Trip, List<StopTime>> cacheStopTimes(Pattern pattern, Calendar calendar) {
         Map<Trip, List<StopTime>> cachedStopTimes = new HashMap<>();
 
@@ -91,7 +90,7 @@ public class ViewPatternTimetableController {
             TableColumn<Trip, String> column = new TableColumn<>(ps.getStop().getName());
             column.setCellValueFactory(c -> {
                 var st = cachedStopTimes.get(c.getValue()).get(idxCopy);
-                var time = depTimeFormatter.toString(st.getDepartureTime());
+                var time = DepartureTimeConverter.INSTANCE.toString(st.getDepartureTime());
                 return new ReadOnlyStringWrapper(time);
             });
 
