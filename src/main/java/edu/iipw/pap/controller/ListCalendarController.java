@@ -101,18 +101,12 @@ public class ListCalendarController {
     }
 
     @FXML
-    void onEditCalendar(ActionEvent event) {
-        try {
-            Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
-            if (calendarToEdit == null)
-                return;
-            mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendarToEdit);
-            refreshCalendars();
-        } catch (Exception e) {
-            // FIXME: ?
-            assert false;
-        }
-
+    void onEditCalendar(ActionEvent event) throws Exception {
+        Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
+        if (calendarToEdit == null)
+            return;
+        mainController.CreatePopUpAndSetObj("/view/editCalendar.fxml", btnAddCalendar, calendarToEdit);
+        refreshCalendars();
     }
 
     @FXML

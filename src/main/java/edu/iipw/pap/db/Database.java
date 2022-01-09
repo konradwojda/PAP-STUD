@@ -228,7 +228,6 @@ public class Database extends ObjectPool {
      */
     public <T> ObservableSet<T> listAll(Class<T> cls) {
         if (!isCacheable(cls)) {
-            // TODO: Custom exception
             throw new RuntimeException("Only top-level types can be listed (Agency/Calendar/Line/Stop)");
         }
 
