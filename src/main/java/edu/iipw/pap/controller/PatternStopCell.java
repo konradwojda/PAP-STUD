@@ -108,6 +108,7 @@ public class PatternStopCell extends HBox implements IController {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> void setObject(T obj) throws InvalidObject {
         if (PatternStop.class.isInstance(obj)) {
             this.patternStop_ = (PatternStop) obj;
@@ -124,7 +125,7 @@ public class PatternStopCell extends HBox implements IController {
             travelTimeTextFormatter.valueProperty()
                     .bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
         } else if (ListView.class.isInstance(obj)) {
-            this.listPatternStop_ = (ListView<PatternStop>) obj;
+            this.listPatternStop_ = (ListView<PatternStop>)obj;
         } else {
             throw new InvalidObject("Niewłaściwy obiekt");
         }

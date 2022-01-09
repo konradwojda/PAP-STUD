@@ -65,6 +65,7 @@ public class TripCell extends HBox implements IController {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> void setObject(T obj) throws InvalidObject {
         if (Trip.class.isInstance(obj)) {
             this.trip_ = (Trip) obj;
