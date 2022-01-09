@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 import edu.iipw.pap.exceptions.InvalidObject;
+import edu.iipw.pap.TravelTimeConverter;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Stop;
@@ -19,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.util.StringConverter;
 
 public class PatternStopCell extends HBox implements IController {
     @FXML
@@ -107,35 +107,6 @@ public class PatternStopCell extends HBox implements IController {
         txtIndex.setText(text);
     }
 
-    private class MMSSToInt extends StringConverter<Integer> {
-
-        @Override
-        public String toString(Integer object) {
-            if (object == null)
-                return null;
-            int minutes = object.intValue() / 60;
-            int seconds = object.intValue() % 60;
-            return String.format("%02d:%02d", minutes, seconds);
-        }
-
-        @Override
-        public Integer fromString(String string) {
-            if (string == null)
-                return null;
-            String[] splitted = string.split(":", 2);
-            int minutes = 0;
-            int seconds = 0;
-            if (splitted.length == 2) {
-                minutes = Integer.parseInt(splitted[0]);
-                seconds = Integer.parseInt(splitted[1]);
-            } else {
-                seconds = Integer.parseInt(splitted[0]);
-            }
-            return minutes * 60 + seconds;
-        }
-
-    }
-
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (PatternStop.class.isInstance(obj)) {
@@ -148,7 +119,7 @@ public class PatternStopCell extends HBox implements IController {
             this.txtIndex.textProperty().bindBidirectional(sim.sProperty());
             this.choiceStop.valueProperty().bindBidirectional(this.patternStop_.stopProperty());
 
-            TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(new MMSSToInt());
+            TextFormatter<Integer> travelTimeTextFormatter = new TextFormatter<>(TravelTimeConverter.INSTANCE);
             this.txtTravelTime.textFormatterProperty().set(travelTimeTextFormatter);
             travelTimeTextFormatter.valueProperty()
                     .bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
