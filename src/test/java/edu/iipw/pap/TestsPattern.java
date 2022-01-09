@@ -74,9 +74,11 @@ public class TestsPattern {
         ps[0].setTravelTime(0);
 
         // Validate time-travel checking
-        ps[2].setTravelTime(600);
+        ps[2].setTravelTime(60 * 10);
         assertThrows(InvalidData.class, () -> p.validateUserInput());
-        ps[2].setTravelTime(2340);
+        ps[2].setTravelTime(22 * 60);
+        assertThrows(InvalidData.class, () -> p.validateUserInput());
+        ps[2].setTravelTime(39 * 60);
 
         // Validate recursive checking of pattern-stops
         ps[0].setStop(null);

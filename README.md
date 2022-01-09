@@ -20,8 +20,7 @@ Założenia funkcjonalne
 - [x] Tworzenie kursów (w ramach linii i dni kursowania)
 - [x] Wyświetlanie siatek rozkładów (w ramach linii i dni kursowania)
 - [x] Generowanie tabliczek przystankowych
-- [ ] Eksport do pliku GTFS
-- [ ] Ewentualnie: Dodatkowy interfejs do przeglądania rozkładów jazdy, dla osób bez możliwości edytowania bazy danych
+- [x] Eksport do pliku GTFS
 
 
 Założenia techniczne
@@ -36,7 +35,7 @@ Założenia techniczne
 Podział prac
 ------------
 
-Każda osoba odpowiedzialna za jedną część aplikacji, zgodnie z wzorcem MVC:
+Każda osoba odpowiedzialna jest za jedną część aplikacji, zgodnie z wzorcem MVC:
 
 - Model: Mikołaj Kuranowski
 - Widoki: Mateusz Brzozowski
@@ -52,18 +51,18 @@ Wymagane konstrukcje
     - [ ] własny typ generyczny
     - [x] [zmienna liczba parametrów metody](src/main/java/edu/iipw/pap/db/Database.java#L127)
     - [ ] własna adnotacja
-    - [x] [wyrażenie lambda](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L70)
+    - [x] [wyrażenie lambda](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L71)
 - [x] wykorzystanie strumieniowego przetwarzania danych w kolekcjach
     ([część 1](src/main/java/edu/iipw/pap/db/model/Stop.java#L289))
-    ([część 2](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L57))
-- [ ] zdefiniowanie testów jednostkowych dla metod publicznych w modelu (zakładając, że stosujemy MVC):
-    - [ ] sytuacje poprawne
-    - [ ] sytuacje niepoprawne
-    - [ ] sytuacje graniczne
-- [ ] definiowanie i rzucenie własnego wyjątku w modelu i jego obsługa w kontrolerze
+    ([część 2](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L71))
+- [x] zdefiniowanie testów jednostkowych dla metod publicznych w modelu (zakładając, że stosujemy MVC):
+    - [x] [sytuacje poprawne](src/test/java/edu/iipw/pap/TestsPattern.java#L54)
+    - [x] [sytuacje niepoprawne](src/test/java/edu/iipw/pap/TestsPattern.java#L78)
+    - [x] [sytuacje graniczne](src/test/java/edu/iipw/pap/TestsPattern.java#L80)
+- [x] definiowanie i rzucenie własnego wyjątku w modelu i jego obsługa w kontrolerze
     - [x] [definiowanie wyjątku](src/main/java/edu/iipw/pap/exceptions/InvalidData.java)
     - [x] [rzucenie go w modelu](src/main/java/edu/iipw/pap/db/model/Agency.java#L227)
-    - [ ] obsługa w kontrolerze
+    - [x] [obsługa w kontrolerze](src/main/java/edu/iipw/pap/controller/EditAgencyController.java)
 
 Podział modułów
 ===============
