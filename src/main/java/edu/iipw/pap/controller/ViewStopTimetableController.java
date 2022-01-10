@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 /**
  * ViewStopTimetableController is responsible for displaying timetable of given
@@ -58,9 +57,6 @@ public class ViewStopTimetableController {
      */
     @FXML
     private TableColumn<StopTime, String> colWheelchairAccessibility;
-
-    @FXML
-    private VBox listLine;
 
     /**
      * TableView to display timetable

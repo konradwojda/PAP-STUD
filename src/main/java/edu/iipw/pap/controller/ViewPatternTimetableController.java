@@ -20,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 /**
  * ViewPatternTimetableController is responsible for displaying timetable of
@@ -45,9 +44,6 @@ public class ViewPatternTimetableController {
      */
     @FXML
     private ChoiceBox<Pattern> choicePattern;
-
-    @FXML
-    private VBox listLine;
 
     /**
      * TableView to display timetable

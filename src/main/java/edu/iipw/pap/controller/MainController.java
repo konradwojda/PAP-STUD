@@ -57,24 +57,45 @@ public class MainController {
     @FXML
     private Button btnExportToGTFS;
 
+    /**
+     * Line view box
+     */
     @FXML
     private VBox listLine;
 
+    /**
+     * Stop view box
+     */
     @FXML
     private VBox listStop;
 
+    /**
+     * Agency view box
+     */
     @FXML
     private VBox listAgency;
 
+    /**
+     * Calendar view box
+     */
     @FXML
     private VBox listCalendar;
 
+    /**
+     * Pattern Timetable view box
+     */
     @FXML
     private VBox viewPatternTimetable;
 
+    /**
+     * Stop Timetable view box
+     */
     @FXML
     private VBox viewStopTimetable;
 
+    /**
+     * Pane used to switching between views
+     */
     @FXML
     private Pane paneBackground;
 

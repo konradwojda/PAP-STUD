@@ -51,6 +51,9 @@ public class PatternStopCell extends HBox implements IController {
     @FXML
     private ChoiceBox<Stop> choiceStop;
 
+    /**
+     * Reference to pattern stop cell root
+     */
     @FXML
     private HBox hboxRoot;
 

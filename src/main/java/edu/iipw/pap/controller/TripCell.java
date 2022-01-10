@@ -43,6 +43,9 @@ public class TripCell extends HBox implements IController {
     @FXML
     private ChoiceBox<Calendar> choiceCalendar;
 
+    /**
+     * Reference to trip cell root
+     */
     @FXML
     private HBox hboxRoot;
 

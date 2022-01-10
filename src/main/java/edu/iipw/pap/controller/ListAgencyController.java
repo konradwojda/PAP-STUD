@@ -8,8 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 /**
  * ListAgencyController is responsible for agency view in main controller
@@ -62,12 +60,6 @@ public class ListAgencyController {
      */
     @FXML
     private TableColumn<Agency, String> colAgencyWebsite;
-
-    @FXML
-    private VBox viewAgency;
-
-    @FXML
-    private GridPane pnAgency;
 
     /**
      * TableView for list of agencies

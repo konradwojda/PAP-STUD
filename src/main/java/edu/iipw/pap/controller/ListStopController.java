@@ -9,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 /**
  * ListStopContoller is responsible for stop view in main controller
@@ -69,12 +67,6 @@ public class ListStopController {
      */
     @FXML
     private TableColumn<Stop, WheelchairAccessibility> colStopWheelchairAccessible;
-
-    @FXML
-    private VBox listStop;
-
-    @FXML
-    private GridPane pnStop;
 
     /**
      * TableView to display all stops
