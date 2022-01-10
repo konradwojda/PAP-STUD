@@ -145,7 +145,7 @@ public class EditPatternController implements Initializable, IController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceDirection.getItems().setAll(PatternDirection.values());
-        listPatternStop.setCellFactory(param -> new PatternStopCellController());
-        listTrip.setCellFactory(param -> new TripCellController());
+        listPatternStop.setCellFactory(param -> new PatternStopCell());
+        listTrip.setCellFactory(param -> new TripCell());
     }
 }
