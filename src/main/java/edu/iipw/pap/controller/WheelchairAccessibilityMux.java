@@ -8,6 +8,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+/**
+ * WheelchairAccessibilityMux is a bridge between
+ * two observable boolean properties (one for the 'indeterminate' status and one for 'checked')
+ * and a WheelchairAccessibility observable property.
+ *
+ * Changes to one property are automatically propagated to the other one.
+ **/
 public class WheelchairAccessibilityMux {
     private BooleanProperty indeterminate = new SimpleBooleanProperty();
     private BooleanProperty checked = new SimpleBooleanProperty();

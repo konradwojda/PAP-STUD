@@ -7,6 +7,11 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+/**
+ * StrIntMux is a bridge between to observable properties.
+ * Changes of one property are automatically propagated to another one
+ * with all the required conversion.
+ **/
 public class StrIntMux {
     private StringProperty s = new SimpleStringProperty("0");
     private IntegerProperty i = new SimpleIntegerProperty(0);
