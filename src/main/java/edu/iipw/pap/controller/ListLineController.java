@@ -13,31 +13,56 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * ListLineController is responsible for line view in main controller
+ */
 public class ListLineController {
+
+    /**
+     * Button for adding line
+     */
     @FXML
     private Button btnAddLine;
 
+    /**
+     * Button for editing line
+     */
     @FXML
     private Button btnEditLine;
 
+    /**
+     * Button for removing line
+     */
     @FXML
     private Button btnRemoveLine;
 
-    @FXML
-    private Button btnSearchLine;
-
+    /**
+     * TableColumn for line agency
+     */
     @FXML
     private TableColumn<Line, Agency> colLineAgency;
 
+    /**
+     * TableColumn for line code
+     */
     @FXML
     private TableColumn<Line, String> colLineCode;
 
+    /**
+     * TableColumn for line description
+     */
     @FXML
     private TableColumn<Line, String> colLineDescription;
 
+    /**
+     * TableColumn for line id
+     */
     @FXML
     private TableColumn<Line, Integer> colLineId;
 
+    /**
+     * TableColumn for line type
+     */
     @FXML
     private TableColumn<Line, LineType> colLineType;
 
@@ -47,19 +72,31 @@ public class ListLineController {
     @FXML
     private GridPane pnLine;
 
+    /**
+     * TableView to display list of lines
+     */
     @FXML
     private TableView<Line> tblLine;
 
+    /**
+     * Reference to main controller
+     */
     private MainController mainController;
 
     public void refrenceMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Refresh line list
+     */
     private void refreshLines() {
         tblLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
     }
 
+    /**
+     * Initialize table by setting cell value factories
+     */
     public void InitializeLineTable() {
         colLineId.setCellValueFactory(new PropertyValueFactory<Line, Integer>("lineId"));
         colLineCode.setCellValueFactory(new PropertyValueFactory<Line, String>("code"));
@@ -69,6 +106,12 @@ public class ListLineController {
         refreshLines();
     }
 
+    /**
+     * After clicking on add - create new line and open editing window
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onAddLine(ActionEvent event) throws Exception {
         Line line = new Line();
@@ -76,6 +119,12 @@ public class ListLineController {
         refreshLines();
     }
 
+    /**
+     * After clicking on edit - select line and open editing window
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onEditLine(ActionEvent event) {
         try {
@@ -90,6 +139,11 @@ public class ListLineController {
 
     }
 
+    /**
+     * Remove selected line
+     *
+     * @param event
+     */
     @FXML
     void onRemoveLine(ActionEvent event) {
         Line lineToRemove = tblLine.getSelectionModel().getSelectedItem();

@@ -19,27 +19,54 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 
+/**
+ * TripCell represents single cell in trip list - which maps to
+ * one Trip object
+ */
 public class TripCell extends HBox implements IController {
 
+    /**
+     * Button to remove trip
+     */
     @FXML
     private Button btnRemoveTrip;
 
+    /**
+     * CheckBox to set whether trip is wheelchair accessible
+     */
     @FXML
     private CheckBox checkWheelchairAccessibility;
 
+    /**
+     * ChoiceBox to choose calendar for trip
+     */
     @FXML
     private ChoiceBox<Calendar> choiceCalendar;
 
     @FXML
     private HBox hboxRoot;
 
+    /**
+     * TextField to enter trip's departure time
+     */
     @FXML
     private TextField txtDeparture;
 
+    /**
+     * Trip instance that is being edited
+     */
     private Trip trip_;
 
+    /**
+     * Reference to list of trips in certain pattern
+     */
     private ListView<Trip> listTrip_;
 
+    /**
+     * Remove chosen trip
+     *
+     * @param event
+     */
     @FXML
     void onRemove(ActionEvent event) {
         trip_.getPattern().tripsProperty().remove(this.trip_);
@@ -53,6 +80,9 @@ public class TripCell extends HBox implements IController {
         return hboxRoot;
     }
 
+    /**
+     * Load fxml and load choice box
+     */
     public TripCell() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/elemTrip.fxml"));
         fxmlLoader.setController(this);
@@ -64,6 +94,9 @@ public class TripCell extends HBox implements IController {
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 
+    /**
+     * Set object to be represented in this cell
+     */
     @Override
     @SuppressWarnings("unchecked")
     public <T> void setObject(T obj) throws InvalidObject {

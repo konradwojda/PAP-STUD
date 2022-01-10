@@ -11,31 +11,55 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * ListAgencyController is responsible for agency view in main controller
+ */
 public class ListAgencyController {
+    /**
+     * Button to add new agency
+     */
     @FXML
     private Button btnAddAgency;
 
+    /**
+     * Button to edit existing agency
+     */
     @FXML
     private Button btnEditAgency;
 
+    /**
+     * Button to remove existing agency
+     */
     @FXML
     private Button btnRemoveAgency;
 
-    @FXML
-    private Button btnSearchAgency;
-
+    /**
+     * TableColumn for agency id
+     */
     @FXML
     private TableColumn<Agency, Integer> colAgencyId;
 
+    /**
+     * TableColumn for agency name
+     */
     @FXML
     private TableColumn<Agency, String> colAgencyName;
 
+    /**
+     * TableColumn for agency telephone
+     */
     @FXML
     private TableColumn<Agency, String> colAgencyTelephone;
 
+    /**
+     * TableColumn for agency timezone
+     */
     @FXML
     private TableColumn<Agency, String> colAgencyTimezone;
 
+    /**
+     * TableColumn for agency website
+     */
     @FXML
     private TableColumn<Agency, String> colAgencyWebsite;
 
@@ -45,19 +69,31 @@ public class ListAgencyController {
     @FXML
     private GridPane pnAgency;
 
+    /**
+     * TableView for list of agencies
+     */
     @FXML
     private TableView<Agency> tblAgency;
 
+    /**
+     * Reference to main controller
+     */
     private MainController mainController;
 
     public void refrenceMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Refresh agencies list
+     */
     private void refreshAgencies() {
         tblAgency.getItems().setAll(Database.INSTANCE.listAll(Agency.class));
     }
 
+    /**
+     * Initialize table by setting cell value factories
+     */
     public void InitializeAgencyTable() {
         colAgencyId.setCellValueFactory(new PropertyValueFactory<Agency, Integer>("agencyId"));
         colAgencyName.setCellValueFactory(new PropertyValueFactory<Agency, String>("name"));
@@ -67,6 +103,12 @@ public class ListAgencyController {
         refreshAgencies();
     }
 
+    /**
+     * After clicking add - create new agency and open new window
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onAddAgency(ActionEvent event) throws Exception {
         Agency agency = new Agency();
@@ -74,6 +116,12 @@ public class ListAgencyController {
         refreshAgencies();
     }
 
+    /**
+     * After clicking edit - set agency to edit and open new window
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onEditAgency(ActionEvent event) throws Exception {
         Agency agencyToEdit = tblAgency.getSelectionModel().getSelectedItem();
@@ -83,6 +131,11 @@ public class ListAgencyController {
         refreshAgencies();
     }
 
+    /**
+     * Remove selected agency
+     *
+     * @param event
+     */
     @FXML
     void onRemoveAgency(ActionEvent event) {
         Agency agencyToRemove = tblAgency.getSelectionModel().getSelectedItem();

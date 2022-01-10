@@ -13,49 +13,92 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * ListCalendarContoller is reposnsible for calendar display in main controller
+ */
 public class ListCalendarController {
+
+    /**
+     * Button to add calendar
+     */
     @FXML
     private Button btnAddCalendar;
 
+    /**
+     * Button to edit calendar
+     */
     @FXML
     private Button btnEditCalendar;
 
+    /**
+     * Button to remove calendar
+     */
     @FXML
     private Button btnRemoveCalendar;
 
-    @FXML
-    private Button btnSearchCalendar;
-
+    /**
+     * TableColumn for calendar end date
+     */
     @FXML
     private TableColumn<Calendar, LocalDate> colCalendarEnd;
 
+    /**
+     * TableColumn to display if calendar is valid on fridays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarFriday;
 
+    /**
+     * TableColumn to display calendar id
+     */
     @FXML
     private TableColumn<Calendar, Integer> colCalendarId;
 
+    /**
+     * TableColumn to display if calendar is valid on mondays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarMonday;
 
+    /**
+     * TableColumn to display calendar name
+     */
     @FXML
     private TableColumn<Calendar, String> colCalendarName;
 
+    /**
+     * TableColumn to display if calendar is valid on saturdays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarSaturday;
 
+    /**
+     * TableColumn for calendar start date
+     */
     @FXML
     private TableColumn<Calendar, LocalDate> colCalendarStart;
 
+    /**
+     * TableColumn to display if calendar is valid on sundays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarSunday;
 
+    /**
+     * TableColumn to display if calendar is valid on thursdays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarThursday;
 
+    /**
+     * TableColumn to display if calendar is valid on tuesdays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarTuesday;
 
+    /**
+     * TableColumn to display if calendar is valid on wednesdays
+     */
     @FXML
     private TableColumn<Calendar, Boolean> colCalendarWednesday;
 
@@ -65,19 +108,31 @@ public class ListCalendarController {
     @FXML
     private GridPane pnCalendar;
 
+    /**
+     * TableView to display calendar list
+     */
     @FXML
     private TableView<Calendar> tblCalendar;
 
+    /**
+     * Reference to main controller
+     */
     private MainController mainController;
 
     public void refrenceMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Refresh calendar list
+     */
     private void refreshCalendars() {
         tblCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
     }
 
+    /**
+     * Initialize calendar table by setting cell value factories
+     */
     public void InitializeCalnderTable() {
         colCalendarEnd.setCellValueFactory(new PropertyValueFactory<Calendar, LocalDate>("end"));
         colCalendarFriday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("friday"));
@@ -93,6 +148,12 @@ public class ListCalendarController {
         refreshCalendars();
     }
 
+    /**
+     * After clicking add - create new calendar and open editing window
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onAddCalendar(ActionEvent event) throws Exception {
         Calendar calendar = new Calendar();
@@ -100,6 +161,12 @@ public class ListCalendarController {
         refreshCalendars();
     }
 
+    /**
+     * After clicking edit - set calendar and open editing window
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onEditCalendar(ActionEvent event) throws Exception {
         Calendar calendarToEdit = tblCalendar.getSelectionModel().getSelectedItem();
@@ -109,6 +176,11 @@ public class ListCalendarController {
         refreshCalendars();
     }
 
+    /**
+     * Remove selected calendar
+     *
+     * @param event
+     */
     @FXML
     void onRemoveCalendar(ActionEvent event) {
         Calendar calendarToRemove = tblCalendar.getSelectionModel().getSelectedItem();

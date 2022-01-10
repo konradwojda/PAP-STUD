@@ -12,25 +12,53 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * EditAgencyController is responsible for controlling window while user is
+ * adding or editing an agency. It implements IController to set object that is
+ * being edited.
+ */
 public class EditAgencyController implements IController {
+
+    /**
+     * Button for confirming changes
+     */
     @FXML
     private Button btnAgencyOk;
 
+    /**
+     * TextField to enter an agency name
+     */
     @FXML
     private TextField txtAgencyName;
 
+    /**
+     * TextField to enter agency telephone
+     */
     @FXML
     private TextField txtAgencyTelephone;
 
+    /**
+     * TextField to enter agency timezone
+     */
     @FXML
     private TextField txtAgencyTimezone;
 
+    /**
+     * TextField to enter agency website
+     */
     @FXML
     private TextField txtAgencyWebsite;
 
+    /**
+     * Text to display error if occurs
+     */
     @FXML
     private Text txtStopError;
 
+    /**
+     * After pressing Ok button, validate input, save edited agency instance to
+     * database and close stage.
+     */
     @FXML
     void onAgencyOk(ActionEvent event) throws Exception {
         try {
@@ -44,8 +72,14 @@ public class EditAgencyController implements IController {
         stage.close();
     }
 
+    /**
+     * Instance of object that is being edited.
+     */
     private Agency agency_;
 
+    /**
+     * Setting object that is being edited and binding properties.
+     */
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (Agency.class.isInstance(obj)) {

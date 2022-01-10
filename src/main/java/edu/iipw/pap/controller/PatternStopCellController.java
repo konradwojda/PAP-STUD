@@ -3,6 +3,9 @@ package edu.iipw.pap.controller;
 import edu.iipw.pap.db.model.PatternStop;
 import javafx.scene.control.ListCell;
 
+/**
+ * PatternStopCellController is responsible for view of pattern stops in pattern
+ */
 public class PatternStopCellController extends ListCell<PatternStop> {
 
     @Override

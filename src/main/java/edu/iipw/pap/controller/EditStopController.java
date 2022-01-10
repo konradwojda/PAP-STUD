@@ -157,8 +157,14 @@ public class EditStopController implements Initializable, IController {
         spinStopLon.setValueFactory(lonInputFactory);
     }
 
+    /**
+     * Stop that is being edited
+     */
     private Stop stop_;
 
+    /**
+     * Setting object to edit and binding properties
+     */
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (Stop.class.isInstance(obj)) {

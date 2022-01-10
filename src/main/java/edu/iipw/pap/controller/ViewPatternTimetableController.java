@@ -22,23 +22,44 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
+/**
+ * ViewPatternTimetableController is responsible for displaying timetable of
+ * given pattern
+ */
 public class ViewPatternTimetableController {
 
+    /**
+     * ChoiceBox to choose calendar
+     */
     @FXML
     private ChoiceBox<Calendar> choiceCalendar;
 
+    /**
+     * ChoiceBox to choose line
+     */
     @FXML
     private ChoiceBox<Line> choiceLine;
 
+    /**
+     * Choicebox to choose pattern
+     */
     @FXML
     private ChoiceBox<Pattern> choicePattern;
 
     @FXML
     private VBox listLine;
 
+    /**
+     * TableView to display timetable
+     */
     @FXML
     private TableView<Trip> tblLine;
 
+    /**
+     * If line is chosen - clear timetable and change patterns to choose
+     *
+     * @param event
+     */
     @FXML
     void onChoiceLine(ActionEvent event) {
         choicePattern.getItems().setAll(choiceLine.getSelectionModel().getSelectedItem().patternsProperty());
@@ -47,11 +68,21 @@ public class ViewPatternTimetableController {
         choiceCalendar.valueProperty().set(null);
     }
 
+    /**
+     * If pattern is chosen - refresh timetable
+     *
+     * @param event
+     */
     @FXML
     void onChoicePattern(ActionEvent event) {
         refreshPatternTimetableTable();
     }
 
+    /**
+     * If calendar is chosen - refresh timetable
+     *
+     * @param event
+     */
     @FXML
     void onChoiceCalendar(ActionEvent event) {
         refreshPatternTimetableTable();
@@ -100,6 +131,9 @@ public class ViewPatternTimetableController {
         tblLine.getItems().setAll(cachedStopTimes.keySet());
     }
 
+    /**
+     * Initialize timetable - set values in choice boxes
+     */
     public void InitializePatternTimetableTable() {
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
         choiceLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));

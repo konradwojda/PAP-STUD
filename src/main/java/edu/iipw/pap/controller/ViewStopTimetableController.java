@@ -17,41 +17,83 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
+/**
+ * ViewStopTimetableController is responsible for displaying timetable of given
+ * stop
+ */
 public class ViewStopTimetableController {
+
+    /**
+     * ChoiceBox to choose calendar
+     */
     @FXML
     private ChoiceBox<Calendar> choiceCalendar;
 
+    /**
+     * ChoiceBox to choose stop
+     */
     @FXML
     private ChoiceBox<Stop> choiceStop;
 
+    /**
+     * TableColumn for departure
+     */
     @FXML
     private TableColumn<StopTime, String> colDeparture;
 
+    /**
+     * TableColumn for headsign
+     */
     @FXML
     private TableColumn<StopTime, String> colHeadsign;
 
+    /**
+     * TableColumn for line
+     */
     @FXML
     private TableColumn<StopTime, String> colLine;
 
+    /**
+     * TableColumn for wheelchair accessibility
+     */
     @FXML
     private TableColumn<StopTime, String> colWheelchairAccessibility;
 
     @FXML
     private VBox listLine;
 
+    /**
+     * TableView to display timetable
+     */
     @FXML
     private TableView<StopTime> tblStopTimetable;
 
+    /**
+     * If calendar is chosen - refresh timetable
+     *
+     * @param event
+     */
     @FXML
     void onChoiceCalendar(ActionEvent event) {
         refreshStopTimetableTable();
     }
 
+    /**
+     * If stop is chosen - refresh timetable
+     *
+     * @param event
+     */
     @FXML
     void onChoiceStop(ActionEvent event) {
         refreshStopTimetableTable();
     }
 
+    /**
+     * Convert wheelchair accessibility to unicode character
+     *
+     * @param wa - WheelchairAccessibility object
+     * @return unicode character as String object
+     */
     private String wheelchairAccessibilityToString(WheelchairAccessibility wa) {
         if (wa.equals(WheelchairAccessibility.ACCESSIBLE))
             return "\u2713";
@@ -61,6 +103,9 @@ public class ViewStopTimetableController {
             return "?";
     }
 
+    /**
+     * Refresh timetable - set objects to table view
+     */
     private void refreshStopTimetableTable() {
         Calendar chosenCalendar = choiceCalendar.getValue();
         Stop chosenStop = choiceStop.getValue();
@@ -74,6 +119,9 @@ public class ViewStopTimetableController {
         this.tblStopTimetable.getItems().setAll(stopTimes);
     }
 
+    /**
+     * Initialize stop timetable - set value factories
+     */
     public void InitializeStopTimetableTable() {
         colWheelchairAccessibility.setText("\u267F");
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));

@@ -21,31 +21,66 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
+/**
+ * PatternStopCell represents single cell in pattern stop list - which maps to
+ * one PatternStop object
+ */
 public class PatternStopCell extends HBox implements IController {
+
+    /**
+     * Button to move stop down
+     */
     @FXML
     private Button btnDown;
 
+    /**
+     * Button to remove pattern stop
+     */
     @FXML
     private Button btnRemovePatternStop;
 
+    /**
+     * Button to move stop up
+     */
     @FXML
     private Button btnUp;
 
+    /**
+     * ChoiceBox to choose which stop is represented by this PatternStop
+     */
     @FXML
     private ChoiceBox<Stop> choiceStop;
 
     @FXML
     private HBox hboxRoot;
 
+    /**
+     * Text to display index
+     */
     @FXML
     private Text txtIndex;
 
+    /**
+     * Text to enter travel time from first PatternStop in this pattern
+     */
     @FXML
     private TextField txtTravelTime;
 
+    /**
+     * PatternStop that is being represented by certain cell
+     */
     private PatternStop patternStop_;
+
+    /**
+     * Reference to list of pattern stops
+     */
     private ListView<PatternStop> listPatternStop_;
 
+    /**
+     * Move stop down
+     *
+     * @param event
+     */
     @FXML
     void onDown(ActionEvent event) {
         int idx = this.patternStop_.getIndex();
@@ -61,6 +96,11 @@ public class PatternStopCell extends HBox implements IController {
         }
     }
 
+    /**
+     * Remove selected pattern stop
+     *
+     * @param event
+     */
     @FXML
     void onRemove(ActionEvent event) {
         patternStop_.getPattern().patternStopsProperty().remove(this.patternStop_);
@@ -70,6 +110,11 @@ public class PatternStopCell extends HBox implements IController {
         this.listPatternStop_.refresh();
     }
 
+    /**
+     * Move stop up
+     *
+     * @param event
+     */
     @FXML
     void onUp(ActionEvent event) {
         int idx = this.patternStop_.getIndex();
@@ -88,10 +133,9 @@ public class PatternStopCell extends HBox implements IController {
         return hboxRoot;
     }
 
-    ChoiceBox<Stop> getChoiceStop() {
-        return this.choiceStop;
-    }
-
+    /**
+     * Load fxml and initialize choice box
+     */
     public PatternStopCell() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/elemPatternStop.fxml"));
         fxmlLoader.setController(this);
@@ -103,10 +147,18 @@ public class PatternStopCell extends HBox implements IController {
         choiceStop.getItems().setAll(Database.INSTANCE.listAll(Stop.class));
     }
 
+    /**
+     * Set index in table
+     *
+     * @param text
+     */
     void setIndex(String text) {
         txtIndex.setText(text);
     }
 
+    /**
+     * Set object that is being represented by this cell
+     */
     @Override
     @SuppressWarnings("unchecked")
     public <T> void setObject(T obj) throws InvalidObject {
@@ -125,7 +177,7 @@ public class PatternStopCell extends HBox implements IController {
             travelTimeTextFormatter.valueProperty()
                     .bindBidirectional(this.patternStop_.travelTimeProperty().asObject());
         } else if (ListView.class.isInstance(obj)) {
-            this.listPatternStop_ = (ListView<PatternStop>)obj;
+            this.listPatternStop_ = (ListView<PatternStop>) obj;
         } else {
             throw new InvalidObject("Niewłaściwy obiekt");
         }

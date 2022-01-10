@@ -19,43 +19,89 @@ import javafx.stage.Stage;
 // import net.bytebuddy.asm.Advice.Local;
 import javafx.util.StringConverter;
 
+/**
+ * EditCalendarController is responsible for controlling window while user is
+ * adding or editing a calendar. It implements IController to set object that is
+ * being edited.
+ */
 public class EditCalendarController implements IController {
+
+    /**
+     * Button for confirming changes
+     */
     @FXML
     private Button btnCalendarOk;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Fridays
+     */
     @FXML
     private CheckBox checkFriday;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Mondays
+     */
     @FXML
     private CheckBox checkMonday;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Saturdays
+     */
     @FXML
     private CheckBox checkSaturday;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Sundays
+     */
     @FXML
     private CheckBox checkSunday;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Thursdays
+     */
     @FXML
     private CheckBox checkThusday;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Tuesdays
+     */
     @FXML
     private CheckBox checkTuesday;
 
+    /**
+     * Checkbox for to enter whether the calendar is valid on Wednesdays
+     */
     @FXML
     private CheckBox checkWednesday;
 
+    /**
+     * TextField to enter calendar end date.
+     */
     @FXML
     private TextField txtCalendarEnd;
 
+    /**
+     * Text to display error if occurs
+     */
     @FXML
     private Text txtCalendarError;
 
+    /**
+     * TextField to enter calendar name
+     */
     @FXML
     private TextField txtCalendarName;
 
+    /**
+     * TextField to enter calendar start date
+     */
     @FXML
     private TextField txtCalendarStart;
 
+    /**
+     * After pressing Ok button, validate input, save edited calendar instance to
+     * database and close stage.
+     */
     @FXML
     void onCalendarOk(ActionEvent event) throws Exception {
         try {
@@ -69,6 +115,9 @@ public class EditCalendarController implements IController {
         stage.close();
     }
 
+    /**
+     * Converts user input to LocalDate object, and LocalDate object to String
+     */
     private class StringToDate extends StringConverter<LocalDate> {
 
         @Override
@@ -87,12 +136,24 @@ public class EditCalendarController implements IController {
 
     }
 
+    /**
+     * TextFormatter for start date
+     */
     final TextFormatter<LocalDate> startDateTextFormatter = new TextFormatter<>(new StringToDate());
 
+    /**
+     * TextFormatter for end date
+     */
     final TextFormatter<LocalDate> endDateTextFormatter = new TextFormatter<>(new StringToDate());
 
+    /**
+     * Instance of calendar object that is being edited
+     */
     private Calendar calendar_;
 
+    /**
+     * Setting object that is being edited and binding properties.
+     */
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (Calendar.class.isInstance(obj)) {

@@ -21,19 +21,39 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * MainController is responsible for main view and switching between various
+ * views
+ */
 public class MainController {
+
+    /**
+     * Button to switch to agency view
+     */
     @FXML
     private Button btnAgency;
 
+    /**
+     * Button to switch to calendar view
+     */
     @FXML
     private Button btnCalendar;
 
+    /**
+     * Button to switch to line view
+     */
     @FXML
     private Button btnLine;
 
+    /**
+     * Button to switch to stop view
+     */
     @FXML
     private Button btnStop;
 
+    /**
+     * Button to export database to gtfs
+     */
     @FXML
     private Button btnExportToGTFS;
 
@@ -58,24 +78,49 @@ public class MainController {
     @FXML
     private Pane paneBackground;
 
+    /**
+     * Reference to agency controller
+     */
     @FXML
     private ListAgencyController listAgencyController;
 
+    /**
+     * Reference to line controller
+     */
     @FXML
     private ListLineController listLineController;
 
+    /**
+     * Reference to calendar controller
+     */
     @FXML
     private ListCalendarController listCalendarController;
 
+    /**
+     * Reference to stop controller
+     */
     @FXML
     private ListStopController listStopController;
 
+    /**
+     * Reference to pattern timetable controller
+     */
     @FXML
     private ViewPatternTimetableController viewPatternTimetableController;
 
+    /**
+     * Reference to stop timetable controller
+     */
     @FXML
     private ViewStopTimetableController viewStopTimetableController;
 
+    /**
+     * Function responsible for creating pop ups
+     *
+     * @param fxml_template
+     * @param button
+     * @throws Exception
+     */
     public void CreatePopUp(String fxml_template, Button button) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
         VBox page = (VBox) loader.load();
@@ -86,6 +131,16 @@ public class MainController {
         stage.showAndWait();
     }
 
+    /**
+     * Function responsible for creating pop up and setting object
+     *
+     * @param <T>           object to be set
+     * @param fxml_template
+     * @param button
+     * @param obj
+     * @throws InvalidObject if object is invalid type
+     * @throws IOException
+     */
     public <T> void CreatePopUpAndSetObj(String fxml_template, Button button, T obj) throws InvalidObject, IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_template));
         VBox page = (VBox) loader.load();
@@ -98,6 +153,11 @@ public class MainController {
         stage.showAndWait();
     }
 
+    /**
+     * Switch to agency view
+     *
+     * @param event
+     */
     @FXML
     void onAgency(ActionEvent event) {
         listAgencyController.InitializeAgencyTable();
@@ -105,6 +165,11 @@ public class MainController {
         listAgency.toFront();
     }
 
+    /**
+     * Switch to calendar view
+     *
+     * @param event
+     */
     @FXML
     void onCalendar(ActionEvent event) {
         listCalendarController.InitializeCalnderTable();
@@ -112,6 +177,11 @@ public class MainController {
         listCalendar.toFront();
     }
 
+    /**
+     * Switch to line view
+     *
+     * @param event
+     */
     @FXML
     void onLine(ActionEvent event) {
         listLineController.InitializeLineTable();
@@ -119,6 +189,11 @@ public class MainController {
         listLine.toFront();
     }
 
+    /**
+     * Switch to stop view
+     *
+     * @param event
+     */
     @FXML
     void onStop(ActionEvent event) {
         listStopController.InitializeStopTable();
@@ -126,6 +201,11 @@ public class MainController {
         listStop.toFront();
     }
 
+    /**
+     * Switch to stop timetable view
+     *
+     * @param event
+     */
     @FXML
     void onStopTimetable(ActionEvent event) {
         viewStopTimetableController.InitializeStopTimetableTable();
@@ -133,6 +213,11 @@ public class MainController {
         viewStopTimetable.toFront();
     }
 
+    /**
+     * Switch to pattern timetable view
+     *
+     * @param event
+     */
     @FXML
     void onPatternTimetable(ActionEvent event) {
         viewPatternTimetableController.InitializePatternTimetableTable();
@@ -140,19 +225,25 @@ public class MainController {
         viewPatternTimetable.toFront();
     }
 
+    /**
+     * Export database to GTFS
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onExportToGTFS(ActionEvent event) throws Exception {
         FileChooser fc = new FileChooser();
         fc.setTitle("Where to save the GTFS?");
         fc.getExtensionFilters().add(
-            new ExtensionFilter("ZIP archive", "*.zip")
-        );
+                new ExtensionFilter("ZIP archive", "*.zip"));
         File f = fc.showSaveDialog(this.btnExportToGTFS.getScene().getWindow());
-        if (f == null) return;
+        if (f == null)
+            return;
 
         try {
             String path = f.getAbsolutePath();
-            if(!path.endsWith(".zip"))
+            if (!path.endsWith(".zip"))
                 path += ".zip";
             GTFSExporter.exportToZip(path, Database.INSTANCE);
         } catch (IOException e) {
@@ -161,6 +252,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Initialize all controllers
+     */
     @FXML
     private void initialize() {
         listAgencyController.refrenceMainController(this);

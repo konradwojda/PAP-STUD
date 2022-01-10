@@ -24,27 +24,57 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * EditPatternController is responsible for controlling window while user is
+ * adding or editing a line's pattern. It implements IController to set object
+ * that is
+ * being edited.
+ */
 public class EditPatternController implements Initializable, IController {
+    /**
+     * Button for confirming changes
+     */
     @FXML
     private Button btnPatternOk;
 
+    /**
+     * ChoiceBox for choosing direction
+     */
     @FXML
     private ChoiceBox<PatternDirection> choiceDirection;
 
+    /**
+     * ListView to display pattern's stops
+     */
     @FXML
     private ListView<PatternStop> listPatternStop;
 
+    /**
+     * ListView to display pattern's trips
+     */
     @FXML
     private ListView<Trip> listTrip;
 
+    /**
+     * TextField to enter pattern's headsign
+     */
     @FXML
     private TextField txtLineHeadsign;
 
+    /**
+     * Text to display error if occurs
+     */
     @FXML
     private Text txtPatternError;
 
+    /**
+     * Instance of object that is being edited
+     */
     private Pattern pattern_;
 
+    /**
+     * Set object to edit and bind properties
+     */
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (Pattern.class.isInstance(obj)) {
@@ -61,6 +91,11 @@ public class EditPatternController implements Initializable, IController {
         }
     }
 
+    /**
+     * After clicking on new pattern stop, create it and add to list
+     *
+     * @param event
+     */
     @FXML
     void onNewPatternStop(ActionEvent event) {
         PatternStop patternStop = new PatternStop();
@@ -70,6 +105,11 @@ public class EditPatternController implements Initializable, IController {
         this.pattern_.refreshIndices();
     }
 
+    /**
+     * After clicking on new pattern trip, create it and add to list
+     *
+     * @param event
+     */
     @FXML
     void onNewTrip(ActionEvent event) {
         Trip trip = new Trip();
@@ -81,6 +121,12 @@ public class EditPatternController implements Initializable, IController {
         Database.INSTANCE.markToSave(trip);
     }
 
+    /**
+     * After clicking ok - validate input and close stage
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onPatternOk(ActionEvent event) throws Exception {
         try {
@@ -93,6 +139,9 @@ public class EditPatternController implements Initializable, IController {
         stage.close();
     }
 
+    /**
+     * Initialize choice boxes and lists
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceDirection.getItems().setAll(PatternDirection.values());

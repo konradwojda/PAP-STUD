@@ -30,42 +30,86 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * EditLineController is responsible for controlling window while user is
+ * adding or editing a line. It implements IController to set object that is
+ * being edited.
+ */
 public class EditLineController implements Initializable, IController {
+    /**
+     * Button for adding new pattern to a line
+     */
     @FXML
     private Button btnAddPattern;
 
+    /**
+     * Button for confirming changes
+     */
     @FXML
     private Button btnLineOk;
 
+    /**
+     * ChoiceBox to choose an agency that line is being operated by
+     */
     @FXML
     private ChoiceBox<Agency> choiceLineAgency;
 
+    /**
+     * ChoiceBoxe to choose line type
+     */
     @FXML
     private ChoiceBox<LineType> choiceLineType;
 
+    /**
+     * TableColumn for pattern direction
+     */
     @FXML
     private TableColumn<Pattern, PatternDirection> colPatternDirection;
 
+    /**
+     * TableColumn for pattern headsign
+     */
     @FXML
     private TableColumn<Pattern, String> colPatternHeadsign;
 
+    /**
+     * TableColumn for pattern index
+     */
     @FXML
     private TableColumn<Pattern, Integer> colPatternId;
 
+    /**
+     * TableView displaying line's patterns
+     */
     @FXML
     private TableView<Pattern> tblPattern;
 
+    /**
+     * TextField to enter line code
+     */
     @FXML
     private TextField txtLineCode;
 
+    /**
+     * TextField to enter line description
+     */
     @FXML
     private TextField txtLineDescription;
 
+    /**
+     * Text to display error if occurs
+     */
     @FXML
     private Text txtStopError;
 
+    /**
+     * Instance of line object that is being edited
+     */
     private Line line_;
 
+    /**
+     * Setting object that is being edited and binding properties
+     */
     @Override
     public <T> void setObject(T obj) throws InvalidObject {
         if (Line.class.isInstance(obj)) {
@@ -82,6 +126,13 @@ public class EditLineController implements Initializable, IController {
 
     }
 
+    /**
+     * After clicking add pattern open new window and add pattern to line, then mark
+     * to save by database.
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onAddPattern(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editPattern.fxml"));
@@ -93,13 +144,11 @@ public class EditLineController implements Initializable, IController {
         IController controller = loader.getController();
         Pattern pattern = new Pattern();
         pattern.setLine(line_);
-        // rozwiązanie tymczasowe
         var linePatterns = line_.patternsProperty();
         if (linePatterns.get() == null) {
             line_.setPatterns(new HashSet<Pattern>());
         }
         linePatterns.add(pattern);
-        // line_.getPatterns().add(pattern);
         controller.setObject(pattern);
         Database.INSTANCE.markToSave(pattern);
 
@@ -107,11 +156,17 @@ public class EditLineController implements Initializable, IController {
         refreshPatterns();
     }
 
+    /**
+     * Refresing pattern table
+     */
     private void refreshPatterns() {
         if (!(this.line_.patternsProperty() == null))
             tblPattern.getItems().setAll(this.line_.patternsProperty());
     }
 
+    /**
+     * Initializing pattern table by setting cell value factories
+     */
     public void InitializePatternTable() {
         colPatternDirection.setCellValueFactory(new PropertyValueFactory<Pattern, PatternDirection>("direction"));
         colPatternHeadsign.setCellValueFactory(new PropertyValueFactory<Pattern, String>("headsign"));
@@ -119,6 +174,12 @@ public class EditLineController implements Initializable, IController {
         refreshPatterns();
     }
 
+    /**
+     * After clink on edit pattern, open window and set pattern to edit
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onEditPattern(ActionEvent event) throws Exception {
         try {
@@ -142,6 +203,12 @@ public class EditLineController implements Initializable, IController {
         }
     }
 
+    /**
+     * After clicking on Ok button, validate input and save to database
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void onLineOk(ActionEvent event) throws Exception {
         try {
@@ -155,12 +222,20 @@ public class EditLineController implements Initializable, IController {
         stage.close();
     }
 
+    /**
+     * Initializing choice boxes
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceLineType.getItems().setAll(LineType.values());
         choiceLineAgency.getItems().setAll(Database.INSTANCE.listAll(Agency.class));
     }
 
+    /**
+     * Removing pattern and refreshing table
+     *
+     * @param event
+     */
     @FXML
     void onRemovePattern(ActionEvent event) {
         Pattern patternToRemove = tblPattern.getSelectionModel().getSelectedItem();
