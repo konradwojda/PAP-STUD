@@ -144,6 +144,9 @@ public class ViewPatternTimetableController {
      * Initialize timetable - set values in choice boxes
      */
     public void InitializePatternTimetableTable() {
+        choiceCalendar.valueProperty().set(null);
+        choiceLine.valueProperty().set(null);
+        choicePattern.valueProperty().set(null);
         choiceCalendar.getItems().setAll(Database.INSTANCE.listAll(Calendar.class));
         choiceLine.getItems().setAll(Database.INSTANCE.listAll(Line.class));
         refreshPatternTimetableTable();
