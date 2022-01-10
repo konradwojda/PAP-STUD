@@ -1,4 +1,4 @@
-package edu.iipw.pap.model;
+package edu.iipw.pap;
 
 import java.time.LocalDate;
 import java.util.Arrays;
