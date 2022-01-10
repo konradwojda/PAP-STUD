@@ -33,43 +33,43 @@ public class EditCalendarController implements IController {
     private Button btnCalendarOk;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Fridays
+     * Checkbox to enter whether the calendar is valid on Fridays
      */
     @FXML
     private CheckBox checkFriday;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Mondays
+     * Checkbox to enter whether the calendar is valid on Mondays
      */
     @FXML
     private CheckBox checkMonday;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Saturdays
+     * Checkbox to enter whether the calendar is valid on Saturdays
      */
     @FXML
     private CheckBox checkSaturday;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Sundays
+     * Checkbox to enter whether the calendar is valid on Sundays
      */
     @FXML
     private CheckBox checkSunday;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Thursdays
+     * Checkbox to enter whether the calendar is valid on Thursdays
      */
     @FXML
     private CheckBox checkThusday;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Tuesdays
+     * Checkbox to enter whether the calendar is valid on Tuesdays
      */
     @FXML
     private CheckBox checkTuesday;
 
     /**
-     * Checkbox for to enter whether the calendar is valid on Wednesdays
+     * Checkbox to enter whether the calendar is valid on Wednesdays
      */
     @FXML
     private CheckBox checkWednesday;
