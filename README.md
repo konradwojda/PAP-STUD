@@ -54,15 +54,15 @@ Wymagane konstrukcje
     - [x] [wyrażenie lambda](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L71)
 - [x] wykorzystanie strumieniowego przetwarzania danych w kolekcjach
     ([część 1](src/main/java/edu/iipw/pap/db/model/Stop.java#L289))
-    ([część 2](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L71))
+    ([część 2](src/main/java/edu/iipw/pap/controller/ViewStopTimetableController.java#L11))
 - [x] zdefiniowanie testów jednostkowych dla metod publicznych w modelu (zakładając, że stosujemy MVC):
-    - [x] [sytuacje poprawne](src/test/java/edu/iipw/pap/TestsPattern.java#L54)
-    - [x] [sytuacje niepoprawne](src/test/java/edu/iipw/pap/TestsPattern.java#L78)
-    - [x] [sytuacje graniczne](src/test/java/edu/iipw/pap/TestsPattern.java#L80)
+    - [x] [sytuacje poprawne](src/test/java/edu/iipw/pap/model/TestsPattern.java#L54)
+    - [x] [sytuacje niepoprawne](src/test/java/edu/iipw/pap/model/TestsPattern.java#L78)
+    - [x] [sytuacje graniczne](src/test/java/edu/iipw/pap/model/TestsPattern.java#L80)
 - [x] definiowanie i rzucenie własnego wyjątku w modelu i jego obsługa w kontrolerze
     - [x] [definiowanie wyjątku](src/main/java/edu/iipw/pap/exceptions/InvalidData.java)
     - [x] [rzucenie go w modelu](src/main/java/edu/iipw/pap/db/model/Agency.java#L227)
-    - [x] [obsługa w kontrolerze](src/main/java/edu/iipw/pap/controller/EditAgencyController.java)
+    - [x] [obsługa w kontrolerze](src/main/java/edu/iipw/pap/controller/EditAgencyController.java#L66)
 
 Podział modułów
 ===============
