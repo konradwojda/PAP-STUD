@@ -1,14 +1,13 @@
 package edu.iipw.pap.controller;
 
 import java.io.IOException;
-
 import java.util.Collections;
 
-import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.TravelTimeConverter;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Stop;
+import edu.iipw.pap.exceptions.InvalidObject;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

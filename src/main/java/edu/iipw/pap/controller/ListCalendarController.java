@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * ListCalendarContoller is reposnsible for calendar display in main controller
+ * ListCalendarController is responsible for calendar display in main controller
  */
 public class ListCalendarController {
 
@@ -111,7 +111,10 @@ public class ListCalendarController {
      */
     private MainController mainController;
 
-    public void refrenceMainController(MainController mainController) {
+    /**
+     * Binds a reference to the MainController - required for pop-up creation.
+     */
+    public void referMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
@@ -125,7 +128,7 @@ public class ListCalendarController {
     /**
      * Initialize calendar table by setting cell value factories
      */
-    public void InitializeCalnderTable() {
+    public void InitializeCalendarTable() {
         colCalendarEnd.setCellValueFactory(new PropertyValueFactory<Calendar, LocalDate>("end"));
         colCalendarFriday.setCellValueFactory(new PropertyValueFactory<Calendar, Boolean>("friday"));
         colCalendarId.setCellValueFactory(new PropertyValueFactory<Calendar, Integer>("calendarId"));

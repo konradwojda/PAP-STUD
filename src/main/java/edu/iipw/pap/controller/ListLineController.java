@@ -75,7 +75,10 @@ public class ListLineController {
      */
     private MainController mainController;
 
-    public void refrenceMainController(MainController mainController) {
+    /**
+     * Binds a reference to the MainController - required for pop-up creation.
+     */
+    public void referMainController(MainController mainController) {
         this.mainController = mainController;
     }
 

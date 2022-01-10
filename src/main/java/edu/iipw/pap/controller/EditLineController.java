@@ -1,18 +1,17 @@
 package edu.iipw.pap.controller;
 
 import java.net.URL;
-import java.util.ResourceBundle;
-
 import java.util.HashSet;
+import java.util.ResourceBundle;
 
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Agency;
+import edu.iipw.pap.db.model.Line;
+import edu.iipw.pap.db.model.LineType;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
 import edu.iipw.pap.exceptions.InvalidData;
 import edu.iipw.pap.exceptions.InvalidObject;
-import edu.iipw.pap.db.model.Line;
-import edu.iipw.pap.db.model.LineType;
 import edu.iipw.pap.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,11 +23,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * EditLineController is responsible for controlling window while user is
@@ -55,7 +54,7 @@ public class EditLineController implements Initializable, IController {
     private ChoiceBox<Agency> choiceLineAgency;
 
     /**
-     * ChoiceBoxe to choose line type
+     * ChoiceBox to choose line type
      */
     @FXML
     private ChoiceBox<LineType> choiceLineType;
@@ -157,7 +156,7 @@ public class EditLineController implements Initializable, IController {
     }
 
     /**
-     * Refresing pattern table
+     * Refreshing pattern table
      */
     private void refreshPatterns() {
         if (!(this.line_.patternsProperty() == null))

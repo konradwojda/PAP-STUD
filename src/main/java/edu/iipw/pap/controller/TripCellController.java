@@ -6,7 +6,7 @@ import javafx.scene.control.ListCell;
 /**
  * TripCellController is responsible for view of trips in pattern
  */
-public class TripCellControler extends ListCell<Trip> {
+public class TripCellController extends ListCell<Trip> {
     @Override
     public void updateItem(Trip trip, boolean empty) {
         super.updateItem(trip, empty);

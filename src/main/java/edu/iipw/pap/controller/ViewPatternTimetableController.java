@@ -40,7 +40,7 @@ public class ViewPatternTimetableController {
     private ChoiceBox<Line> choiceLine;
 
     /**
-     * Choicebox to choose pattern
+     * ChoiceBox to choose pattern
      */
     @FXML
     private ChoiceBox<Pattern> choicePattern;
@@ -84,6 +84,10 @@ public class ViewPatternTimetableController {
         refreshPatternTimetableTable();
     }
 
+    /**
+     * Creates a cache for all StopTimes of all trips of the provided
+     * pattern (and attached to a given calendar).
+     */
     private Map<Trip, List<StopTime>> cacheStopTimes(Pattern pattern, Calendar calendar) {
         Map<Trip, List<StopTime>> cachedStopTimes = new HashMap<>();
 
@@ -99,17 +103,26 @@ public class ViewPatternTimetableController {
         return cachedStopTimes;
     }
 
+    /**
+     * Refreshes the main view.
+     */
     private void refreshPatternTimetableTable() {
+        // First, get the selected pattern and calendar
         Pattern pattern = choicePattern.getValue();
         Calendar calendar = choiceCalendar.getValue();
+
+        // Don't do anything with a non-selected pattern and calendar
         if (pattern == null || calendar == null)
             return;
 
+        // Clear the columns
         var allColumns = tblLine.getColumns();
         allColumns.clear();
 
+        // Get the cached trips
         Map<Trip, List<StopTime>> cachedStopTimes = cacheStopTimes(pattern, calendar);
 
+        // Create columns per-stop
         int idx = 0;
         for (PatternStop ps : pattern.patternStopsProperty()) {
             final int idxCopy = idx++;

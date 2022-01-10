@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-// import net.bytebuddy.asm.Advice.Local;
 import javafx.util.StringConverter;
 
 /**

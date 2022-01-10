@@ -11,7 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * ListStopContoller is responsible for stop view in main controller
+ * ListStopController is responsible for stop view in main controller
  */
 public class ListStopController {
     /**
@@ -51,7 +51,7 @@ public class ListStopController {
     private TableColumn<Stop, Double> colStopLat;
 
     /**
-     * TableColumn for stop lontitude
+     * TableColumn for stop longitude
      */
     @FXML
     private TableColumn<Stop, Double> colStopLon;
@@ -79,7 +79,10 @@ public class ListStopController {
      */
     private MainController mainController;
 
-    public void refrenceMainController(MainController mainController) {
+    /**
+     * Binds a reference to the MainController - required for pop-up creation.
+     */
+    public void referMainController(MainController mainController) {
         this.mainController = mainController;
     }
 

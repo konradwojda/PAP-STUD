@@ -1,14 +1,14 @@
 package edu.iipw.pap.controller;
 
 import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 
-import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Pattern;
 import edu.iipw.pap.db.model.PatternDirection;
+import edu.iipw.pap.db.model.PatternStop;
 import edu.iipw.pap.db.model.Trip;
 import edu.iipw.pap.exceptions.InvalidData;
 import edu.iipw.pap.exceptions.InvalidObject;
@@ -146,6 +146,6 @@ public class EditPatternController implements Initializable, IController {
     public void initialize(URL location, ResourceBundle resources) {
         choiceDirection.getItems().setAll(PatternDirection.values());
         listPatternStop.setCellFactory(param -> new PatternStopCellController());
-        listTrip.setCellFactory(param -> new TripCellControler());
+        listTrip.setCellFactory(param -> new TripCellController());
     }
 }

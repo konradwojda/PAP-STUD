@@ -193,7 +193,7 @@ public class MainController {
      */
     @FXML
     void onCalendar(ActionEvent event) {
-        listCalendarController.InitializeCalnderTable();
+        listCalendarController.InitializeCalendarTable();
         paneBackground.toFront();
         listCalendar.toFront();
     }
@@ -278,13 +278,13 @@ public class MainController {
      */
     @FXML
     private void initialize() {
-        listAgencyController.refrenceMainController(this);
-        listLineController.refrenceMainController(this);
-        listCalendarController.refrenceMainController(this);
-        listStopController.refrenceMainController(this);
+        listAgencyController.referMainController(this);
+        listLineController.referMainController(this);
+        listCalendarController.referMainController(this);
+        listStopController.referMainController(this);
 
         listAgencyController.InitializeAgencyTable();
-        listCalendarController.InitializeCalnderTable();
+        listCalendarController.InitializeCalendarTable();
         listLineController.InitializeLineTable();
         listStopController.InitializeStopTable();
         listAgencyController.InitializeAgencyTable();
