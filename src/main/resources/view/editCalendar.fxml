@@ -71,7 +71,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="315.0" layoutY="114.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                <children>
-                  <CheckBox fx:id="checkThusday" mnemonicParsing="false" text="Thusday" />
+                  <CheckBox fx:id="checkThursday" mnemonicParsing="false" text="Thursday" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="161.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">

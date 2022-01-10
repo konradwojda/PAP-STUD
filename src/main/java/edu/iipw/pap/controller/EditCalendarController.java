@@ -60,7 +60,7 @@ public class EditCalendarController implements IController {
      * Checkbox to enter whether the calendar is valid on Thursdays
      */
     @FXML
-    private CheckBox checkThusday;
+    private CheckBox checkThursday;
 
     /**
      * Checkbox to enter whether the calendar is valid on Tuesdays
@@ -166,7 +166,7 @@ public class EditCalendarController implements IController {
             this.checkMonday.selectedProperty().bindBidirectional(this.calendar_.mondayProperty());
             this.checkTuesday.selectedProperty().bindBidirectional(this.calendar_.tuesdayProperty());
             this.checkWednesday.selectedProperty().bindBidirectional(this.calendar_.wednesdayProperty());
-            this.checkThusday.selectedProperty().bindBidirectional(this.calendar_.thursdayProperty());
+            this.checkThursday.selectedProperty().bindBidirectional(this.calendar_.thursdayProperty());
             this.checkFriday.selectedProperty().bindBidirectional(this.calendar_.fridayProperty());
             this.checkSaturday.selectedProperty().bindBidirectional(this.calendar_.saturdayProperty());
             this.checkSunday.selectedProperty().bindBidirectional(this.calendar_.sundayProperty());
