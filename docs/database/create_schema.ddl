@@ -39,8 +39,8 @@ CREATE TABLE stop_groups (
     stop_group_id NUMBER(9) NOT NULL,
     name          VARCHAR2(64 CHAR) NOT NULL,
     code          VARCHAR2(32 CHAR),
-    lat           NUMBER,
-    lon           NUMBER
+    lat           REAL,
+    lon           REAL
 );
 
 ALTER TABLE stop_groups ADD CONSTRAINT stopgroup_pk PRIMARY KEY ( stop_group_id );
@@ -49,8 +49,8 @@ CREATE TABLE stops (
     stop_id               NUMBER(9) NOT NULL,
     name                  VARCHAR2(64 CHAR) NOT NULL,
     code                  VARCHAR2(16 CHAR),
-    lat                   NUMBER(9) NOT NULL,
-    lon                   NUMBER(9) NOT NULL,
+    lat                   REAL NOT NULL,
+    lon                   REAL NOT NULL,
     wheelchair_accessible NUMBER(2) NOT NULL,
     stop_group_id         NUMBER
 );
@@ -70,7 +70,7 @@ CREATE TABLE vehicles (
     side_number           VARCHAR2(16 CHAR) NOT NULL,
     registration_number   VARCHAR2(32 CHAR),
     wheelchair_accessible NUMBER(1) NOT NULL,
-    has_air_conditioning  NUMBER,
+    has_air_conditioning  CHAR(1),
     model_id              NUMBER(9) NOT NULL
 );
 
