@@ -26,6 +26,56 @@ CREATE TABLE calendars (
 
 ALTER TABLE calendars ADD CONSTRAINT calendar_pk PRIMARY KEY ( calendar_id );
 
+CREATE TABLE calendar_exceptions (
+    calendar_exception_id NUMBER(9) NOT NULL,
+    day                   DATE NOT NULL,
+    calendar_id           NUMBER(9) NOT NULL,
+    added                 CHAR(1) NOT NULL
+);
+
+ALTER TABLE calendar_exceptions ADD CONSTRAINT calendar_exception_pk PRIMARY KEY ( calendar_exception_id );
+
+CREATE TABLE stop_groups (
+    stop_group_id NUMBER(9) NOT NULL,
+    name          VARCHAR2(64 CHAR) NOT NULL,
+    code          VARCHAR2(32 CHAR),
+    lat           NUMBER,
+    lon           NUMBER
+);
+
+ALTER TABLE stop_groups ADD CONSTRAINT stopgroup_pk PRIMARY KEY ( stop_group_id );
+
+CREATE TABLE stops (
+    stop_id               NUMBER(9) NOT NULL,
+    name                  VARCHAR2(64 CHAR) NOT NULL,
+    code                  VARCHAR2(16 CHAR),
+    lat                   NUMBER(9) NOT NULL,
+    lon                   NUMBER(9) NOT NULL,
+    wheelchair_accessible NUMBER(2) NOT NULL,
+    stop_group_id         NUMBER
+);
+
+ALTER TABLE stops ADD CONSTRAINT stop_pk PRIMARY KEY ( stop_id );
+
+CREATE TABLE vehicle_models (
+    model_id      NUMBER(9) NOT NULL,
+    brand         VARCHAR2(32 CHAR) NOT NULL,
+    model         VARCHAR2(64 CHAR) NOT NULL,
+    traction_type NUMBER(1) NOT NULL
+);
+
+ALTER TABLE vehicle_models ADD CONSTRAINT vehicle_model_pk PRIMARY KEY ( model_id );
+
+CREATE TABLE vehicles (
+    side_number           VARCHAR2(16 CHAR) NOT NULL,
+    registration_number   VARCHAR2(32 CHAR),
+    wheelchair_accessible NUMBER(1) NOT NULL,
+    has_air_conditioning  NUMBER,
+    model_id              NUMBER(9) NOT NULL
+);
+
+ALTER TABLE vehicles ADD CONSTRAINT vehicle_pk PRIMARY KEY ( side_number );
+
 CREATE TABLE lines (
     line_id     NUMBER(9) NOT NULL,
     code        VARCHAR2(16 CHAR) NOT NULL,
@@ -45,6 +95,15 @@ CREATE TABLE patterns (
 
 ALTER TABLE patterns ADD CONSTRAINT pattern_pk PRIMARY KEY ( pattern_id );
 
+CREATE TABLE pattern_shape_points (
+    idx        NUMBER(6) NOT NULL,
+    lat        NUMBER(9) NOT NULL,
+    lon        NUMBER(9) NOT NULL,
+    pattern_id NUMBER(9) NOT NULL
+);
+
+ALTER TABLE pattern_shape_points ADD CONSTRAINT pattern_shape_point_pk PRIMARY KEY ( pattern_id, idx );
+
 CREATE TABLE pattern_stops (
     pattern_stop_id NUMBER(9) NOT NULL,
     stop_id         NUMBER(9) NOT NULL,
@@ -55,23 +114,13 @@ CREATE TABLE pattern_stops (
 
 ALTER TABLE pattern_stops ADD CONSTRAINT pattern_stop_pk PRIMARY KEY ( pattern_stop_id );
 
-CREATE TABLE stops (
-    stop_id               NUMBER(9) NOT NULL,
-    name                  VARCHAR2(64 CHAR) NOT NULL,
-    code                  VARCHAR2(16 CHAR),
-    lat                   BINARY_DOUBLE NOT NULL,
-    lon                   BINARY_DOUBLE NOT NULL,
-    wheelchair_accessible NUMBER(2) NOT NULL
-);
-
-ALTER TABLE stops ADD CONSTRAINT stop_pk PRIMARY KEY ( stop_id );
-
 CREATE TABLE trips (
     trip_id               NUMBER(9) NOT NULL,
     wheelchair_accessible NUMBER(2) NOT NULL,
     departure             NUMBER(6) NOT NULL,
     pattern_id            NUMBER(9) NOT NULL,
-    calendar_id           NUMBER(9) NOT NULL
+    calendar_id           NUMBER(9) NOT NULL,
+    vehicle_side_number   VARCHAR2(16 CHAR)
 );
 
 ALTER TABLE trips ADD CONSTRAINT trip_pk PRIMARY KEY ( trip_id );
@@ -79,107 +128,171 @@ ALTER TABLE trips ADD CONSTRAINT trip_pk PRIMARY KEY ( trip_id );
 
 /*** FOREIGN KEYS ***/
 
+ALTER TABLE calendar_exceptions
+    ADD CONSTRAINT calendar_exception_calendar_fk FOREIGN KEY ( calendar_id )
+        REFERENCES calendars ( calendar_id )
+            ON DELETE CASCADE;
+
 ALTER TABLE lines
     ADD CONSTRAINT line_agency_fk FOREIGN KEY ( agency_id )
-        REFERENCES agencies ( agency_id );
+        REFERENCES agencies ( agency_id )
+            ON DELETE CASCADE;
 
 ALTER TABLE patterns
     ADD CONSTRAINT pattern_line_fk FOREIGN KEY ( line_id )
-        REFERENCES lines ( line_id );
+        REFERENCES lines ( line_id )
+            ON DELETE CASCADE;
+
+ALTER TABLE pattern_shape_points
+    ADD CONSTRAINT pattern_shape_point_pattern_fk FOREIGN KEY ( pattern_id )
+        REFERENCES patterns ( pattern_id )
+            ON DELETE CASCADE;
 
 ALTER TABLE pattern_stops
     ADD CONSTRAINT pattern_stop_pattern_fk FOREIGN KEY ( pattern_id )
-        REFERENCES patterns ( pattern_id );
+        REFERENCES patterns ( pattern_id )
+            ON DELETE CASCADE;
 
 ALTER TABLE pattern_stops
-    ADD CONSTRAINT pattern_stop_stop_fk FOREIGN KEY ( stop_id )
-        REFERENCES stops ( stop_id );
+    ADD CONSTRAINT patternstop_stop_fk FOREIGN KEY ( stop_id )
+        REFERENCES stops ( stop_id )
+            ON DELETE CASCADE;
+
+ALTER TABLE stops
+    ADD CONSTRAINT stop_stop_group_fk FOREIGN KEY ( stop_group_id )
+        REFERENCES stop_groups ( stop_group_id )
+            ON DELETE CASCADE;
 
 ALTER TABLE trips
     ADD CONSTRAINT trip_calendar_fk FOREIGN KEY ( calendar_id )
-        REFERENCES calendars ( calendar_id );
+        REFERENCES calendars ( calendar_id )
+            ON DELETE CASCADE;
 
 ALTER TABLE trips
     ADD CONSTRAINT trip_pattern_fk FOREIGN KEY ( pattern_id )
-        REFERENCES patterns ( pattern_id );
+        REFERENCES patterns ( pattern_id )
+            ON DELETE CASCADE;
+
+ALTER TABLE trips
+    ADD CONSTRAINT trip_vehicle_fk FOREIGN KEY ( vehicle_side_number )
+        REFERENCES vehicles ( side_number )
+            ON DELETE SET NULL;
+
+ALTER TABLE vehicles
+    ADD CONSTRAINT vehicle_model_fk FOREIGN KEY ( model_id )
+        REFERENCES vehicle_models ( model_id )
+            ON DELETE CASCADE;
 
 
-/*** AUTOMATIC ID SEQUENCES ***/
+/*** AUTOMATIC PRIMARY KEY SEQUENCES ***/
 
-CREATE SEQUENCE agencies_agency_id_seq START WITH 1 NOCACHE ORDER;
+CREATE SEQUENCE agency_id_seq START WITH 1 NOCACHE ORDER;
 
-CREATE OR REPLACE TRIGGER agencies_agency_id_trg BEFORE
+CREATE OR REPLACE TRIGGER agency_id_trg BEFORE
     INSERT ON agencies
     FOR EACH ROW
     WHEN ( new.agency_id IS NULL )
 BEGIN
-    :new.agency_id := agencies_agency_id_seq.nextval;
+    :new.agency_id := agency_id_seq.nextval;
 END;
 /
 
-CREATE SEQUENCE calendars_calendar_id_seq START WITH 1 NOCACHE ORDER;
+CREATE SEQUENCE calendar_id_seq START WITH 1 NOCACHE ORDER;
 
-CREATE OR REPLACE TRIGGER calendars_calendar_id_trg BEFORE
+CREATE OR REPLACE TRIGGER calendar_id_trg BEFORE
     INSERT ON calendars
     FOR EACH ROW
     WHEN ( new.calendar_id IS NULL )
 BEGIN
-    :new.calendar_id := calendars_calendar_id_seq.nextval;
+    :new.calendar_id := calendar_id_seq.nextval;
 END;
 /
 
-CREATE SEQUENCE lines_line_id_seq START WITH 1 NOCACHE ORDER;
+CREATE SEQUENCE calendar_exception_id_seq START WITH 1 NOCACHE ORDER;
 
-CREATE OR REPLACE TRIGGER lines_line_id_trg BEFORE
-    INSERT ON lines
+CREATE OR REPLACE TRIGGER calendar_exception_id_trg BEFORE
+    INSERT ON calendar_exceptions
     FOR EACH ROW
-    WHEN ( new.line_id IS NULL )
+    WHEN ( new.calendar_exception_id IS NULL )
 BEGIN
-    :new.line_id := lines_line_id_seq.nextval;
+    :new.calendar_exception_id := calendar_exception_id_seq.nextval;
 END;
 /
 
-CREATE SEQUENCE patterns_pattern_id_seq START WITH 1 NOCACHE ORDER;
+CREATE SEQUENCE stop_group_id_seq START WITH 1 NOCACHE ORDER;
 
-CREATE OR REPLACE TRIGGER patterns_pattern_id_trg BEFORE
-    INSERT ON patterns
+CREATE OR REPLACE TRIGGER stop_group_id_trg BEFORE
+    INSERT ON stop_groups
     FOR EACH ROW
-    WHEN ( new.pattern_id IS NULL )
+    WHEN ( new.stop_group_id IS NULL )
 BEGIN
-    :new.pattern_id := patterns_pattern_id_seq.nextval;
+    :new.stop_group_id := stop_group_id_seq.nextval;
 END;
 /
 
-CREATE SEQUENCE pattern_stops_pattern_stop_id_seq START WITH 1 NOCACHE ORDER;
+CREATE SEQUENCE stop_id_seq START WITH 1 NOCACHE ORDER;
 
-CREATE OR REPLACE TRIGGER pattern_stops_pattern_stop_id_trg BEFORE
-    INSERT ON pattern_stops
-    FOR EACH ROW
-    WHEN ( new.pattern_stop_id IS NULL )
-BEGIN
-    :new.pattern_stop_id := pattern_stops_pattern_stop_id_seq.nextval;
-END;
-/
-
-CREATE SEQUENCE stops_stop_id_seq START WITH 1 NOCACHE ORDER;
-
-CREATE OR REPLACE TRIGGER stops_stop_id_trg BEFORE
+CREATE OR REPLACE TRIGGER stop_id_trg BEFORE
     INSERT ON stops
     FOR EACH ROW
     WHEN ( new.stop_id IS NULL )
 BEGIN
-    :new.stop_id := stops_stop_id_seq.nextval;
+    :new.stop_id := stop_id_seq.nextval;
 END;
 /
 
-CREATE SEQUENCE trips_trip_id_seq START WITH 1 NOCACHE ORDER;
+CREATE SEQUENCE vehicle_model_id_seq START WITH 1 NOCACHE ORDER;
 
-CREATE OR REPLACE TRIGGER trips_trip_id_trg BEFORE
+CREATE OR REPLACE TRIGGER vehicle_model_id_trg BEFORE
+    INSERT ON vehicle_models
+    FOR EACH ROW
+    WHEN ( new.model_id IS NULL )
+BEGIN
+    :new.model_id := vehicle_model_id_seq.nextval;
+END;
+/
+
+CREATE SEQUENCE line_id_seq START WITH 1 NOCACHE ORDER;
+
+CREATE OR REPLACE TRIGGER line_id_trg BEFORE
+    INSERT ON lines
+    FOR EACH ROW
+    WHEN ( new.line_id IS NULL )
+BEGIN
+    :new.line_id := line_id_seq.nextval;
+END;
+/
+
+CREATE SEQUENCE pattern_id_seq START WITH 1 NOCACHE ORDER;
+
+CREATE OR REPLACE TRIGGER pattern_id_trg BEFORE
+    INSERT ON patterns
+    FOR EACH ROW
+    WHEN ( new.pattern_id IS NULL )
+BEGIN
+    :new.pattern_id := pattern_id_seq.nextval;
+END;
+/
+
+CREATE SEQUENCE pattern_stop_id_seq START WITH 1 NOCACHE ORDER;
+
+CREATE OR REPLACE TRIGGER pattern_stop_id_trg BEFORE
+    INSERT ON pattern_stops
+    FOR EACH ROW
+    WHEN ( new.pattern_stop_id IS NULL )
+BEGIN
+    :new.pattern_id := pattern_stop_id_seq.nextval;
+END;
+/
+
+CREATE SEQUENCE trip_id_seq START WITH 1 NOCACHE ORDER;
+
+CREATE OR REPLACE TRIGGER trip_id_trg BEFORE
     INSERT ON trips
     FOR EACH ROW
     WHEN ( new.trip_id IS NULL )
 BEGIN
-    :new.trip_id := trips_trip_id_seq.nextval;
+    :new.trip_id := trip_id_seq.nextval;
 END;
 /
 
@@ -207,6 +320,9 @@ ALTER TABLE calendars
 ALTER TABLE calendars
     ADD CONSTRAINT calendar_sunday_boolean CHECK ( sunday IN ( 'T', 'F' ) );
 
+ALTER TABLE calendar_exceptions
+    ADD CONSTRAINT calendar_exception_added_boolean CHECK ( added IN ( 'T', 'F' ) );
+
 
 /*** CONSTRAINTS FOR ENUM FIELDS ***/
 
@@ -217,9 +333,15 @@ ALTER TABLE stops
 ALTER TABLE trips
     ADD CONSTRAINT trip_wheelchair_accessible_enum CHECK ( wheelchair_accessible BETWEEN 0 AND 2 );
 
+ALTER TABLE vehicles
+    ADD CONSTRAINT vehicle_wheelchair_accessible_enum CHECK ( wheelchair_accessible BETWEEN 0 AND 2 );
+
 -- line_type: 0 - tram, 1 - metro, 2 - rail, 3 - bus
 ALTER TABLE lines
     ADD CONSTRAINT line_type_enum CHECK ( type BETWEEN 0 AND 3 );
+
+ALTER TABLE vehicle_models
+    ADD CONSTRAINT vehicle_model_traction_type_enum CHECK ( traction_type BETWEEN 0 AND 3 );
 
 -- direction: 0 - outbound, 1 - inbound
 ALTER TABLE patterns
@@ -227,6 +349,9 @@ ALTER TABLE patterns
 
 
 /*** CONSTRAINTS FOR NON-NEGATIVE FIELDS ***/
+
+ALTER TABLE pattern_shape_points
+    ADD CONSTRAINT pattern_shape_point_index_non_negative CHECK ( idx >= 0 );
 
 ALTER TABLE pattern_stops
     ADD CONSTRAINT pattern_stop_index_non_negative CHECK ( idx >= 0 );
@@ -250,4 +375,16 @@ ALTER TABLE stops
     ADD CONSTRAINT stop_lat CHECK ( lat BETWEEN -90 AND 90 );
 
 ALTER TABLE stops
-    ADD CONSTRAINT stop_lon CHECK ( lat BETWEEN -180 AND 180 );
+    ADD CONSTRAINT stop_lon CHECK ( lon BETWEEN -180 AND 180 );
+
+ALTER TABLE stop_groups
+    ADD CONSTRAINT stop_group_lat CHECK ( lat BETWEEN -90 AND 90 );
+
+ALTER TABLE stop_groups
+    ADD CONSTRAINT stop_group_lon CHECK ( lon BETWEEN -180 AND 180 );
+
+ALTER TABLE pattern_shape_points
+    ADD CONSTRAINT pattern_shape_point_lat CHECK ( lat BETWEEN -90 AND 90 );
+
+ALTER TABLE pattern_shape_points
+    ADD CONSTRAINT pattern_shape_point_lon CHECK ( lon BETWEEN -180 AND 180 );
