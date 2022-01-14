@@ -1,5 +1,6 @@
 -- Test `verify_trip_vehicle` (all following should fail)
--- TODO
+UPDATE TRIPS SET VEHICLE_SIDE_NUMBER = '001' WHERE TRIP_ID = 16;
+--UPDATE TRIPS SET VEHICLE_SIDENUMBER = 'something that is not METRO' WHERE TRIP_ID = 1
 
 -- Test `calendar_exception_useless_check` (all following should fail):
 INSERT INTO CALENDAR_EXCEPTIONS VALUES (3, '05-JAN-22', 1, 'T');
@@ -24,3 +25,4 @@ SELECT departure_time(1, 2) FROM DUAL;
 
 -- Test `is_pattern_wheelchair_accessible`
 SELECT is_pattern_wheelchair_accessible(1) FROM DUAL;
+SELECT is_pattern_wheelchair_accessible(4) FROM DUAL;
