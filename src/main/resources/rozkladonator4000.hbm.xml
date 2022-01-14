@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="edu.iipw.pap.db.model.Agency" table="agencies">
         <id name="agencyId" type="int" column="agency_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="name" type="string" />
         <property name="website" type="string" />
@@ -19,18 +19,18 @@
     </class>
     <class name="edu.iipw.pap.db.model.Calendar" table="calendars">
         <id name="calendarId" type="int" column="calendar_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="name" type="string" />
-        <property name="start" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" not-null="true" column="start_date" />
-        <property name="end" type="converted::edu.iipw.pap.db.typeConverters.LocalDateConverter" column="end_date" />
-        <property name="monday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <property name="tuesday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <property name="wednesday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <property name="thursday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <property name="friday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <property name="saturday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
-        <property name="sunday" type="converted::edu.iipw.pap.db.typeConverters.BooleanConverter" />
+        <property name="start" type="LocalDate" not-null="true" column="start_date" />
+        <property name="end" type="LocalDate" column="end_date" />
+        <property name="monday" type="boolean" />
+        <property name="tuesday" type="boolean" />
+        <property name="wednesday" type="boolean" />
+        <property name="thursday" type="boolean" />
+        <property name="friday" type="boolean" />
+        <property name="saturday" type="boolean" />
+        <property name="sunday" type="boolean" />
         <set name="trips" inverse="true" cascade="all-delete-orphan">
             <key column="calendar_id" />
             <one-to-many class="edu.iipw.pap.db.model.Trip" />
@@ -38,7 +38,7 @@
     </class>
     <class name="edu.iipw.pap.db.model.Line" table="lines">
         <id name="lineId" type="int" column="line_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="code" type="string" />
         <property name="description" type="string" />
@@ -55,7 +55,7 @@
     </class>
     <class name="edu.iipw.pap.db.model.Pattern" table="patterns">
         <id name="patternId" type="int" column="pattern_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="headsign" type="string" />
         <property name="direction">
@@ -76,7 +76,7 @@
     </class>
     <class name="edu.iipw.pap.db.model.PatternStop" table="pattern_stops">
         <id name="patternStopId" type="int" column="pattern_stop_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="index" type="int" column="idx" />
         <property name="travelTime" type="int" column="travel_time" />
@@ -85,7 +85,7 @@
     </class>
     <class name="edu.iipw.pap.db.model.Stop" table="stops">
         <id name="stopId" type="int" column="stop_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="name" type="string" />
         <property name="code" type="string" />
@@ -103,7 +103,7 @@
     </class>
     <class name="edu.iipw.pap.db.model.Trip" table="trips">
         <id name="tripId" type="int" column="trip_id">
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <property name="departure" type="int" />
         <property name="wheelchairAccessible" column="wheelchair_accessible">

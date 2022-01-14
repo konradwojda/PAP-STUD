@@ -5,12 +5,12 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name = "dialect">org.sqlite.hibernate.dialect.SQLiteDialect</property>
-        <property name = "connection.driver_class">org.sqlite.JDBC</property>
-        <property name = "connection.url">jdbc:sqlite:db/rozklady.db</property>
-        <property name = "connection.username"></property>
-        <property name = "connection.password"></property>
-        <property name="hbm2ddl.auto">validate</property>
+        <property name = "connection.driver_class">oracle.jdbc.OracleDriver</property>
+        <property name = "dialect">org.hibernate.dialect.Oracle12cDialect</property>
+        <property name = "connection.url">jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl</property>
+        <property name = "connection.username">z12</property>
+        <property name = "connection.password">u62zpu</property>
+        <property name = "hbm2ddl.auto">validate</property>
 
         <mapping resource = "rozkladonator4000.hbm.xml"/>
     </session-factory>

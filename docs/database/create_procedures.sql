@@ -38,7 +38,7 @@ BEFORE INSERT OR UPDATE ON calendar_exceptions
 FOR EACH ROW
 DECLARE
     v_cal calendars%ROWTYPE;
-    v_cal_active VARCHAR(10) := 'F';
+    v_cal_active NUMBER(1) := 0;
     v_exception_weekday VARCHAR(10) := NULL;
     v_query_cal_weekday VARCHAR2(64) := NULL;
 BEGIN
@@ -57,10 +57,10 @@ BEGIN
     v_query_cal_weekday := 'SELECT ' || v_exception_weekday || ' FROM calendars WHERE calendar_id = :1';
     EXECUTE IMMEDIATE v_query_cal_weekday INTO v_cal_active USING :new.calendar_id;
 
-    IF v_cal_active = 'T' AND v_cal.start_date <= :new.day AND (:new.day <= v_cal.end_date OR v_cal.end_date IS NULL) THEN
-        v_cal_active := 'T';
+    IF v_cal_active = 1 AND v_cal.start_date <= :new.day AND (:new.day <= v_cal.end_date OR v_cal.end_date IS NULL) THEN
+        v_cal_active := 1;
     ELSE
-        v_cal_active := 'F';
+        v_cal_active := 0;
     END IF;
 
     IF :new.added = v_cal_active THEN

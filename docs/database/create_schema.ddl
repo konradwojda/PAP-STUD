@@ -15,13 +15,13 @@ CREATE TABLE calendars (
     name        VARCHAR2(64 BYTE) NOT NULL,
     start_date  DATE NOT NULL,
     end_date    DATE,
-    monday      CHAR(1) NOT NULL,
-    tuesday     CHAR(1) NOT NULL,
-    wednesday   CHAR(1) NOT NULL,
-    thursday    CHAR(1) NOT NULL,
-    friday      CHAR(1) NOT NULL,
-    saturday    CHAR(1) NOT NULL,
-    sunday      CHAR(1) NOT NULL
+    monday      NUMBER(1) NOT NULL,
+    tuesday     NUMBER(1) NOT NULL,
+    wednesday   NUMBER(1) NOT NULL,
+    thursday    NUMBER(1) NOT NULL,
+    friday      NUMBER(1) NOT NULL,
+    saturday    NUMBER(1) NOT NULL,
+    sunday      NUMBER(1) NOT NULL
 );
 
 ALTER TABLE calendars ADD CONSTRAINT calendar_pk PRIMARY KEY ( calendar_id );
@@ -30,7 +30,7 @@ CREATE TABLE calendar_exceptions (
     calendar_exception_id NUMBER(9) NOT NULL,
     day                   DATE NOT NULL,
     calendar_id           NUMBER(9) NOT NULL,
-    added                 CHAR(1) NOT NULL
+    added                 NUMBER(1) NOT NULL
 );
 
 ALTER TABLE calendar_exceptions ADD CONSTRAINT calendar_exception_pk PRIMARY KEY ( calendar_exception_id );
@@ -70,7 +70,7 @@ CREATE TABLE vehicles (
     side_number           VARCHAR2(16 CHAR) NOT NULL,
     registration_number   VARCHAR2(32 CHAR),
     wheelchair_accessible NUMBER(1) NOT NULL,
-    has_air_conditioning  CHAR(1),
+    has_air_conditioning  NUMBER(1),
     model_id              NUMBER(9) NOT NULL
 );
 
@@ -300,28 +300,31 @@ END;
 /*** CONSTRAINTS FOR BOOLEAN FIELDS ***/
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_monday_boolean CHECK ( monday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_monday_boolean CHECK ( monday IN ( 0, 1 ) );
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_tuesday_boolean CHECK ( tuesday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_tuesday_boolean CHECK ( tuesday IN ( 0, 1 ) );
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_wednesday_boolean CHECK ( wednesday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_wednesday_boolean CHECK ( wednesday IN ( 0, 1 ) );
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_thursday_boolean CHECK ( thursday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_thursday_boolean CHECK ( thursday IN ( 0, 1 ) );
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_friday_boolean CHECK ( friday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_friday_boolean CHECK ( friday IN ( 0, 1 ) );
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_saturday_boolean CHECK ( saturday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_saturday_boolean CHECK ( saturday IN ( 0, 1 ) );
 
 ALTER TABLE calendars
-    ADD CONSTRAINT calendar_sunday_boolean CHECK ( sunday IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_sunday_boolean CHECK ( sunday IN ( 0, 1 ) );
 
 ALTER TABLE calendar_exceptions
-    ADD CONSTRAINT calendar_exception_added_boolean CHECK ( added IN ( 'T', 'F' ) );
+    ADD CONSTRAINT calendar_exception_added_boolean CHECK ( added IN ( 0, 1 ) );
+
+ALTER TABLE vehicles
+    ADD CONSTRAINT vehicle_air_conditioning_boolean CHECK ( has_air_conditioning IN ( 0, 1 ) );
 
 
 /*** CONSTRAINTS FOR ENUM FIELDS ***/
