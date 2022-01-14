@@ -1,6 +1,6 @@
 -- Test `verify_trip_vehicle` (all following should fail)
 UPDATE TRIPS SET VEHICLE_SIDE_NUMBER = '001' WHERE TRIP_ID = 16;
---UPDATE TRIPS SET VEHICLE_SIDENUMBER = 'something that is not METRO' WHERE TRIP_ID = 1
+UPDATE TRIPS SET VEHICLE_SIDE_NUMBER = '3101' WHERE TRIP_ID = 16;
 
 -- Test `calendar_exception_useless_check` (all following should fail):
 INSERT INTO CALENDAR_EXCEPTIONS VALUES (3, '05-JAN-22', 1, 'T');
