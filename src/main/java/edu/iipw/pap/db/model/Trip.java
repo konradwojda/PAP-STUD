@@ -2,17 +2,6 @@ package edu.iipw.pap.db.model;
 
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -23,12 +12,7 @@ import javafx.beans.property.SimpleObjectProperty;
  * Trip represents a single vehicle following a pattern,
  * at a particular time and on a particular calendar.
  */
-@Entity
-@Table(name = "trips")
 public final class Trip {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "trip_id")
     private IntegerProperty tripId = new SimpleIntegerProperty();
 
     /**
@@ -54,7 +38,6 @@ public final class Trip {
         tripId.set(value);
     }
 
-    @Column(name = "departure")
     private IntegerProperty departure = new SimpleIntegerProperty();
 
     /**
@@ -92,8 +75,6 @@ public final class Trip {
         departure.set(value);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pattern_id", nullable = false)
     private ObjectProperty<Pattern> pattern = new SimpleObjectProperty<>();
 
     /**
@@ -117,8 +98,6 @@ public final class Trip {
         pattern.set(value);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "calendar_id", nullable = false)
     private ObjectProperty<Calendar> calendar = new SimpleObjectProperty<>();
 
     /**
@@ -143,8 +122,6 @@ public final class Trip {
         calendar.set(value);
     }
 
-    @Column(name = "wheelchair_accessible", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
     private ObjectProperty<WheelchairAccessibility> wheelchairAccessible = new SimpleObjectProperty<WheelchairAccessibility>(
             WheelchairAccessibility.UNKNOWN);
 
@@ -218,5 +195,4 @@ public final class Trip {
             .stream()
             .map(ps -> StopTime.tripAtPatternStop(this, ps));
     }
-
 }

@@ -4,14 +4,6 @@ import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SetProperty;
@@ -26,12 +18,7 @@ import javafx.collections.FXCollections;
  * (i.e. setting up schedules, contracting out the actual buses)
  * a set of public transportation lines.
  */
-@Entity
-@Table(name = "agencies")
 public final class Agency {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "agency_id")
     private IntegerProperty agencyId = new SimpleIntegerProperty();
 
     /**
@@ -57,7 +44,6 @@ public final class Agency {
         agencyId.set(value);
     }
 
-    @Column(name = "name", nullable = false)
     private StringProperty name = new SimpleStringProperty();
 
     /**
@@ -85,7 +71,6 @@ public final class Agency {
         name.set(value);
     }
 
-    @Column(name = "website", nullable = false)
     private StringProperty website = new SimpleStringProperty();
 
     /**
@@ -115,7 +100,6 @@ public final class Agency {
         website.set(value);
     }
 
-    @Column(name = "timezone")
     private StringProperty timezone = new SimpleStringProperty();
 
     /**
@@ -143,7 +127,6 @@ public final class Agency {
         timezone.set(value);
     }
 
-    @Column(name = "telephone")
     private StringProperty telephone = new SimpleStringProperty();
 
     /**
@@ -169,7 +152,6 @@ public final class Agency {
         telephone.set(value);
     }
 
-    @OneToMany(mappedBy = "agency")
     private SetProperty<Line> lines = new SimpleSetProperty<Line>();
     private Set<Line> linesRaw;
 

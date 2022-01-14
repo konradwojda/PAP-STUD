@@ -2,15 +2,6 @@ package edu.iipw.pap.db.model;
 
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -20,12 +11,7 @@ import javafx.beans.property.SimpleObjectProperty;
 /**
  * PatternStop is an entity representing a stoppage of a pattern at a stop.
  */
-@Entity
-@Table(name = "pattern_stops")
 public final class PatternStop {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "pattern_stop_id")
     private IntegerProperty patternStopId = new SimpleIntegerProperty();
 
     /**
@@ -51,8 +37,6 @@ public final class PatternStop {
         patternStopId.set(value);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "stop_id", nullable = false)
     private ObjectProperty<Stop> stop = new SimpleObjectProperty<Stop>();
 
     /**
@@ -77,8 +61,6 @@ public final class PatternStop {
         stop.set(value);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "pattern_id", nullable = false)
     private ObjectProperty<Pattern> pattern = new SimpleObjectProperty<Pattern>();
 
     /**
@@ -102,7 +84,6 @@ public final class PatternStop {
         pattern.set(value);
     }
 
-    @Column(name = "idx")
     private IntegerProperty index = new SimpleIntegerProperty();
 
     /**
@@ -130,7 +111,6 @@ public final class PatternStop {
         index.set(value);
     }
 
-    @Column(name = "travel_time")
     private IntegerProperty travelTime = new SimpleIntegerProperty();
 
     /**
@@ -204,6 +184,4 @@ public final class PatternStop {
             .stream()
             .map(trip -> StopTime.tripAtPatternStop(trip, this));
     }
-
-
 }

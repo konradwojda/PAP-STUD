@@ -3,16 +3,6 @@ package edu.iipw.pap.db.model;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -29,13 +19,7 @@ import javafx.collections.FXCollections;
 /**
  * Stop represents a single place where vehicles can exchange passengers.
  */
-@Entity
-@Table(name = "stops")
 public final class Stop {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "stop_id")
     private IntegerProperty stopId = new SimpleIntegerProperty();
 
     /**
@@ -61,7 +45,6 @@ public final class Stop {
         stopId.set(value);
     }
 
-    @Column(name = "name", nullable = false)
     private StringProperty name = new SimpleStringProperty();
 
     /**
@@ -89,7 +72,6 @@ public final class Stop {
         name.set(value);
     }
 
-    @Column(name = "code")
     private StringProperty code = new SimpleStringProperty();
 
     /**
@@ -125,7 +107,6 @@ public final class Stop {
         code.set(value);
     }
 
-    @Column(name = "lat", nullable = false)
     private DoubleProperty lat = new SimpleDoubleProperty();
 
     /**
@@ -151,7 +132,6 @@ public final class Stop {
         lat.set(value);
     }
 
-    @Column(name = "lon", nullable = false)
     private DoubleProperty lon = new SimpleDoubleProperty();
 
     /**
@@ -177,8 +157,6 @@ public final class Stop {
         lon.set(value);
     }
 
-    @Column(name = "wheelchair_accessible", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
     private ObjectProperty<WheelchairAccessibility> wheelchairAccessible = new SimpleObjectProperty<WheelchairAccessibility>(
             WheelchairAccessibility.UNKNOWN);
 
@@ -206,7 +184,6 @@ public final class Stop {
         wheelchairAccessible.set(value);
     }
 
-    @OneToMany(mappedBy = "stop")
     private SetProperty<PatternStop> patternStops = new SimpleSetProperty<PatternStop>();
     private Set<PatternStop> patternStopsRaw;
 

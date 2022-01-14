@@ -5,18 +5,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
@@ -34,12 +22,7 @@ import javafx.collections.FXCollections;
  * Pattern represents a sequence of stops (with travel times between them) -
  * attached to a single line. In other words, it's a _variant_ of a line.
  */
-@Entity
-@Table(name = "patterns")
 public final class Pattern {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "pattern_id")
     private IntegerProperty patternId = new SimpleIntegerProperty();
 
     /**
@@ -65,7 +48,6 @@ public final class Pattern {
         patternId.set(value);
     }
 
-    @Column(name = "headsign")
     private StringProperty headsign = new SimpleStringProperty();
 
     /**
@@ -97,8 +79,6 @@ public final class Pattern {
         headsign.set(value);
     }
 
-    @Column(name = "direction")
-    @Enumerated(EnumType.ORDINAL)
     private ObjectProperty<PatternDirection> direction = new SimpleObjectProperty<PatternDirection>();
 
     /**
@@ -128,8 +108,6 @@ public final class Pattern {
         direction.set(value);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "line_id", nullable = false)
     private ObjectProperty<Line> line = new SimpleObjectProperty<Line>();
 
     /**
@@ -154,7 +132,6 @@ public final class Pattern {
         line.set(value);
     }
 
-    @OneToMany(mappedBy = "pattern")
     private ListProperty<PatternStop> patternStops = new SimpleListProperty<PatternStop>();
     private List<PatternStop> patternStopsRaw;
 
@@ -192,7 +169,6 @@ public final class Pattern {
         patternStops.set(FXCollections.observableList(value));
     }
 
-    @OneToMany(mappedBy = "pattern")
     private SetProperty<Trip> trips = new SimpleSetProperty<Trip>();
     private Set<Trip> tripsRaw;
 

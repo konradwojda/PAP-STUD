@@ -2,18 +2,6 @@ package edu.iipw.pap.db.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import edu.iipw.pap.exceptions.InvalidData;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -29,12 +17,7 @@ import javafx.collections.FXCollections;
  * Line is an entity grouping multiple patterns and trips
  * under a single coherent signage, organized by a single agency.
  */
-@Entity
-@Table(name = "lines")
 public final class Line {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "line_id")
     private IntegerProperty lineId = new SimpleIntegerProperty();
 
     /**
@@ -60,7 +43,6 @@ public final class Line {
         lineId.set(value);
     }
 
-    @Column(name = "code", nullable = false)
     private StringProperty code = new SimpleStringProperty();
 
     /**
@@ -88,7 +70,6 @@ public final class Line {
         code.set(value);
     }
 
-    @Column(name = "description")
     private StringProperty description = new SimpleStringProperty();
 
     /**
@@ -122,8 +103,6 @@ public final class Line {
         description.set(value);
     }
 
-    @Column(name = "type", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
     private ObjectProperty<LineType> type = new SimpleObjectProperty<LineType>();
 
     /**
@@ -151,8 +130,6 @@ public final class Line {
         type.set(value);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "agency_id", nullable = false)
     private ObjectProperty<Agency> agency = new SimpleObjectProperty<Agency>();
 
     /**
@@ -177,7 +154,6 @@ public final class Line {
         agency.set(value);
     }
 
-    @OneToMany(mappedBy = "line")
     private SetProperty<Pattern> patterns = new SimpleSetProperty<Pattern>();
     private Set<Pattern> patternsRaw;
 
