@@ -2,6 +2,7 @@ package edu.iipw.pap.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import edu.iipw.pap.DepartureTimeConverter;
 import edu.iipw.pap.db.Database;
@@ -12,6 +13,7 @@ import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -65,6 +67,13 @@ public class ViewStopTimetableController {
     private TableView<StopTime> tblStopTimetable;
 
     /**
+     * "Export to HTML" button
+     */
+    @FXML
+    private Button btnExportToHTML;
+
+
+    /**
      * If calendar is chosen - refresh timetable
      *
      * @param event
@@ -82,6 +91,11 @@ public class ViewStopTimetableController {
     @FXML
     void onChoiceStop(ActionEvent event) {
         refreshStopTimetableTable();
+    }
+
+    @FXML
+    void onExportToHTML(ActionEvent event) {
+        Logger.getLogger("ViewStopTimetableController").severe("Export to HTML not implemented!");
     }
 
     /**
