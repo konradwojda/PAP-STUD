@@ -1,10 +1,13 @@
 package edu.iipw.pap.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import edu.iipw.pap.DepartureTimeConverter;
+import edu.iipw.pap.StopHTMLExporter;
 import edu.iipw.pap.db.Database;
 import edu.iipw.pap.db.model.Calendar;
 import edu.iipw.pap.db.model.Stop;
@@ -13,10 +16,14 @@ import edu.iipw.pap.db.model.WheelchairAccessibility;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * ViewStopTimetableController is responsible for displaying timetable of given
@@ -72,7 +79,6 @@ public class ViewStopTimetableController {
     @FXML
     private Button btnExportToHTML;
 
-
     /**
      * If calendar is chosen - refresh timetable
      *
@@ -95,7 +101,27 @@ public class ViewStopTimetableController {
 
     @FXML
     void onExportToHTML(ActionEvent event) {
-        Logger.getLogger("ViewStopTimetableController").severe("Export to HTML not implemented!");
+        var chosenCalendar = choiceCalendar.getSelectionModel().getSelectedItem();
+        var chosenStop = choiceStop.getSelectionModel().getSelectedItem();
+        if (chosenCalendar == null || chosenStop == null)
+            return;
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Where to save the timetable?");
+        fc.getExtensionFilters().add(
+                new ExtensionFilter("HTML", "*.html"));
+        File f = fc.showSaveDialog(this.btnExportToHTML.getScene().getWindow());
+        if (f == null)
+            return;
+
+        try {
+            String path = f.getAbsolutePath();
+            if (!path.endsWith(".html"))
+                path += ".html";
+            StopHTMLExporter.exportToHTML(path, chosenStop, chosenCalendar);
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, e.toString());
+            alert.showAndWait();
+        }
     }
 
     /**
