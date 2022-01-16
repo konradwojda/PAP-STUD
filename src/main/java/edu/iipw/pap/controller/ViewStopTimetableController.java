@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import edu.iipw.pap.DepartureTimeConverter;
 import edu.iipw.pap.StopHTMLExporter;
@@ -17,11 +16,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -99,16 +98,21 @@ public class ViewStopTimetableController {
         refreshStopTimetableTable();
     }
 
+    /**
+     * Handler called when the "Export to HTML" button is pressed.
+     *
+     * @param event
+     */
     @FXML
     void onExportToHTML(ActionEvent event) {
         var chosenCalendar = choiceCalendar.getSelectionModel().getSelectedItem();
         var chosenStop = choiceStop.getSelectionModel().getSelectedItem();
         if (chosenCalendar == null || chosenStop == null)
             return;
+
         FileChooser fc = new FileChooser();
         fc.setTitle("Where to save the timetable?");
-        fc.getExtensionFilters().add(
-                new ExtensionFilter("HTML", "*.html"));
+        fc.getExtensionFilters().add(new ExtensionFilter("HTML", "*.html"));
         File f = fc.showSaveDialog(this.btnExportToHTML.getScene().getWindow());
         if (f == null)
             return;
