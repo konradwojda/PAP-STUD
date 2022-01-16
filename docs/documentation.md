@@ -9,14 +9,20 @@
 - Kuranowski Mikołaj
 - Wojda Konrad
 
-### Opekunowie:
+### Opiekunowie:
 - Radlak Krystian
 - Szmurło Agnieszka
 
 ## Krótki opis rozwiązania
 
-Projekt ma na celu ułatwienie przedsiębiorstwu komunikacyjnemu układanie rozkładu jazdy. Z tego powodu, rozwiązanie jest w pełni zgodne ze standardem GTFS (General Transit Feed Specification), służacym do zapisu informacji o rozkładach jazdy i lokalizacji przystanków.
-W ramach aplikacji użytkownik wprowadza wymagane dane dotyczące Przystanków, Lini, Kalendarzy i Przedsiębiorstw Transportowych. Następnie na podstawie wprowadzonych informacji program generuje Tabliczki Przystankowe i Przejazdowe, które następnie użytkownik może wyświetlić w programie. Dodatkowo wprowadzone dane mogą zostać wyeksportowane do pliku zgodnie, ze standardem GTFS.
+Projekt ma na celu ułatwienie przedsiębiorstwu komunikacyjnemu układanie rozkładu jazdy.
+Z tego powodu, rozwiązanie jest w pełni zgodne ze standardem GTFS (General Transit Feed Specification),
+służącym do zapisu informacji o rozkładach jazdy i lokalizacji przystanków.
+
+W ramach aplikacji użytkownik wprowadza wymagane dane dotyczące przystanków, lini, kalendarzy
+i przedsiębiorstw komunikacyjnych. Następnie na podstawie wprowadzonych informacji program generuje
+tabliczki przystankowe i tzw. „kursówki”, które następnie użytkownik może wyświetlić w programie.
+Dodatkowo wprowadzone dane mogą zostać wyeksportowane do pliku GTFS.
 
 ## Model ER
 
