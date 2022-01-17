@@ -49,10 +49,10 @@ Przykłąd wyniku programu:
 ## Analiza rozwiązania
 
 W naszym programie występują następujące ograniczenia:
-- Brak możliwości dodania do rozkłądu lini okrężnych
+- Brak możliwości dodania do rozkładu linii okrężnych
 - Utworzenie kursów, które będą odbywały się po wielu liniach
 
-Roziązanie można oczywiście rozwijać w następujący sposób:
+Rozwiązanie można oczywiście rozwijać w następujący sposób:
 - Dodanie większej ilości rozwiązań dostępnych w standardzie GTFS
 - Dodanie możliwości edytowania pozostałych tabel z poziomu GUI
 - Dodanie kolejnych wyników na podstawie podanych przez użytkownika danych
@@ -63,7 +63,7 @@ Roziązanie można oczywiście rozwijać w następujący sposób:
 - Dodanie CSS, tak aby aplikacja wyglądała w bardziej przystępny sposób
 
 Wymagane pliki:
-- skrypty do założenia schematu bazy danych: [Test Database](./database/test_database.sql)
-- skrypty do załadowania danych:
-- skrypty testujące bazę danych: [Insert Data](./database/insert_data.sql)
+- skrypty do założenia schematu bazy danych: [Create Schema](./database/create_schema.ddl)
+- skrypty do załadowania danych: [Insert Data](./database/insert_data.sql)
+- skrypty testujące bazę danych: [Test Database](./database/test_database.sql)
 - definicje sekwencji, wyzwalaczy, procedur, funkcji: [Create Procedures](./database/create_procedures.sql)
