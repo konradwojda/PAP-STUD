@@ -34,14 +34,36 @@ Dodatkowo wprowadzone dane mogą zostać wyeksportowane do pliku GTFS.
 
 ## Screens
 
-<img src="./screens/main.png" alt="Main" width="75%"/>
-<img src="./screens/editPattern.png" alt="Edit Pattern" width="75%"/>
-<img src="./screens/stopTimetable.png" alt="Stop Timetable" width="75%"/>
+Widok główny programu:
 
-<!-- ![Main](./screens/main.png)
-![Edit Pattern](./screens/editPattern.png)
-![Stop Timetable](./screens/stopTimetable.png) -->
+<img src="./screens/main.png" alt="Main" width="75%"/>
+
+Przykład wstawiania danych:
+
+<img src="./screens/editPattern.png" alt="Edit Pattern" width="75%"/>
+
+Przykłąd wyniku programu:
+
+<img src="./screens/stopTimetable.png" alt="Stop Timetable" width="75%"/>
 
 ## Analiza rozwiązania
 
-TODO: (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski)
+W naszym programie występują następujące ograniczenia:
+- Brak możliwości dodania do rozkłądu lini okrężnych
+- Utworzenie kursów, które będą odbywały się po wielu liniach
+
+Roziązanie można oczywiście rozwijać w następujący sposób:
+- Dodanie większej ilości rozwiązań dostępnych w standardzie GTFS
+- Dodanie możliwości edytowania pozostałych tabel z poziomu GUI
+- Dodanie kolejnych wyników na podstawie podanych przez użytkownika danych
+- Zwiększenie ilości sposobów na wyświetlania wyników
+- Dodanie więcej możliwości na eksportowanie danych do pliku
+- Dodanie możliwości importowania danych z pliku
+- Dodanie mapy, na której wyświetlały by się trasy
+- Dodanie CSS, tak aby aplikacja wyglądała w bardziej przystępny sposób
+
+Wymagane pliki:
+- skrypty do założenia schematu bazy danych: [Test Database](./database/test_database.sql)
+- skrypty do załadowania danych:
+- skrypty testujące bazę danych: [Insert Data](./database/insert_data.sql)
+- definicje sekwencji, wyzwalaczy, procedur, funkcji: [Create Procedures](./database/create_procedures.sql)
