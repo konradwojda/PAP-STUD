@@ -62,6 +62,10 @@ Rozwiązanie można oczywiście rozwijać w następujący sposób:
 - Dodanie mapy, na której wyświetlały by się trasy
 - Dodanie CSS, tak aby aplikacja wyglądała w bardziej przystępny sposób
 
+W trakcie pisnia aplikacji wykorzystaliśmy technologię JPA wraz z frameworkiem Hibernate. Niestety, aby poprawnie zintegrować zmapowane obiekty z JavaFXem - atrybuty obiektów modelu musiały spełniać interfejs [Observable](https://openjfx.io/javadoc/17/javafx.base/javafx/beans/Observable.html) - co stworzyło sporo problemów po stronie mapowania O/R i wymusiło wykorzystanie pliku .hbm do definicji tego mapowania, zamiast preferowanych adnotacji.
+
+Warto także wspomnieć, iż nasz projekt od początku pisania aplikacji nie był przemyślany pod kątem UX, dlatego też nasza aplikacja skupiona jest bardziej na spełnianiu wymagań przedmiotowych, niż spełnianiu wrażeń użytkownika, jakie napotka w trakcie korzystania z aplikacji. Jednakże realizacja UX, nie była przedmiotem projektu.
+
 Wymagane pliki:
 - skrypty do założenia schematu bazy danych: [Create Schema](./database/create_schema.ddl)
 - skrypty do załadowania danych: [Insert Data](./database/insert_data.sql)
